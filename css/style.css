@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("https://i.pinimg.com/474x/de/0f/4b/de0f4bf6e8075312a6eb20ad7044571a--car-images-hd-wallpaper.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right;
+}
+  
+#page-container {
+    position: relative;
+    min-height: 100vh;
+}
+  
+header {
+  text-align:center;
+  font-family:verdana;
+  border: 1px solid gray;
+  color:#ffffff;
+  background:hsl(180, 90%, 35%);
+}
+   
+nav{
+  background-color: hsl(180, 80%,25%);
+}
+  
+nav ul {
+  margin: 0px;
+  padding: 5px 0px 5px 30px;
+}
+nav li {
+  display: inline;
+  margin-right: 20px;
+}
+  
+nav a:hover, button:hover{
+  color:orangered;
+  transform:scale(1.2)
+}
+  
+header a{
+  color: inherit;
+}
+  
+footer {
+  bottom:0px;
+  background-color:hsl(180, 90%,35%);
+  color:white;
+}
+  
+footer .info {   
+  font-size: 15px;
+  display:flex;
+}
+
+footer .info strong {
+  font-size: 18px;
+}
+  
+footer .info .email {
+  margin-left: 10px;
+}
+  
+figure {
+  display: flex;
+  align-items: center;
+
+}
+  
+figure img{
+  width:200px;
+  margin-right:10px;
+}
+  
+figcaption{
+  font-size:12px;
+  line-height:0.5;
+  display: -ms-inline-flexbox;
+}
+
+main{
+    padding:0 10% 0 10%; 
+}
