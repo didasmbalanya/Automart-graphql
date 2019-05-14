@@ -16,7 +16,7 @@
         <li><a href="#">My Sales</a></li>
         <li><a href="#">Purchase Orders</a></li>
         <li><a href="#" id ="login" onclick="">login</a></li>
-        <li><a href="#" id ="signup" onclick="signUp()">Sign up</a></li>
+        <li><a href="#" id ="signup" onclick="unhide('.bg-modal')">Sign up</a></li>
       </ul>
       </nav>
     </header>
@@ -81,7 +81,7 @@
         <div class="bg-modal">
           <div class="modal-content">
             <h2>Sign up</h2>
-            <div class="close" onclick="closeBox()">+</div>
+            <div class="close" onclick="hide('.bg-modal')">+</div>
             <form>
               <input id= "fname" type="text" placeholder="First Name" required>
               <input id="lname" type= "text" placeholder="Second Name" required>

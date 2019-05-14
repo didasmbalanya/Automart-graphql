@@ -1,9 +1,8 @@
-function signUp() {
-    document.querySelector('.bg-modal').style.display = 'flex';
+
+function hide(element){
+    document.querySelector(element).style.display = 'none'
 }
 
-function closeBox(){
-    document.querySelector('.bg-modal').style.display = 'none';
+function unhide(element){
+    document.querySelector(element).style.display = 'flex';
 }
-
-
