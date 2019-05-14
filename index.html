@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <title>AUTOMART DEALERS SHOP</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/script.js"></script>
   </head>
+
   <body>
     <div id="page-container">
+
     <header>
       <h1><a href="index.html">AUTOMART DEALERS</a></h1>
       <nav>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
         <li><a href="#">My Sales</a></li>
         <li><a href="#">Purchase Orders</a></li>
-        <li><a href="#" id ="login" onclick="">login</a></li>
-        <li><a href="#" id ="signup" onclick="unhide('.bg-modal')">Sign up</a></li>
+        <li><a href="#" id ="login" onclick="bgUnhide('.bg-modal'),  hide('#register-form'), unhide('#login-form')">login/Register</a></li>
       </ul>
       </nav>
     </header>
@@ -69,6 +71,7 @@
         
       </figure>
     </main>
+
     <footer>
       <div class="info">
         <div class="contact">
@@ -77,23 +80,34 @@
         <div class="email">
           <strong>Email</strong> automart@yhao.com
         </div>
-
-        <div class="bg-modal">
-          <div class="modal-content">
-            <h2>Sign up</h2>
-            <div class="close" onclick="hide('.bg-modal')">+</div>
-            <form>
-              <input id= "fname" type="text" placeholder="First Name" required>
-              <input id="lname" type= "text" placeholder="Second Name" required>
-              <input id="email" type="text" placeholder="E-mail" required>
-              <input id="password"type="password" placeholder="password" required>
-              <input id="password-again"type="password" placeholder="Re-enter password" required>
-              <button>Submit</button>
-            </form>
-          </div>
-        </div>
-      </div>  
     </footer>
+
+    <div class="bg-modal">
+      <div class="form">
+            
+        <div class="close" onclick="hide('.bg-modal')">+</div>
+
+        <form id ="register-form">
+          <h2 class="white">Sign up</h2>
+          <input id= "fname" type="text" placeholder="First Name" required>
+          <input id="lname" type= "text" placeholder="Second Name" required>
+          <input id="email" type="text" placeholder="E-mail" required>
+          <input id="password"type="password" placeholder="password" required>
+          <input id="password-again"type="password" placeholder="Re-enter password" required>
+          <button>Create</button><br>
+          <a href="#" onclick="hide('#register-form'), unhide('#login-form')">Already Registered? Login</a>
+        </form>
+
+        <form id="login-form">
+          <h2 class="white">Log In</h2>
+          <input id="email" type="text" placeholder="E-mail" required>
+          <input id="password"type="password" placeholder="password" required>
+          <button>Submit</button><br><br>
+          <a href="#" onclick="hide('#login-form'), unhide('#register-form')" >New user? Sign-up</a>
+        </form>
+
+      </div>
     </div>
+    </div>  
   </body>
 </html>

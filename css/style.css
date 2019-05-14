@@ -32,9 +32,9 @@ nav li {
   margin-right: 20px;
 }
   
-nav a:hover, button:hover{
-  color:orangered;
-  transform:scale(1.2)
+a:hover{
+  color:orange;
+  transform:scale(1.2);
 }
   
 header a{
@@ -106,15 +106,11 @@ main{
   }
 }
 
-.center{
-  align-items: center;
-}
-
 .bg-modal{
   width: 100%;
   height:100%;
   background-color: black;
-  opacity:0.8;
+  opacity:0.9;
   position: absolute;
   top:0;
   display: flex;
@@ -123,22 +119,16 @@ main{
   display: none;
 }
 
-.modal-content{
+.form{
   width: 500px;
-  height:300px;
-  background-color:white;
+  height:400px;
+  background-color:hsl(180, 80%,25%);
   border-radius:4px;
   text-align: center;
   padding:20px;
   position:relative;
   color:black;
-}
-
-input{
-  width: 50%;
-  display:block;
-  margin: 15px auto;
-  font-weight: bold;
+  font-family: sans-serif;
 }
 
 .close{
@@ -149,5 +139,53 @@ input{
   transform:rotate(45deg);
   cursor: pointer;
   
+}
+
+#login-form{
+  width: 500px;
+  height:300px;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+#register-form{
+  width: 500px;
+  height:300px;
+  justify-content: center;
+  align-items: center;
+  display:none;
+  
+}
+
+.form input{
+  background: #f2f2f2;
+  width: 50%;
+  display:block;
+  margin: 15px auto;
+  font-size: 14px;
+  padding: 10px;
+}
+
+button{
+text-transform: uppercase;
+cursor: pointer;
+}
+
+.white{
+  color:white;
+}
+
+.form a{
+  color:inherit;
+  padding: 5px;
+}
+
+button:hover{
+  background: orange;
+}
+
+form a:hover{
+  color:orange;
 }
 
