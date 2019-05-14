@@ -3,6 +3,7 @@
   <head>
     <title>AUTOMART DEALERS SHOP</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
   </head>
   <body>
     <div id="page-container">
@@ -10,10 +11,11 @@
       <h1><a href="index.html">AUTOMART DEALERS</a></h1>
       <nav>
       <ul>
-        <li><a href="">Home</a></li>
-        <li><a href="">Profile</a></li>
-        <li><a href="">My Sales</a></li>
-        <li><a href="">logout</a></li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">My Sales</a></li>
+        <li><a href="#" id ="login">login</a></li>
+        <li><a href="#" id ="signup" onclick="signUp()">Sign up</a></li>
       </ul>
       </nav>
     </header>
@@ -73,6 +75,21 @@
         </div>
         <div class="email">
           <strong>Email</strong> automart@yhao.com
+        </div>
+
+        <div class="bg-modal">
+          <div class="modal-content">
+            <h2>Sign up</h2>
+            <div class="close" onclick="closeBox()">+</div>
+            <form>
+              <input id= "fname" type="text" placeholder="First Name" required>
+              <input id="lname" type= "text" placeholder="Second Name" required>
+              <input id="email" type="text" placeholder="E-mail" required>
+              <input id="password"type="password" placeholder="password" required>
+              <input id="password-again"type="password" placeholder="Re-enter password" required>
+              <button>Submit</button>
+            </form>
+          </div>
         </div>
       </div>  
     </footer>
