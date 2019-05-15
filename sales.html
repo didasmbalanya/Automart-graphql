@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>AUTOMART DEALERS SHOP</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sales.css">
+    <script src="js/script.js"></script>
+  </head>
+
+  <body>
+    <div id="page-container">
+
+    <header>
+      <h1><a href="index.html">AUTOMART DEALERS</a></h1>
+      <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#">My Sales</a></li>
+        <li><a href="purchase.html">Purchase Orders</a></li>
+        <li><a href="#">Log Out</a></li>
+      </ul>
+      </nav>
+    </header>
+
+    <main>
+    
+        <div id="car-3" class="inline">
+            <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
+            <div class="car-info">
+              <p>BodyType: <span class="bodytype">Car</span></p>
+              <p>Manufacturer: <span class="manufacturer">Toyota</span></p>
+              <p>Model: <span class="model">vits</span></p>
+              <p>State: <span class="state">new</span></p> 
+              <p>price: <span class="price">2M</span> Status: <span class="status" >Available</span></p>
+              <button onclick="bgUnhide('.bg-modal')">Change Price</button>
+            </div>
+          </div>
+      <hr>
+    </main>
+    
+    <div class="bg-modal">
+        <div class="form">
+
+          <div class="close" onclick="hide('.bg-modal')">+</div>
+          <form id ="change-price-form">
+              <label for="new-price">
+                  <input type="number" id="new-price" placeholder="New sale price" min="0" value="price">
+                  <button onclick="hide('.bg-modal'), priceChange('car-cost');">Submit</button>
+              </label>
+          </form>    
+        </div>
+    </div>

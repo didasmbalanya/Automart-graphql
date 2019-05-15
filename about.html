@@ -17,7 +17,7 @@
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="#">About</a></li>
-        <li><a href="#">My Sales</a></li>
+        <li><a href="">My Sales</a></li>
         <li><a href="#">Purchase Orders</a></li>
         <li><a href="#" id ="login" onclick="bgUnhide('.bg-modal'),  hide('#register-form'), unhide('#login-form')">login/Register</a></li>
       </ul>
@@ -25,14 +25,14 @@
     </header>
 
     <main>
-      <figure>
+      <div class="inline">
         <img src="https://media.giphy.com/media/CXcLntZABGkuI/giphy.gif" alt="car Icon">
-        <br>
-        <figcaption>
-          Your number one Automobile dealer.
-        </figcaption>
-      </figure>
+        <div class="car-info">
+          <p>Your number one Automobile dealer.</p>
+        </div>
+      </div>
       <hr>
+      <div class="content">
       <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit,
           <br>
            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -45,13 +45,29 @@
       </p>
 
     </main>
-
-    <footer>
-            <div class="info">
-              <div class="contact">
-                <strong>Phone Number: </strong> 0705520482
-              </div>
-              <div class="email">
-                <strong>Email</strong> automart@yhao.com
-              </div>
-    </footer>
+    <div class="bg-modal">
+        <div class="form">
+              
+          <div class="close" onclick="hide('.bg-modal'), hide('#sell-form'), hide('#register-form')">+</div>
+  
+          <form id ="register-form">
+            <h2 class="white">Sign up</h2>
+            <input id= "fname" type="text" placeholder="First Name" required>
+            <input id="lname" type= "text" placeholder="Second Name" required>
+            <input id="email" type="text" placeholder="E-mail" required>
+            <input id="password"type="password" placeholder="password" required>
+            <input id="password-again"type="password" placeholder="Re-enter password" required>
+            <button onclick="hide('.bg-modal'), hide('#register-form')">Create</button><br>
+            <a href="#" onclick="hide('#register-form'), unhide('#login-form')">Already Registered? Login</a>
+          </form>
+  
+          <form id="login-form">
+            <h2 class="white">Log In</h2>
+            <input id="email" type="text" placeholder="E-mail" required>
+            <input id="password"type="password" placeholder="password" required>
+            <button onclick="hide('.bg-modal')">Submit</button><br><br>
+            <a href="#" onclick="hide('#login-form'), unhide('#register-form')" >New user? Sign-up</a>
+          </form>
+    </div>
+  </body>
+</html>

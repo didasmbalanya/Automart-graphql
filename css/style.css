@@ -4,11 +4,14 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: right;
+    height:100%;
 }
   
 #page-container {
-    position: relative;
-    min-height: 100vh;
+  width: 100%;
+  height:100%; 
+  position: relative;
+
 }
   
 header {
@@ -16,7 +19,7 @@ header {
   font-family:verdana;
   border: 1px solid gray;
   color:#ffffff;
-  background:hsl(180, 90%, 35%);
+  background:black;
 }
    
 nav{
@@ -40,70 +43,58 @@ a:hover{
 header a{
   color: inherit;
 }
-  
-footer {
-  bottom:0px;
-  background-color:hsl(180, 90%,35%);
-  color:white;
-}
-  
-footer .info {   
-  font-size: 15px;
+
+.top{
   display:flex;
+  background-color: white;
+  position: relative;
+  width:50%;
+  margin: 0 20% 0 20%;
+  padding-left: 5px;
 }
 
-footer .info strong {
-  font-size: 18px;
+.top button:hover{
+  transform: scale(1.5);
 }
-  
-footer .info .email {
-  margin-left: 10px;
-}
-  
-figure {
-  display: flex;
-  align-items: center;
 
+.top button{
+  position:absolute;
+  right:0;
+  display:inherit;
+  height:100%;
 }
   
-figure img{
+main {
+  padding:0 10% 0 10%; 
+}
+  
+main img{
   width:200px;
   margin-right:10px;
+  border-radius: 50%;
+  border: 3px hsl(180, 80%,25%) solid;
 }
   
-figcaption{
-  font-size:12px;
-  line-height:0.5;
-  display: -ms-inline-flexbox;
+.car-info {
+  font-size:15px;
+  line-height:0.3;
+  background-color:black;
+  width:200px;
+  color:orange;
+  padding:5px 0 10px 5px;
+  border-radius: 5%;
+  border: 3px solid hsl(180, 80%,25%);
+
 }
 
-main{
-    padding:0 10% 0 10%; 
-}
-
-#intro{
-  font-family:courier;
-  width:30%;
-  text-align: center;
-  position:relative;
-  animation-name:bounce;
-  animation-duration:2s;
-  animation-iteration-count:infinite;
-  font-size: 20px;
+.car-info span{
   color:white;
-  background-color: hsl(180, 80%,25%);
+  font-weight: bold;
 }
 
-@keyframes bounce{
-  0%{
-    top:0px;
-  }
-  50%{
-    top:50px
-  }
-  100%{
-    top:0px;
-  }
+.inline{
+  display:flex;
+  height:150px;
 }
 
 .bg-modal{
@@ -177,7 +168,7 @@ cursor: pointer;
 }
 
 .form a{
-  color:inherit;
+  color:white;
   padding: 5px;
 }
 
@@ -189,22 +180,7 @@ form a:hover{
   color:orange;
 }
 
-.top{
-  display:flex;
-  background-color: #f2f2f2;
-  position: relative;
-}
 
-.top button:hover{
-  transform: scale(1.5);
-}
-
-.top button{
-  position:absolute;
-  right:0;
-  display:inherit;
-  height:100%;
-}
 
 #sell-form{
   width: 500px;
@@ -230,5 +206,24 @@ form a:hover{
   align-items: center;
   font-size: 16px;
 }
+
+.purchase-form{
+  width:200px;
+  background: hsl(180, 80%,25%);
+  color:white;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0 10px 10px;
+  margin-left: 20px;
+  border: 2px solid black;
+  border-radius:5%;
+}
+
+.purchase-form input{
+  width:50%;
+  display: block;
+  margin:10px 0 10px 0;
+}
+
 
 
