@@ -4,6 +4,7 @@
   <head>
     <title>AUTOMART DEALERS SHOP</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sales.css">
     <script src="js/script.js"></script>
   </head>
 
@@ -18,7 +19,7 @@
         <li><a href="#">About</a></li>
         <li><a href="#">My Sales</a></li>
         <li><a href="#">Purchase Orders</a></li>
-        <li><a href="#" id ="login" onclick="bgUnhide('.bg-modal'),  hide('#register-form'), unhide('#login-form')">login/Register</a></li>
+        <li><a href="#">Log Out</a></li>
       </ul>
       </nav>
     </header>
@@ -32,7 +33,8 @@
           <figcaption>
             <p><span>Car</span></p>
             <p><span>Toyota</span> <span>vits</span></p> 
-            <p><span>2M</span> <span>Available</span></p>
+            <p><span id="car-cost">2M</span> Dollars</p>
+            <p> <span>Available</span></p>
             <button onclick="bgUnhide('.bg-modal')">Change Price</button>
           </figcaption>  
         </figure>
@@ -42,11 +44,12 @@
 
     <div class="bg-modal">
         <div class="form">
+
           <div class="close" onclick="hide('.bg-modal')">+</div>
           <form id ="change-price-form">
               <label for="new-price">
-                  <input type="number" id="new-price" placeholder="New sale price" min="0">
-                  <button onclick="hide('.bg-modal')">Submit</button>
+                  <input type="number" id="new-price" placeholder="New sale price" min="0" value="price">
+                  <button onclick="hide('.bg-modal'), priceChange('car-cost');">Submit</button>
               </label>
           </form>    
         </div>
