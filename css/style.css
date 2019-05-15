@@ -206,3 +206,29 @@ form a:hover{
   height:100%;
 }
 
+#sell-form{
+  width: 500px;
+  height:300px;
+  color:orange;
+  display:none;
+  
+}
+
+.radio input{
+  display:unset;
+  background:unset;
+  width: 30px;
+  margin: unset;
+  color:black;
+  background: #ffffff;
+}
+
+.body-type{
+  display:flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+
+
