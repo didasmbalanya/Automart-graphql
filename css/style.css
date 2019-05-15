@@ -62,8 +62,7 @@ footer .info .email {
   
 figure {
   display: flex;
-  align-items: center;
-
+  align-items: center
 }
   
 figure img{
@@ -72,7 +71,7 @@ figure img{
 }
   
 figcaption{
-  font-size:12px;
+  font-size:15px;
   line-height:0.5;
   display: -ms-inline-flexbox;
 }
@@ -230,5 +229,6 @@ form a:hover{
   align-items: center;
   font-size: 16px;
 }
+
 
 

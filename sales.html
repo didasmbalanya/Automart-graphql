@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>AUTOMART DEALERS SHOP</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
+  </head>
+
+  <body>
+    <div id="page-container">
+
+    <header>
+      <h1><a href="index.html">AUTOMART DEALERS</a></h1>
+      <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">My Sales</a></li>
+        <li><a href="#">Purchase Orders</a></li>
+        <li><a href="#" id ="login" onclick="bgUnhide('.bg-modal'),  hide('#register-form'), unhide('#login-form')">login/Register</a></li>
+      </ul>
+      </nav>
+    </header>
+
+    <main>
+    
+      <div id="car-3">
+        <figure>
+          <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
+                  
+          <figcaption>
+            <p><span>Car</span></p>
+            <p><span>Toyota</span> <span>vits</span></p> 
+            <p><span>2M</span> <span>Available</span></p>
+            <button onclick="bgUnhide('.bg-modal')">Change Price</button>
+          </figcaption>  
+        </figure>
+      </div>
+      <hr>
+    </main>
+
+    <div class="bg-modal">
+        <div class="form">
+          <div class="close" onclick="hide('.bg-modal')">+</div>
+          <form id ="change-price-form">
+              <label for="new-price">
+                  <input type="number" id="new-price" placeholder="New sale price" min="0">
+                  <button onclick="hide('.bg-modal')">Submit</button>
+              </label>
+          </form>    
+        </div>
+    </div>

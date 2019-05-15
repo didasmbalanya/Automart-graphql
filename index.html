@@ -16,9 +16,9 @@
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="#">My Sales</a></li>
+        <li><a href="sales.html">My Sales</a></li>
         <li><a href="#">Purchase Orders</a></li>
-        <li><a href="#" id ="login" onclick="bgUnhide('.bg-modal'),  hide('#register-form'),hide('#sell-form'), unhide('#login-form')">login/Register</a></li>
+        <li><a href="#" id ="login" onclick="bgUnhide('.bg-modal'), unhide('#login-form')">login/Register</a></li>
       </ul>
       </nav>
     </header>
@@ -26,47 +26,54 @@
     <main>
       <div class="top">
         <p>I will be filter feature</p> 
-        <button id="sell-button" onclick="bgUnhide('.bg-modal'),  hide('#register-form'), hide('#login-form'), unhide('#sell-form')">POST ADVERT</button>
+        <button id="sell-button" onclick="bgUnhide('.bg-modal'), hide('#login-form'), unhide('#sell-form')">POST ADVERT</button>
       </div>
 
       <hr>
-      <figure>
-        <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
 
-        <figcaption>
-           Lamborgini Galado
-           2007
-           <p>200ksh</p>
-           <button>buy</button>
-           <button>report</button>
-        </figcaption>  
-      </figure>
+      <div id="car-1">
+        <figure>
+          <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
+      
+          <figcaption>
+            <p><span>Car</span></p>
+            <p><span>Toyota</span> <span>vits</span></p> 
+            <p><span>2M</span> <span>Available</span></p>
+            <button>buy</button>
+            <button>report</button>
+          </figcaption>  
+        </figure>
+      </div>
       <hr>
 
-      <figure>
-        <img class="scaled" src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
+      <div id="Truck-2">
+          <figure>
+            <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
         
-        <figcaption>
-          Lamborgini Galado
-          2007
-          <p>200ksh</p>
-          <button>buy</button>
-          <button>report</button>
-        </figcaption>
-      </figure>
+            <figcaption>
+              <p><span>Truck</span></p>
+              <p><span>Toyota</span> <span>vits</span></p> 
+              <p><span>2M</span> <span>Available</span></p>
+              <button>buy</button>
+              <button>report</button>
+            </figcaption>  
+          </figure>
+        </div>
       <hr>
 
-      <figure>
-        <img class="scaled" src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
-        <figcaption>
-          Lamborgini Galado
-          2007
-          <p>200ksh</p>
-          <button>buy</button>
-          <button>report</button>
-        </figcaption>
+      <div id="car-3">
+          <figure>
+            <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
         
-      </figure>
+            <figcaption>
+              <p><span>Car</span></p>
+              <p><span>Toyota</span> <span>vits</span></p> 
+              <p><span>2M</span> <span>Available</span></p>
+              <button>buy</button>
+              <button>report</button>
+            </figcaption>  
+          </figure>
+        </div>
     </main>
 
     <footer>
@@ -82,7 +89,7 @@
     <div class="bg-modal">
       <div class="form">
             
-        <div class="close" onclick="hide('.bg-modal')">+</div>
+        <div class="close" onclick="hide('.bg-modal'), hide('#sell-form'), hide('#register-form')">+</div>
 
         <form id ="register-form">
           <h2 class="white">Sign up</h2>
@@ -91,7 +98,7 @@
           <input id="email" type="text" placeholder="E-mail" required>
           <input id="password"type="password" placeholder="password" required>
           <input id="password-again"type="password" placeholder="Re-enter password" required>
-          <button>Create</button><br>
+          <button onclick="hide('.bg-modal'), hide('#register-form')">Create</button><br>
           <a href="#" onclick="hide('#register-form'), unhide('#login-form')">Already Registered? Login</a>
         </form>
 
@@ -99,7 +106,7 @@
           <h2 class="white">Log In</h2>
           <input id="email" type="text" placeholder="E-mail" required>
           <input id="password"type="password" placeholder="password" required>
-          <button>Submit</button><br><br>
+          <button onclick="hide('.bg-modal')">Submit</button><br><br>
           <a href="#" onclick="hide('#login-form'), unhide('#register-form')" >New user? Sign-up</a>
         </form>
 
@@ -124,7 +131,7 @@
 
           <input id="manufacturer" type="text" placeholder="Manufacturer" required>
           <input id="model" type="text" placeholder="model" required>
-          <button onclick="hide('bg-modal')">Submit</button>
+          <button onclick="hide('bg-modal'), hide('#sell-form')">Submit</button>
           
         </form>
         
