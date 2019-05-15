@@ -19,7 +19,7 @@ header {
   font-family:verdana;
   border: 1px solid gray;
   color:#ffffff;
-  background:hsl(180, 90%, 35%);
+  background:black;
 }
    
 nav{
@@ -72,21 +72,24 @@ main img{
   width:200px;
   margin-right:10px;
   border-radius: 50%;
+  border: 3px hsl(180, 80%,25%) solid;
 }
   
 .car-info {
   font-size:15px;
-  line-height:0.4;
-  background-color:white;
+  line-height:0.3;
+  background-color:black;
   width:200px;
   color:orange;
   padding:5px 0 10px 5px;
   border-radius: 5%;
+  border: 3px solid hsl(180, 80%,25%);
 
 }
 
 .car-info span{
-  color:black
+  color:white;
+  font-weight: bold;
 }
 
 .inline{
@@ -165,7 +168,7 @@ cursor: pointer;
 }
 
 .form a{
-  color:inherit;
+  color:white;
   padding: 5px;
 }
 
