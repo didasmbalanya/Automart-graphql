@@ -24,15 +24,12 @@
     </header>
 
     <main>
-      <figure>
-        <img src="https://media.giphy.com/media/CXcLntZABGkuI/giphy.gif" alt="car Icon">
-        <br>
-        <figcaption>
-          search and filter features will be here.
-        </figcaption>
-      </figure>
-      <hr>
+      <div class="top">
+        <p>I will be filter feature</p> 
+        <button id="sell-button" onclick="bgUnhide('.bg-modal'),  hide('#register-form'), hide('#login-form'), unhide('#sell-form')">POST ADVERT</button>
+      </div>
 
+      <hr>
       <figure>
         <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
 
@@ -106,6 +103,31 @@
           <a href="#" onclick="hide('#login-form'), unhide('#register-form')" >New user? Sign-up</a>
         </form>
 
+        <form id="sell-form">
+          <h2 class="white">Post Car Sale Advert</h2>
+          <input type="file" accept="image/*" name="carImage">
+
+          <div class="radio">
+          New <input type="radio" name="neworold" >       
+          Old <input type="radio" name="neworold" >
+          </div>
+
+          <div class= "body-type">
+            <p>Body Type: </p>
+            <select name="body_type">
+              <option value="car">Car</option>
+              <option value="truck">Truck</option>
+              <option value="trailer">Trailer</option>
+              <option value="van">Van</option>
+            </select>
+          </div>
+
+          <input id="manufacturer" type="text" placeholder="Manufacturer" required>
+          <input id="model" type="text" placeholder="model" required>
+          <button onclick="hide('bg-modal')">Submit</button>
+          
+        </form>
+        
       </div>
     </div>
     </div>  

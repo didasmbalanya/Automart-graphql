@@ -1,0 +1,23 @@
+main{
+    text-align: left;
+    margin-right: 40%;
+}
+
+footer{
+    position: absolute;
+    bottom:0px;
+    width: 100%;    
+}
+
+figure img{
+    width:400px;
+}
+
+figcaption{
+    font-size:20px;
+    line-height:30px;
+    padding-left: 10px;
+    font-family:  Courier, monospace;
+    color: orangered;
+    font-weight: bold;
+  }
