@@ -207,5 +207,23 @@ form a:hover{
   font-size: 16px;
 }
 
+.purchase-form{
+  width:200px;
+  background: hsl(180, 80%,25%);
+  color:white;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0 10px 10px;
+  margin-left: 20px;
+  border: 2px solid black;
+  border-radius:5%;
+}
+
+.purchase-form input{
+  width:50%;
+  display: block;
+  margin:10px 0 10px 0;
+}
+
 
 

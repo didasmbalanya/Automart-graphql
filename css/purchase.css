@@ -1,0 +1,13 @@
+main{
+    line-height: 100%;
+}
+
+.po-info{
+    height:auto;
+    width: 400px;
+    background-color: white;
+    padding:5px 0 5px 10px;
+    border: 2px solid hsl(180, 80%,25%);
+    border-radius:5%;
+
+}
