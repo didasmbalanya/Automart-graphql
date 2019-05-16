@@ -28,8 +28,8 @@
             <div class="close" onclick="hide('#modify-po-form')">+</div>
             <form >
               <label>Modify Purchase Order</label>
-              <input type="number" min="1" description="Enter Amount" required>
-              <button onclick="hide('#modify-po-form')">Submit</button>
+              <input type="number" min="1" value="new-price" id="new-price" required>
+              <button onclick=" priceChange('po-price'), hide('#modify-po-form')">Submit</button>
             </form>
           </div>
 
@@ -43,13 +43,13 @@
             <p>Car id: <span>001</span></p>
             <p>Body Type: <span>Truck</span></p>
             <p>Maunfacturer: <span>Toyota</span></p>
-            <p>Model: <span></span>Probox</p>
+            <p>Model: <span>Probox</span></p>
             <p>Car price: <span>2000</span>$</p>
-            <p>P.O price: <span>1800</span>$</p>
+            <p>P.O price: <span id="po-price">1800</span>$</p>
           </div>
 
           <div class="interact-buttons ">  
-            <button class="big-button" onclick="unhide('#modify-po-form')">Purchase</button>
+            <button class="big-button" onclick="unhide('#modify-po-form')">Modify Purchase price</button>
             <button>cancel po</button>
           </div>
         </div>
