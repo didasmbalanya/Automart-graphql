@@ -45,12 +45,12 @@
               <p>Model: <span class="model">vits</span></p>
               <p>State: <span class="state">new</span></p> 
               <p>price: <span class="price" id="price">2000</span> $</p> 
-              <p>Status: <span class="status" >Available</span></p>
+              <p>Status: <span class="status" id='status'>Available</span></p>
             </div>
 
-            <div class="interact-buttons ">  
+            <div class="interact-buttons" id='car-3-buttons'>  
               <button class="big-button" onclick="unhide('#change-price-form')">Change Price</button>
-              <button onclick="hide('#car-3')">Remove sale</button>
+              <button class="sold" onclick="hide('#car-3-buttons'), markSold('status')">Mark as sold</button>
             </div>
           </div>
         <hr>
