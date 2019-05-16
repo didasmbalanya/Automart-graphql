@@ -26,10 +26,10 @@
     <div class="sidebar">
 
       <form id ="change-price-form">
-        <div class="close" onclick="hide('#modify-po-form')">+</div>
+        <div class="close" onclick="hide('#change-price-form')">+</div>
         <label for="new-price">
           <input type="number" id="new-price" placeholder="New sale price" min="0" value="new-price">
-          <button onclick="priceChange('price'), hide('change-price-form');">Submit</button>
+          <button onclick="priceChange('price'), hide('#change-price-form');">Submit</button>
         </label>
       </form> 
     </div>
