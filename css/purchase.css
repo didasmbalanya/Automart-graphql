@@ -11,3 +11,22 @@ main{
     border-radius:5%;
 
 }
+
+sidebar{
+    margin-top: 20px;
+    height:unset;
+    float:unset;
+    color: white
+}
+
+#modify-po-form{
+    width:200px;
+    color:orange;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0 10px 10px;
+    margin-left: 20px;
+    border: 2px solid black;
+    border-radius:5%;
+    display: none;
+  }

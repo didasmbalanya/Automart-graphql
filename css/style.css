@@ -86,13 +86,14 @@ main img{
   
 .car-info {
   font-size:15px;
-  line-height:0.3;
+  line-height:0.4;
   background-color:black;
   width:200px;
   color:orange;
-  padding:5px 0 10px 5px;
+  padding:0 0 0 5px;
   border-radius: 5%;
   border: 3px solid hsl(180, 80%,25%);
+  height: 100%;
 
 }
 
@@ -104,6 +105,10 @@ main img{
 .inline{
   display:flex;
   height:150px;
+}
+
+hr{
+  margin-top: 10px;
 }
 
 .bg-modal{
@@ -226,7 +231,7 @@ form a:hover{
   display: none;
 }
 
-#purchase-form input{
+#purchase-form input, #modify-po-form input{
   width:50%;
   display: block;
   margin:10px 0 10px 0;
@@ -237,3 +242,4 @@ form a:hover{
   margin:20px 0 10px 50px;
   
 }
+

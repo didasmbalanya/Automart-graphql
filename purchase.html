@@ -4,12 +4,11 @@
   <head>
     <title>AUTOMART DEALERS SHOP</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/purchase.css"
+    <link rel="stylesheet" href="css/purchase.css">
     <script src="js/script.js"></script>
   </head>
 
   <body>
-    <div id="page-container">
 
     <header>
       <h1><a href="index.html">AUTOMART DEALERS</a></h1>
@@ -19,18 +18,42 @@
         <li><a href="about.html">About</a></li>
         <li><a href="sales.html">My Sales</a></li>
         <li><a href="#">Purchase Orders</a></li>
-        <li><a href="#">logout</a></li>
+        <li><a href="index.html">logout</a></li>
       </ul>
       </nav>
     </header>
+    <div class="sidebar">
 
-    <main>
-        <p> Purchase orders will be added here</p>
-          <div id="car-id" class="po-info">
-          <p>Car id: <span></span></p>
-          <p>Body Type: <span></span></p>
-          <p>Model: <span></span></p>
-          <p>Car price: <span></span></p>
-          <p>P.O price: <span></span></p>
+        <div id="modify-po-form">
+            <div class="close" onclick="hide('#modify-po-form')">+</div>
+            <form >
+              <label>Modify Purchase Order</label>
+              <input type="number" min="1" description="Enter Amount" required>
+              <button onclick="hide('#modify-po-form')">Submit</button>
+            </form>
+          </div>
+
+    </div>
+
+    <div class="content">
+      <main>
+        <h2>Purchase Orders</h2>
+        <div id="car-id" class=" inline">
+          <div class="car-info">
+            <p>Car id: <span>001</span></p>
+            <p>Body Type: <span>Truck</span></p>
+            <p>Maunfacturer: <span>Toyota</span></p>
+            <p>Model: <span></span>Probox</p>
+            <p>Car price: <span>2000</span>$</p>
+            <p>P.O price: <span>1800</span>$</p>
+          </div>
+
+          <div class="interact-buttons ">  
+            <button class="big-button" onclick="unhide('#modify-po-form')">Purchase</button>
+            <button>cancel po</button>
+          </div>
         </div>
-    </main>
+        <hr>
+
+      </main>
+    </div>
