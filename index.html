@@ -8,7 +8,6 @@
   </head>
 
   <body>
-    <div id="page-container">
 
     <header>
       <h1><a href="index.html">AUTOMART DEALERS</a></h1>
@@ -17,90 +16,130 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="sales.html">My Sales</a></li>
-        <li><a href="#">Purchase Orders</a></li>
+        <li><a href="purchase.html">Purchase Orders</a></li>
         <li><a href="#" id ="login" onclick="bgUnhide('.bg-modal'), unhide('#login-form')">login/Register</a></li>
       </ul>
       </nav>
-      </header>
+    </header>
 
-      <div class="top">
+    <div class="sidebar">
+      <center>
+      <button class="big-button" onclick="unhide('#sell-form')">POST ADVERT</button>
+      </center>
+
+      <form id="sell-form">
+
+          <div class="close" onclick="hide('#sell-form')">+</div>
+        <h2 class="white">Post Car Sale Advert</h2>
+
+        <input type="file" accept="image/*" name="carImage">
+
+        <center>
+        New <input type="radio" name="neworold" >       
+        Old <input type="radio" name="neworold" >
+        </center>
+
+        <div class= "body-type">
+          <p>Body Type: </p>
+          <select name="body_type">
+            <option value="car">Car</option>
+            <option value="truck">Truck</option>
+            <option value="trailer">Trailer</option>
+            <option value="van">Van</option>
+          </select>
+        </div>
+
+        <input id="manufacturer" type="text" placeholder="Manufacturer" required>
+        <input id="model" type="text" placeholder="model" required>
+        <center>
+        <button onclick="hide('#sell-form')">Submit</button>
+        </center>
+          
+      </form>
+
+      <div id="purchase-form">
+        <div class="close" onclick="hide('#purchase-form')">+</div>
+        <form action="purchase.html">
+          <label>Purchase Order</label>
+          <input type="number" min="1" description="Enter Amount" required>
+          <button onclick="hide('#purchase-form')">Submit</button>
+        </form>
+      </div>
+    </div>
+    
+    <div class="content">
+
+      <div class="filter">
         <p>I will be filter feature</p> 
-        <button id="sell-button" onclick="bgUnhide('.bg-modal'), hide('#login-form'), unhide('#sell-form')">POST ADVERT</button>
       </div>
     
-    <hr>  
-    <main>
+      <hr>  
+      <main>
 
-      <div id="car-1" class="inline">
-        <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
-        <div class="car-info">
+        <div id="car-1" class="inline">
+          <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
+          <div class="car-info">
             <p>BodyType: <span class="bodytype">Car</span></p>
             <p>Manufacturer: <span class="manufacturer">Toyota</span></p>
             <p>Model: <span class="model">vits</span></p>
             <p>State: <span class="state">new</span></p> 
             <p>price: <span class="price">2M</span> Status: <span class="status" >Available</span></p>
-          <button>report</button>
-        </div> 
+            
+           </div> 
 
-        <div class="purchase-form">
-            <form action="purchase.html">
-              <label>Purchase Order</label>
-              <input type="number" min="1" description="Enter Amount" required>
-              <button>Submit</button>
-            </form>
+            <div class="interact-buttons ">  
+              <button class="big-button" onclick="unhide('#purchase-form')">Purchase</button>
+              <button>report</button>
+            </div>
+
         </div>
-      </div>
-      <hr>
+        <hr>
 
-      <div id="Truck-2" class="inline">
-        <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
-        <div class="car-info">
+        <div id="Truck-2" class="inline">
+          <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
+          <div class="car-info">
             <p>BodyType: <span class="bodytype">Car</span></p>
             <p>Manufacturer: <span class="manufacturer">Toyota</span></p>
             <p>Model: <span class="model">vits</span></p>
             <p>State: <span class="state">new</span></p> 
             <p>price: <span class="price">2M</span> Status: <span class="status" >Available</span></p>
-          <button>report</button>
+            <button>favorite</button>
+          </div>
+
+          <div class="interact-buttons">  
+            <button class="big-button" onclick="unhide('#purchase-form')">Purchase</button>
+            <button>report</button>
+          </div>
+
         </div>
+        <hr>
 
-        <div class="purchase-form">
-            <form action="purchase.html">
-              <label>Purchase Order</label>
-              <input type="number" min="1" description="Enter Amount" required>
-              <button>Submit</button>
-            </form>
-        </div>
-
-      </div>
-      <hr>
-
-      <div id="car-3" class="inline">
-        <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
-        <div class="car-info">
+        <div id="car-3" class="inline">
+          <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
+          <div class="car-info">
             <p>BodyType: <span class="bodytype">Car</span></p>
             <p>Manufacturer: <span class="manufacturer">Toyota</span></p>
             <p>Model: <span class="model">vits</span></p>
             <p>State: <span class="state">new</span></p> 
             <p>price: <span class="price">2M</span> Status: <span class="status" >Available</span></p>
-          <button>report</button>
-        </div>
+            <button>favorite</button>
+          </div>
 
-        <div class="purchase-form">
-          <form action="">
-            <label>Purchase Order</label>
-            <input type="number" min="1" description="Enter Amount" required>
-            <button>Submit</button>
-          </form>
+          <div class="interact-buttons ">  
+            <button class="big-button" onclick="unhide('#purchase-form')">Purchase</button>
+            <button>report</button>
+          </div>
+          
         </div>
-        
-      </div>
-      <hr>
-    </main>
+        <hr>
+      </main>
+
+    </div>
 
     <div class="bg-modal">
       <div class="form">
             
-        <div class="close" onclick="hide('.bg-modal'), hide('#sell-form'), hide('#register-form')">+</div>
+        <div class="close" onclick="hide('.bg-modal'), hide('#register-form')">+</div>
 
         <form id ="register-form">
           <h2 class="white">Sign up</h2>
@@ -119,33 +158,7 @@
           <input id="password"type="password" placeholder="password" required>
           <button onclick="hide('.bg-modal')">Submit</button><br><br>
           <a href="#" onclick="hide('#login-form'), unhide('#register-form')" >New user? Sign-up</a>
-        </form>
-
-        <form id="sell-form">
-          <h2 class="white">Post Car Sale Advert</h2>
-          <input type="file" accept="image/*" name="carImage">
-
-          <div class="radio">
-          New <input type="radio" name="neworold" >       
-          Old <input type="radio" name="neworold" >
-          </div>
-
-          <div class= "body-type">
-            <p>Body Type: </p>
-            <select name="body_type">
-              <option value="car">Car</option>
-              <option value="truck">Truck</option>
-              <option value="trailer">Trailer</option>
-              <option value="van">Van</option>
-            </select>
-          </div>
-
-          <input id="manufacturer" type="text" placeholder="Manufacturer" required>
-          <input id="model" type="text" placeholder="model" required>
-          <button onclick="hide('bg-modal'), hide('#sell-form')">Submit</button>
-          
-        </form>
-        
+        </form>        
       </div>
     </div>
     </div>  
