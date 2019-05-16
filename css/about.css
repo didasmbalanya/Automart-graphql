@@ -1,11 +1,14 @@
 main{
     margin-right: 40%;
-    color:blue;
+    color:orange;
 }
 
 .content{
-    background-color: white;
+    background-color: black;
     line-height: 200%;
+    height:100%;
+    padding: 5px 0 5px 10px;
+    border-radius: 5%;
 }
 
 .car-info{
