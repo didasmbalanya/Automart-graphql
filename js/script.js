@@ -16,3 +16,8 @@ function priceChange(element){
     document.getElementById(element).innerHTML = newPrice;
     event.preventDefault()
 }
+
+function markSold(element){
+    document.getElementById(element).innerHTML = 'Sold';
+    event.preventDefault()
+}
