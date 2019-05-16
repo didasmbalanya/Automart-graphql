@@ -6,6 +6,7 @@ body {
     background-position: right;
     position: relative;
 }
+
 .content{
   height:700px;
   background-color: transparent;
@@ -37,6 +38,7 @@ header {
   border: 1px solid gray;
   color:#ffffff;
   background:black;
+  margin-bottom: 20px;
 }
 
 header h1 a{
@@ -45,6 +47,9 @@ header h1 a{
 nav{
   background-color: gray;
   text-align: center;
+  width:50%;
+  position: relative;
+  left: 20%;
 }
   
 nav ul {
@@ -66,10 +71,10 @@ header a{
 }
 
 .filter{
-  background-color:gray;
+  background-color:white;
   width:50%;
   height:50px;
-  margin: 0 20% 0 20%;
+  margin: 30px 20% 0 20%;
   padding-left: 5px;
 }
   
@@ -81,7 +86,7 @@ main img{
   width:200px;
   margin-right:10px;
   border-radius: 50%;
-  border: 3px hsl(180, 80%,25%) solid;
+  border: 3px black solid;
 }
   
 .car-info {
@@ -92,7 +97,7 @@ main img{
   color:orange;
   padding:0 0 0 5px;
   border-radius: 5%;
-  border: 3px solid hsl(180, 80%,25%);
+  border: 3px solid white;
   height: 100%;
 
 }
@@ -231,7 +236,7 @@ form a:hover{
   display: none;
 }
 
-#purchase-form input, #modify-po-form input, #change-price-form input{
+#purchase-form input, #modify-po-form input, #change-price-form input, #report-form textarea{
   width:50%;
   display: block;
   margin:10px 0 10px 0;
@@ -242,4 +247,24 @@ form a:hover{
   margin:20px 0 10px 50px;
   
 }
+
+#report-form{
+  color:orange;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0 10px 10px;
+  margin-left: 20px;
+  width:100%;
+  display: none;
+}
+
+#submit-feedback{
+  color:white;
+  margin: 30px;
+  display:none;
+}
+
+
+
+
 

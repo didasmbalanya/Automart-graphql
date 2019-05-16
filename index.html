@@ -65,6 +65,22 @@
           <button onclick="hide('#purchase-form')">Submit</button>
         </form>
       </div>
+
+      <div id="report-form">
+        <div class="close" onclick="hide('#report-form')">+</div>
+        <form report='false'>
+          <label>Report Reason</label>
+          <textarea  id="report-text" value="report-text" rows="3" cols="50"></textarea>
+          <button type="button" onclick="hide('#report-form'), unhide('#submit-feedback')">Submit</button>
+        </form>
+      </div>
+
+      <div id='submit-feedback' >
+        <p>Your Submission has been recieved.</p>
+        <p>Thank you</p>
+        <button onclick= "hide('#submit-feedback')">close</button>
+      </div>
+
     </div>
     
     <div class="content">
@@ -89,7 +105,7 @@
 
             <div class="interact-buttons ">  
               <button class="big-button" onclick="unhide('#purchase-form')">Purchase</button>
-              <button>report</button>
+              <button onclick="unhide('#report-form')">report</button>
             </div>
 
         </div>
@@ -108,7 +124,7 @@
 
           <div class="interact-buttons">  
             <button class="big-button" onclick="unhide('#purchase-form')">Purchase</button>
-            <button>report</button>
+            <button onclick="unhide('#report-form')">report</button>
           </div>
 
         </div>
@@ -127,7 +143,7 @@
 
           <div class="interact-buttons ">  
             <button class="big-button" onclick="unhide('#purchase-form')">Purchase</button>
-            <button>report</button>
+            <button onclick="unhide('#report-form')">report</button>
           </div>
           
         </div>
