@@ -4,17 +4,35 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: right;
-    height:100%;
+    position: relative;
 }
-  
-#page-container {
-  width: 100%;
-  height:100%; 
-  position: relative;
+.content{
+  height:700px;
+  background-color: transparent;
+  margin-top:-15px;
+}
 
+.sidebar{
+  width:300px;
+  height:100%;
+  background-color: black;
+  float:right;
+  padding-bottom: 10px;
+  position: relative;
 }
-  
+
+button{
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+button:hover{
+  background: orange;
+}
+
 header {
+  width:100%;
+  height:120px;
   text-align:center;
   font-family:verdana;
   border: 1px solid gray;
@@ -44,24 +62,12 @@ header a{
   color: inherit;
 }
 
-.top{
-  display:flex;
-  background-color: white;
-  position: relative;
+.filter{
+  background-color:rgb(247, 255, 224);
   width:50%;
+  height:50px;
   margin: 0 20% 0 20%;
   padding-left: 5px;
-}
-
-.top button:hover{
-  transform: scale(1.5);
-}
-
-.top button{
-  position:absolute;
-  right:0;
-  display:inherit;
-  height:100%;
 }
   
 main {
@@ -158,11 +164,6 @@ main img{
   padding: 10px;
 }
 
-button{
-text-transform: uppercase;
-cursor: pointer;
-}
-
 .white{
   color:white;
 }
@@ -172,10 +173,6 @@ cursor: pointer;
   padding: 5px;
 }
 
-button:hover{
-  background: orange;
-}
-
 form a:hover{
   color:orange;
 }
@@ -183,20 +180,27 @@ form a:hover{
 
 
 #sell-form{
-  width: 500px;
+  width: 200px;
   height:300px;
   color:orange;
-  display:none;
-  
+  padding-left: 20px;
+  display: none;
 }
 
-.radio input{
-  display:unset;
-  background:unset;
-  width: 30px;
-  margin: unset;
-  color:black;
-  background: #ffffff;
+#sell-form input{
+  padding:5px;
+  margin:5px;
+  font-size: 15px;
+}
+
+.big-button:hover{
+  transform: scale(1.5);
+}
+
+.big-button {
+  align-items: center;
+  height:40px;
+  margin-top:20px;
 }
 
 .body-type{
@@ -207,23 +211,26 @@ form a:hover{
   font-size: 16px;
 }
 
-.purchase-form{
+#purchase-form{
   width:200px;
-  background: hsl(180, 80%,25%);
-  color:white;
+  color:orange;
   justify-content: center;
   align-items: center;
   padding: 40px 0 10px 10px;
   margin-left: 20px;
   border: 2px solid black;
   border-radius:5%;
+  display: none;
 }
 
-.purchase-form input{
+#purchase-form input{
   width:50%;
   display: block;
   margin:10px 0 10px 0;
 }
 
-
-
+.interact-buttons button{
+  display: block;
+  margin:20px 0 10px 50px;
+  
+}
