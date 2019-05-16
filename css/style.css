@@ -231,7 +231,7 @@ form a:hover{
   display: none;
 }
 
-#purchase-form input, #modify-po-form input, #change-price-form input{
+#purchase-form input, #modify-po-form input, #change-price-form input, #report-form textarea{
   width:50%;
   display: block;
   margin:10px 0 10px 0;
@@ -242,4 +242,21 @@ form a:hover{
   margin:20px 0 10px 50px;
   
 }
+
+#report-form{
+  color:orange;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0 10px 10px;
+  margin-left: 20px;
+  width:100%;
+  display: hide;
+}
+
+.submit-feedback{
+  display:none;
+}
+
+
+
 

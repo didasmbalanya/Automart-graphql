@@ -65,6 +65,20 @@
           <button onclick="hide('#purchase-form')">Submit</button>
         </form>
       </div>
+
+      <div id="report-form">
+        <div class="close" onclick="hide('#report-form')">+</div>
+        <div class='submit-feedback'>
+          <p>Your Submission has been recieved.</p>
+          <p>Thank you</p>
+          <button onclick="hide('#report-form') hide('.submit-feedback')">close</button>
+        </div>
+        <form>
+        <label>Report Reason</label>
+        <textarea  id="report-text" value="report-text" rows="3" cols="50"></textarea>
+        <button>Submit</button>
+        </form>
+      </div>
     </div>
     
     <div class="content">
