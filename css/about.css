@@ -1,6 +1,5 @@
 main{
     margin-right: 40%;
-    color:orange;
 }
 
 .content{
@@ -9,6 +8,7 @@ main{
     height:100%;
     padding: 5px 0 5px 10px;
     border-radius: 5%;
+    color:white;
 }
 
 .car-info{
