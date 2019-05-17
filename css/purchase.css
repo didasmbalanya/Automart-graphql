@@ -1,32 +1,32 @@
 main{
-    line-height: 100%;
+  line-height: 100%;
 }
 
 .po-info{
-    height:auto;
-    width: 400px;
-    background-color: white;
-    padding:5px 0 5px 10px;
-    border: 2px solid hsl(180, 80%,25%);
-    border-radius:5%;
+  height:auto;
+  width: 400px;
+  background-color: white;
+  padding:5px 0 5px 10px;
+  border: 2px solid hsl(180, 80%,25%);
+  border-radius:5%;
 
 }
 
 sidebar{
-    margin-top: 20px;
-    height:unset;
-    float:unset;
-    color: white
+  margin-top: 20px;
+  height:unset;
+  float:unset;
+  color: white
 }
 
 #modify-po-form{
-    width:200px;
-    color:orange;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 0 10px 10px;
-    margin-left: 20px;
-    border: 2px solid black;
-    border-radius:5%;
-    display: none;
-  }
+  width:200px;
+  color:orange;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0 10px 10px;
+  margin-left: 20px;
+  border: 2px solid black;
+  border-radius:5%;
+  display: none;
+}

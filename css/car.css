@@ -1,0 +1,34 @@
+#pic{
+  background-color: black;
+  margin: 0 200px 0 200px;
+  height: 350px;
+  border: 10px solid black;
+}
+
+#content{
+  height:100%;
+  margin: 20px 200px 0 200px;
+  display: flex;
+}
+
+#pic img{
+  height:100%;
+  width:100%;
+}
+
+.car-details{
+  background-color:black;
+  width: 400px;
+  padding-left: 20px;
+  color:white;
+  border: 2px solid orange;
+}
+
+.car-details span{
+  color: orange;
+  font-weight:bold;
+}
+
+.sidebar{
+  width:unset;
+}
