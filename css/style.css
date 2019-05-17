@@ -1,10 +1,10 @@
 body {
-    font-family: Arial, sans-serif;
-    background-image: url("https://i.pinimg.com/474x/de/0f/4b/de0f4bf6e8075312a6eb20ad7044571a--car-images-hd-wallpaper.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: right;
-    position: relative;
+  font-family: Arial, sans-serif;
+  background-image: url("https://i.pinimg.com/474x/de/0f/4b/de0f4bf6e8075312a6eb20ad7044571a--car-images-hd-wallpaper.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right;
+  position: relative;
 }
 
 .content{
@@ -44,6 +44,7 @@ header {
 
 header h1 a{
   text-decoration-line: none;
+  padding-left: 20px;
 }
 nav{
   background-color: gray;
@@ -66,7 +67,7 @@ nav li {
   
 a:hover{
   color:orange;
-  transform:scale(1.2);
+  transform:scale(1.1);
 }
   
 header a{
@@ -266,6 +267,22 @@ form a:hover{
   margin: 30px;
   display:none;
 }
+
+.button-link{
+  background-color:lightgray;
+  padding:5px;
+  text-align: center;
+  border: 1px solid black;
+  margin: 30px 0 0 50px;
+  text-decoration:none; 
+}
+
+
+.button-link:hover{
+  color:black;
+  background: orange;
+}
+
 
 
 
