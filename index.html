@@ -86,7 +86,16 @@
     <div class="content">
 
       <div class="filter">
-        <p>I will be filter feature</p> 
+         <form id='searchby'>
+            <select name="filter" id='searchfilter'>
+              <option value="all">All unsold cars</option>
+              <option value="manufacturer">Manufacturer</option>
+              <option value="state">State</option>
+            </select>
+            <input type="number" placeholder="minimum price" min='1'>
+            <input type="number" placeholder="maximun price" min='1'>
+            <button>Filter</button>
+         </form>
       </div>
     
       <br>  

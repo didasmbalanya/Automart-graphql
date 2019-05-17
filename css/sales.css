@@ -21,3 +21,7 @@ header{
 .car-info{
     height:100%;
 }
+
+.sidebar{
+    margin-top:-20px;
+  }

@@ -30,3 +30,7 @@ sidebar{
   border-radius:5%;
   display: none;
 }
+
+.sidebar{
+  margin-top:-20px;
+}
