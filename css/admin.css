@@ -1,0 +1,46 @@
+body{
+  background-color:black;
+  background-image: unset;
+}
+
+.sidebar{
+  background-color: gray;
+  height:400px;
+  float:left;
+  margin-right: 20px;
+}
+
+.data{
+  height:700px;
+  background-color: lightgray;
+  
+}
+
+header img{
+  background-color:white;
+  width:20px;  
+}
+
+header{
+  border:unset;
+}
+
+.sidebar ul li{
+  padding: 20px;
+  border-bottom: 2px solid white;
+}
+
+a{
+  text-decoration: none;
+  color:white;
+  list-style: none;
+}
+
+.car-info{
+  height:100%;
+  padding: 20px o 20px 10px;
+}
+
+.inline{
+  height:200px;
+}
