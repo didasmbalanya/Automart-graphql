@@ -44,3 +44,14 @@ a{
 .inline{
   height:200px;
 }
+
+/*Media Queries*/
+@media(max-width: 768px){
+  .sidebar{
+    float:none;
+  }
+
+  .car-info{
+    height:auto;
+  }
+}

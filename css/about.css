@@ -70,3 +70,15 @@
   padding:10px 0 0 20px;
   margin: 0 200px 0 200px;
 }
+
+/*Media Queries*/
+@media(max-width: 768px){
+  .slide{
+    display:none;
+  }
+
+  .content{
+    width:200px;
+    margin-right: 20px;
+  }
+}
