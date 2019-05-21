@@ -5,6 +5,8 @@ body {
   background-size: cover;
   background-position: right;
   position: relative;
+  padding:0;
+  margin:0;
 }
 
 .content{
@@ -41,40 +43,40 @@ header {
   background:black;
   margin-bottom: 20px;
   border-bottom: 3px orange solid;
-  display: flex;
+  min-height: 70px;
 }
 
 header h1 a{
   text-decoration-line: none;
-  padding-left: 20px;
+  margin-left: 20px;
+  color:white;
+  
 }
+
 nav{
-  background-color: black;
-  text-align: center;
-  width:50%;
-  position: relative;
-  left: 20%;
-  margin-top: 20px;
+  float:right;
+  margin-right: 20px;
+  
 }
   
 nav ul {
-  margin: 0px;
-  padding: 5px 0px 5px 30px;
+  margin: 0;
+  padding: 0;
 }
-nav li {
+header li {
   display: inline;
-  margin-right: 20px;
-  padding:0 10px 0 0;
-  
+  padding:0 10px 0 10px;  
 }
   
 a:hover{
   color:orange;
-  transform:scale(1.1);
+  font-weight: bold;
 }
   
 header a{
   color: inherit;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
 .filter{
@@ -290,6 +292,48 @@ form a:hover{
   background: orange;
 }
 
+.highlight{
+  color:orange;
+}
+
+/*Media Queries*/
+@media(max-width: 768px){
+  body{
+    background: lightgray;
+  }
+  header{
+    padding-bottom: 30px;
+  }
+
+  nav{
+    float:none;
+    text-align: center;
+    padding:unset;
+    margin:unset;
+  }
+
+  .sidebar{
+    float:none;
+  }
+
+  .big-button{
+    padding: unset;
+    height:unset;
+  }
+
+  .filter{
+    display:unset;
+  }
+
+  .inline img{
+    width:100px;
+  }
+
+  .inline {
+    width:100%;
+    display: unset;
+  }
+}
 
 
 
