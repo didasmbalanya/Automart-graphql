@@ -41,6 +41,7 @@ header {
   background:black;
   margin-bottom: 20px;
   border-bottom: 3px orange solid;
+  display: flex;
 }
 
 header h1 a{
@@ -48,11 +49,12 @@ header h1 a{
   padding-left: 20px;
 }
 nav{
-  background-color: gray;
+  background-color: black;
   text-align: center;
   width:50%;
   position: relative;
   left: 20%;
+  margin-top: 20px;
 }
   
 nav ul {
