@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <meta name=”viewport” content=”width=device-width″>
     <meta name="Keywords" content="automobile, car sale, buycar ">
@@ -12,86 +11,87 @@
   </head>
 
   <body>
+    <div class="main-content">
 
-    <header>
-      <h1><a href="index.html"><span class="highlight">AUTOMART</span> DEALERS</a></h1>
-      <nav>
-      <ul>
-        <li class="highlight"><a href="index.html">Home</a></li>
-        <li><a href="admin.html">Admin</a></li>        
-        <li><a href="about.html">About</a></li>
-        <li><a href="sales.html">My Sales</a></li>
-        <li><a href="purchase.html">Purchase Orders</a></li>
-        <li><a href="#" id ="login" onclick="bgUnhide('.bg-modal'), unhide('#login-form')">login/Register</a></li>
-      </ul>
-      </nav>
-    </header>
+      <header>
+        <h1><a href="index.html"><span class="highlight">AUTOMART</span> DEALERS</a></h1>
+        <nav>
+          <ul>
+            <li class="highlight"><a href="index.html">Home</a></li>
+            <li><a href="admin.html">Admin</a></li>        
+            <li><a href="about.html">About</a></li>
+            <li><a href="sales.html">My Sales</a></li>
+            <li><a href="purchase.html">Purchase Orders</a></li>
+            <li><a href="#" id ="login" onclick="bgUnhide('.bg-modal'), unhide('#login-form')">login/Register</a></li>
+          </ul>
+        </nav>
+      </header>
 
-    <div class="sidebar">
-      <center>
-      <button class="big-button" onclick="unhide('#sell-form')">POST ADVERT</button>
-      </center>
+      <div class="sidebar">
+        <center>
+        <button class="big-button" onclick="unhide('#sell-form')">POST ADVERT</button>
+        </center>
 
-      <form id="sell-form">
+        <form id="sell-form">
 
           <div class="close" onclick="hide('#sell-form')">+</div>
-        <h2 class="white">Post Car Sale Advert</h2>
+          <h2 class="white">Post Car Sale Advert</h2>
 
-        <input type="file" accept="image/*" name="carImage">
+          <input type="file" accept="image/*" name="carImage">
 
-        <center>
-        New <input type="radio" name="neworold" >       
-        Old <input type="radio" name="neworold" >
-        </center>
+          <center>
+          New <input type="radio" name="neworold" >       
+          Old <input type="radio" name="neworold" >
+          </center>
 
-        <div class= "body-type">
-          <p>Body Type: </p>
-          <select name="body_type">
-            <option value="car">Car</option>
-            <option value="truck">Truck</option>
-            <option value="trailer">Trailer</option>
-            <option value="van">Van</option>
-          </select>
+          <div class= "body-type">
+            <p>Body Type: </p>
+            <select name="body_type">
+              <option value="car">Car</option>
+              <option value="truck">Truck</option>
+              <option value="trailer">Trailer</option>
+              <option value="van">Van</option>
+            </select>
+          </div>
+
+          <input id="manufacturer" type="text" placeholder="Manufacturer" required>
+          <input id="model" type="text" placeholder="model" required>
+          <center>
+          <button onclick="hide('#sell-form')">Submit</button>
+          </center>
+            
+        </form>
+
+        <div id="purchase-form">
+          <div class="close" onclick="hide('#purchase-form')">+</div>
+          <form action="purchase.html">
+            <label>Purchase Order</label>
+            <input type="number" min="1" description="Enter Amount" required>
+            <button onclick="hide('#purchase-form')">Submit</button>
+          </form>
         </div>
 
-        <input id="manufacturer" type="text" placeholder="Manufacturer" required>
-        <input id="model" type="text" placeholder="model" required>
-        <center>
-        <button onclick="hide('#sell-form')">Submit</button>
-        </center>
-          
-      </form>
+        <div id="report-form">
+          <div class="close" onclick="hide('#report-form')">+</div>
+          <form report='false'>
+            <label>Report Reason</label>
+            <textarea  id="report-text" value="report-text" rows="3" cols="50"></textarea>
+            <button type="button" onclick="hide('#report-form'), unhide('#submit-feedback')">Submit</button>
+          </form>
+        </div>
 
-      <div id="purchase-form">
-        <div class="close" onclick="hide('#purchase-form')">+</div>
-        <form action="purchase.html">
-          <label>Purchase Order</label>
-          <input type="number" min="1" description="Enter Amount" required>
-          <button onclick="hide('#purchase-form')">Submit</button>
-        </form>
+        <div id='submit-feedback' >
+          <p>Your Submission has been recieved.</p>
+          <p>Thank you</p>
+          <button onclick= "hide('#submit-feedback')">close</button>
+        </div>
+
       </div>
+      
+      <div class="content">
 
-      <div id="report-form">
-        <div class="close" onclick="hide('#report-form')">+</div>
-        <form report='false'>
-          <label>Report Reason</label>
-          <textarea  id="report-text" value="report-text" rows="3" cols="50"></textarea>
-          <button type="button" onclick="hide('#report-form'), unhide('#submit-feedback')">Submit</button>
-        </form>
-      </div>
-
-      <div id='submit-feedback' >
-        <p>Your Submission has been recieved.</p>
-        <p>Thank you</p>
-        <button onclick= "hide('#submit-feedback')">close</button>
-      </div>
-
-    </div>
-    
-    <div class="content">
-
-      <div class="filter">
-         <form id='searchby'>
+        <div class="filter">
+          <form id='searchby'>
             <select name="filter" id='searchfilter'>
               <option value="all">All unsold cars</option>
               <option value="manufacturer">Manufacturer</option>
@@ -100,105 +100,111 @@
             <input type="number" placeholder="minimum price" min='1'>
             <input type="number" placeholder="maximun price" min='1'>
             <button>Filter</button>
-         </form>
-      </div>
-    
-      <br>  
-      <main>
+          </form>
+        </div>
+      
+        <br>  
+        <main>
 
-        <div id="car-1" class="inline">
+          <div id="car-1" class="inline">
             <a href='car.html'>
               <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
             </a>  
-          <div class="car-info">
-            <p>BodyType: <span class="bodytype">Car</span></p>
-            <p>Manufacturer: <span class="manufacturer">Toyota</span></p>
-            <p>Model: <span class="model">vits</span></p>
-            <p>State: <span class="state">new</span></p> 
-            <p>price: <span class="price">2000</span> $</p>
-            <p>Status: <span class="status">Available</span></p>          
-          </div> 
+            <div class="car-info">
+              <p>BodyType: <span class="bodytype">Car</span></p>
+              <p>Manufacturer: <span class="manufacturer">Toyota</span></p>
+              <p>Model: <span class="model">vits</span></p>
+              <p>State: <span class="state">new</span></p> 
+              <p>price: <span class="price">2000</span> $</p>
+              <p>Status: <span class="status">Available</span></p>          
+            </div> 
+
+              <div class="interact-buttons ">  
+                <button class="big-button" onclick="unhide('#purchase-form')">Purchase</button>
+                <button onclick="unhide('#report-form')">report</button>
+                <a class='button-link' link href='car.html'>More Info</a>
+              </div>
+
+          </div>
+          <hr>
+
+          <div id="Truck-2" class="inline">
+            <a href='car.html'>
+            <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
+            </a>
+            <div class="car-info">
+              <p>BodyType: <span class="bodytype">Car</span></p>
+              <p>Manufacturer: <span class="manufacturer">Toyota</span></p>
+              <p>Model: <span class="model">vits</span></p>
+              <p>State: <span class="state">new</span></p> 
+              <p>price: <span class="price">2000</span> $</p>
+              <p>Status: <span class="status">Available</span></p>
+            </div>
+
+            <div class="interact-buttons">  
+              <button class="big-button" onclick="unhide('#purchase-form')">Purchase</button>
+              <button onclick="unhide('#report-form')">report</button>
+              <a class='button-link' link href='car.html'>More Info</a>
+            </div>
+
+          </div>
+          <hr>
+
+          <div id="car-3" class="inline">
+              <a href='car.html'>
+                <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
+              </a>          <div class="car-info">
+              <p>BodyType: <span class="bodytype">Car</span></p>
+              <p>Manufacturer: <span class="manufacturer">Toyota</span></p>
+              <p>Model: <span class="model">vits</span></p>
+              <p>State: <span class="state">new</span></p> 
+              <p>price: <span class="price">2000</span> $</p>
+              <p>Status: <span class="status">Available</span></p>
+            </div>
 
             <div class="interact-buttons ">  
               <button class="big-button" onclick="unhide('#purchase-form')">Purchase</button>
               <button onclick="unhide('#report-form')">report</button>
               <a class='button-link' link href='car.html'>More Info</a>
             </div>
-
-        </div>
-        <hr>
-
-        <div id="Truck-2" class="inline">
-          <a href='car.html'>
-          <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
-          </a>
-          <div class="car-info">
-            <p>BodyType: <span class="bodytype">Car</span></p>
-            <p>Manufacturer: <span class="manufacturer">Toyota</span></p>
-            <p>Model: <span class="model">vits</span></p>
-            <p>State: <span class="state">new</span></p> 
-            <p>price: <span class="price">2000</span> $</p>
-            <p>Status: <span class="status">Available</span></p>
-          </div>
-
-          <div class="interact-buttons">  
-            <button class="big-button" onclick="unhide('#purchase-form')">Purchase</button>
-            <button onclick="unhide('#report-form')">report</button>
-            <a class='button-link' link href='car.html'>More Info</a>
-          </div>
-
-        </div>
-        <hr>
-
-        <div id="car-3" class="inline">
-            <a href='car.html'>
-              <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
-            </a>          <div class="car-info">
-            <p>BodyType: <span class="bodytype">Car</span></p>
-            <p>Manufacturer: <span class="manufacturer">Toyota</span></p>
-            <p>Model: <span class="model">vits</span></p>
-            <p>State: <span class="state">new</span></p> 
-            <p>price: <span class="price">2000</span> $</p>
-            <p>Status: <span class="status">Available</span></p>
-          </div>
-
-          <div class="interact-buttons ">  
-            <button class="big-button" onclick="unhide('#purchase-form')">Purchase</button>
-            <button onclick="unhide('#report-form')">report</button>
-            <a class='button-link' link href='car.html'>More Info</a>
-          </div>
-          
-        </div>
-        <hr>
-      </main>
-
-    </div>
-
-    <div class="bg-modal">
-      <div class="form">
             
-        <div class="close" onclick="hide('.bg-modal'), hide('#register-form')">+</div>
+          </div>
+          <hr>
+        </main>
 
-        <form id ="register-form">
-          <h2 class="white">Sign up</h2>
-          <input id= "fname" type="text" placeholder="First Name" required>
-          <input id="lname" type= "text" placeholder="Second Name" required>
-          <input id="email" type="text" placeholder="E-mail" required>
-          <input id="password"type="password" placeholder="password" required>
-          <input id="password-again"type="password" placeholder="Re-enter password" required>
-          <button onclick="hide('.bg-modal'), hide('#register-form')">Create</button><br>
-          <a href="#" onclick="hide('#register-form'), unhide('#login-form')">Already Registered? Login</a>
-        </form>
-
-        <form id="login-form">
-          <h2 class="white">Log In</h2>
-          <input id="email" type="text" placeholder="E-mail" required>
-          <input id="password"type="password" placeholder="password" required>
-          <button onclick="hide('.bg-modal')">Submit</button><br><br>
-          <a href="#" onclick="hide('#login-form'), unhide('#register-form')" >New user? Sign-up</a>
-        </form>        
       </div>
-    </div>
-    </div>  
+
+      <div class="bg-modal">
+        <div class="form">
+              
+          <div class="close" onclick="hide('.bg-modal'), hide('#register-form')">+</div>
+
+          <form id ="register-form">
+            <h2 class="white">Sign up</h2>
+            <input id= "fname" type="text" placeholder="First Name" required>
+            <input id="lname" type= "text" placeholder="Second Name" required>
+            <input id="email" type="text" placeholder="E-mail" required>
+            <input id="password"type="password" placeholder="password" required>
+            <input id="password-again"type="password" placeholder="Re-enter password" required>
+            <button onclick="hide('.bg-modal'), hide('#register-form')">Create</button><br>
+            <a href="#" onclick="hide('#register-form'), unhide('#login-form')">Already Registered? Login</a>
+          </form>
+
+          <form id="login-form">
+            <h2 class="white">Log In</h2>
+            <input id="email" type="text" placeholder="E-mail" required>
+            <input id="password"type="password" placeholder="password" required>
+            <button onclick="hide('.bg-modal')">Submit</button><br><br>
+            <a href="#" onclick="hide('#login-form'), unhide('#register-form')" >New user? Sign-up</a>
+          </form>        
+        </div>
+      </div>
+      
+    </div> 
+    
+    <footer>
+      <p>Email: automart@yahoo.com </p>
+      <p>Contact: 0232334343</p>
+    </footer>
   </body>
 </html>

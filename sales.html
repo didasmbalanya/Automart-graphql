@@ -14,33 +14,34 @@
 
   <body>
 
-    <header>
-      <h1><a href="index.html">AUTOMART DEALERS</a></h1>
-      <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="#">My Sales</a></li>
-        <li><a href="purchase.html">Purchase Orders</a></li>
-        <li><a href="index.html">Log Out</a></li>
-      </ul>
-      </nav>
-    </header>
+    <div class="main-content">
+      <header>
+        <h1><a href="index.html">AUTOMART DEALERS</a></h1>
+        <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="#">My Sales</a></li>
+          <li><a href="purchase.html">Purchase Orders</a></li>
+          <li><a href="index.html">Log Out</a></li>
+        </ul>
+        </nav>
+      </header>
 
-    <div class="sidebar">
+      <div class="sidebar">
 
-      <form id ="change-price-form">
-        <div class="close" onclick="hide('#change-price-form')">+</div>
-        <label for="new-price">
-          <input type="number" id="new-price" placeholder="New sale price" min="0" value="new-price">
-          <button onclick="priceChange('price'), hide('#change-price-form');">Submit</button>
-        </label>
-      </form> 
-    </div>
+        <form id ="change-price-form">
+          <div class="close" onclick="hide('#change-price-form')">+</div>
+          <label for="new-price">
+            <input type="number" id="new-price" placeholder="New sale price" min="0" value="new-price">
+            <button onclick="priceChange('price'), hide('#change-price-form');">Submit</button>
+          </label>
+        </form> 
+      </div>
 
-    <div class="content">
-      <main>
-        <h2>My sales</h2>
+      <div class="content">
+        <main>
+          <h2>My sales</h2>
           <div id="car-3" class="inline">
             <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
             <div class="car-info">
@@ -57,12 +58,18 @@
               <button class="sold" onclick="hide('#car-3-buttons'), markSold('status')">Mark as sold</button>
             </div>
           </div>
-        <hr>
-      </main>
+          <hr>
+        </main>
+      </div>
     </div>
+
+    <footer>
+      <p>Email: automart@yahoo.com </p>
+      <p>Contact: 0232334343</p>
+    </footer>
   
   </body>
-  </html>
+</html>
 
 
     

@@ -1,3 +1,13 @@
+body{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content{
+  flex-grow: 1;
+}
+
 .slide{
     overflow: hidden;
     height:300px;
@@ -81,4 +91,8 @@
     width:200px;
     margin-right: 20px;
   }
+}
+
+a:hover {
+  font-weight: unset;
 }
