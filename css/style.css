@@ -1,0 +1,355 @@
+body {
+  font-family: Arial, sans-serif;
+  background-image: url("https://i.pinimg.com/474x/de/0f/4b/de0f4bf6e8075312a6eb20ad7044571a--car-images-hd-wallpaper.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right;
+  position: relative;
+  padding:0;
+  margin:0;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content{
+  flex-grow: 1;
+}
+
+.content{
+  height:700px;
+  background-color: transparent;
+  margin-top:-15px;
+}
+
+.sidebar{
+  width:300px;
+  height:100%;
+  background-color: black;
+  float:right;
+  padding-bottom: 10px;
+  position: relative;
+}
+
+button{
+  text-transform: uppercase;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover{
+  background: orange;
+}
+
+header {
+  width:100%;
+  height:110px;
+  font-family:verdana;
+  border: 1px solid gray;
+  color:#ffffff;
+  background:black;
+  margin-bottom: 20px;
+  border-bottom: 3px orange solid;
+  min-height: 70px;
+}
+
+header h1 a{
+  text-decoration-line: none;
+  margin-left: 20px;
+  color:white;
+  
+}
+
+nav{
+  float:right;
+  margin-right: 20px;
+  
+}
+  
+nav ul {
+  margin: 0;
+  padding: 0;
+}
+header li {
+  display: inline;
+  padding:0 10px 0 10px;  
+}
+  
+a:hover{
+  color:orange;
+  font-weight: bold;
+}
+  
+header a{
+  color: inherit;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.filter{
+  background-color:black;
+  width:50%;
+  height:50px;
+  margin: 30px 20% 0 20%;
+  padding-left: 5px;
+}
+
+.filter form{
+  margin: 20px 0 0 10px; 
+  padding-top:10px;
+}
+main {
+  padding:0 10% 0 10%; 
+}
+  
+main img{
+  width:200px;
+  margin-right:10px;
+  border-radius: 50%;
+  border: 3px black solid;
+}
+
+footer{
+  background: black;
+  color:white;
+  text-align: center;
+}
+  
+.car-info {
+  font-size:15px;
+  line-height:0.4;
+  background-color:black;
+  width:200px;
+  color:orange;
+  padding:0 0 0 5px;
+  border-radius: 5%;
+  border: 3px solid white;
+  height: 100%;
+
+}
+
+.car-info span{
+  color:white;
+  font-weight: bold;
+}
+
+.inline{
+  display:flex;
+  height:150px;
+}
+
+hr{
+  margin-top: 10px;
+}
+
+.bg-modal{
+  width: 100%;
+  height:100%;
+  background-color: black;
+  opacity:0.9;
+  position: absolute;
+  top:0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.form{
+  width: 500px;
+  height:400px;
+  background-color:darkorange;
+  border-radius:4px;
+  text-align: center;
+  padding:20px;
+  position:relative;
+  color:black;
+  font-family: sans-serif;
+}
+
+.close{
+  position: absolute;
+  top:0;
+  right:14px;
+  font-size: 42px;
+  transform:rotate(45deg);
+  cursor: pointer;
+  
+}
+
+#login-form{
+  width: 500px;
+  height:300px;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+#register-form{
+  width: 500px;
+  height:300px;
+  justify-content: center;
+  align-items: center;
+  display:none;
+  
+}
+
+.form input{
+  background: #f2f2f2;
+  width: 50%;
+  display:block;
+  margin: 15px auto;
+  font-size: 14px;
+  padding: 10px;
+}
+
+.white{
+  color:white;
+}
+
+.form a{
+  color:white;
+  padding: 5px;
+}
+
+form a:hover{
+  color:orange;
+}
+
+
+
+#sell-form{
+  width: 200px;
+  height:300px;
+  color:orange;
+  padding-left: 20px;
+  display: none;
+}
+
+#sell-form input{
+  padding:5px;
+  margin:5px;
+  font-size: 15px;
+}
+
+.big-button:hover{
+  transform: scale(1.5);
+}
+
+.big-button {
+  align-items: center;
+  height:40px;
+  margin-top:20px;
+}
+
+.body-type{
+  display:flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+
+#purchase-form{
+  width:200px;
+  color:orange;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0 10px 10px;
+  margin-left: 20px;
+  border: 2px solid black;
+  border-radius:5%;
+  display: none;
+}
+
+#purchase-form input, #modify-po-form input, #change-price-form input, #report-form textarea{
+  width:50%;
+  display: block;
+  margin:10px 0 10px 0;
+}
+
+.interact-buttons button{
+  display: block;
+  margin:20px 0 10px 50px;
+  
+}
+
+#report-form{
+  color:orange;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0 10px 10px;
+  margin-left: 20px;
+  width:100%;
+  display: none;
+}
+
+#submit-feedback{
+  color:white;
+  margin: 30px;
+  display:none;
+}
+
+.button-link{
+  background-color:lightgray;
+  padding:5px;
+  text-align: center;
+  border: 1px solid black;
+  margin: 30px 0 0 50px;
+  text-decoration:none; 
+}
+
+
+.button-link:hover{
+  color:black;
+  background: orange;
+}
+
+.highlight{
+  color:orange;
+}
+
+/*Media Queries*/
+@media(max-width: 768px){
+  body{
+    background: lightgray;
+  }
+  header{
+    padding-bottom: 30px;
+  }
+
+  nav{
+    float:none;
+    text-align: center;
+    padding:unset;
+    margin:unset;
+  }
+
+  .sidebar{
+    float:none;
+  }
+
+  .big-button{
+    padding: unset;
+    height:unset;
+  }
+
+  .filter{
+    display:unset;
+  }
+
+  .inline img{
+    width:100px;
+  }
+
+  .inline {
+    width:100%;
+    display: unset;
+  }
+}
+
+
+
+
+
