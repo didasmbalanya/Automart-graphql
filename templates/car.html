@@ -14,28 +14,26 @@
 
   <body>
 
-    <div class="main-container">
-      <header>
-        <h1><a href="index.html">AUTOMART DEALERS</a></h1>
-        <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="sales.html">My Sales</a></li>
-          <li><a href="purchase.html">Purchase Orders</a></li>
-          <li><a href="#" id ="login" onclick="bgUnhide('.bg-modal'), unhide('#login-form')">login/Register</a></li>
-        </ul>
-        </nav>
-      </header>
-    
-      <div id='pic'>
-          <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
-      </div>
-    
-      <div id="content">
+    <header>
+      <h1><a href="index.html">AUTOMART DEALERS</a></h1>
+      <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="sales.html">My Sales</a></li>
+        <li><a href="purchase.html">Purchase Orders</a></li>
+        <li><a href="#" id ="login" onclick="bgUnhide('.bg-modal'), unhide('#login-form')">login/Register</a></li>
+      </ul>
+      </nav>
+    </header>
 
-        <div class='sidebar'>
-          <div id="purchase-form">
+    <div id='pic'>
+        <img  src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="CAR MODEL Z">
+    </div>
+
+    <div id="content">
+      <div class='sidebar'>
+        <div id="purchase-form">
             <div class="close" onclick="hide('#purchase-form')">+</div>
             <form action="purchase.html">
               <label>Purchase Order</label>
@@ -43,7 +41,7 @@
               <button onclick="hide('#purchase-form')">Submit</button>
             </form>
           </div>
-      
+    
           <div id="report-form">
             <div class="close" onclick="hide('#report-form')">+</div>
             <form report='false'>
@@ -52,36 +50,28 @@
               <button type="button" onclick="hide('#report-form'), unhide('#submit-feedback')">Submit</button>
             </form>
           </div>
-      
+    
           <div id='submit-feedback' >
             <p>Your Submission has been recieved.</p>
             <p>Thank you</p>
             <button onclick= "hide('#submit-feedback')">close</button>
           </div>
-        </div>
-
-        <div class="car-details">
-          <p>Advert post date: <span id='created-on'></span></p>
-          <p>Car id: <span id='id'>001</span></p>
-          <p>State: <span id='state'>New</span></p>
-          <p>Status: <span id='status'>Available</span></p>
-          <p>Body Type: <span id='body-type'>Truck</span></p>
-          <p>Maunfacturer: <span id='manufacturer'>Toyota</span></p>
-          <p>Model: <span id='model'>Probox</span></p>
-          <p>Car price: <span id='price'>2000</span>$</p>
-        </div>
-  
-        <div class="interact-buttons ">  
-            <button class="big-button" onclick="unhide('#purchase-form')">Purchase</button>
-            <button onclick="unhide('#report-form')">report</button>
-        </div>
       </div>
-    </div>
+      <div class="car-details">
+        <p>Advert post date: <span id='created-on'></span></p>
+        <p>Car id: <span id='id'>001</span></p>
+        <p>State: <span id='state'>New</span></p>
+        <p>Status: <span id='status'>Available</span></p>
+        <p>Body Type: <span id='body-type'>Truck</span></p>
+        <p>Maunfacturer: <span id='manufacturer'>Toyota</span></p>
+        <p>Model: <span id='model'>Probox</span></p>
+        <p>Car price: <span id='price'>2000</span>$</p>
+      </div>
 
-    <footer>
-        <p>Email: automart@yahoo.com </p>
-        <p>Contact: 0232334343</p>
-    </footer>
-    
+      <div class="interact-buttons ">  
+          <button class="big-button" onclick="unhide('#purchase-form')">Purchase</button>
+          <button onclick="unhide('#report-form')">report</button>
+        </div>
+    </div>
   </body>
 </html>

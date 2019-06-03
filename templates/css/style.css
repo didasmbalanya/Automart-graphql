@@ -7,14 +7,6 @@ body {
   position: relative;
   padding:0;
   margin:0;
-
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.main-content{
-  flex-grow: 1;
 }
 
 .content{
@@ -108,12 +100,6 @@ main img{
   margin-right:10px;
   border-radius: 50%;
   border: 3px black solid;
-}
-
-footer{
-  background: black;
-  color:white;
-  text-align: center;
 }
   
 .car-info {

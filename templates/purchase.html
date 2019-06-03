@@ -13,61 +13,51 @@
   </head>
 
   <body>
-    <div class = "main-content">
 
-      <header>
-        <h1><a href="index.html">AUTOMART DEALERS</a></h1>
-        <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="sales.html">My Sales</a></li>
-          <li><a href="#">Purchase Orders</a></li>
-          <li><a href="index.html">logout</a></li>
-        </ul>
-        </nav>
-      </header>
-
-      <div class="sidebar">
+    <header>
+      <h1><a href="index.html">AUTOMART DEALERS</a></h1>
+      <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="sales.html">My Sales</a></li>
+        <li><a href="#">Purchase Orders</a></li>
+        <li><a href="index.html">logout</a></li>
+      </ul>
+      </nav>
+    </header>
+    <div class="sidebar">
 
         <div id="modify-po-form">
-          <div class="close" onclick="hide('#modify-po-form')">+</div>
-          <form >
-            <label>Modify Purchase Order</label>
-            <input type="number" min="1" value="new-price" id="new-price" placeholder="New price" required>
-            <button onclick=" priceChange('po-price'), hide('#modify-po-form')">Submit</button>
-          </form>
-        </div>
-
-      </div>
-
-      <div class="content">
-        <main>
-          <h2>Purchase Orders</h2>
-          <div id="car-id" class=" inline">
-            <div class="car-info">
-              <p>Car id: <span>001</span></p>
-              <p>Body Type: <span>Truck</span></p>
-              <p>Maunfacturer: <span>Toyota</span></p>
-              <p>Model: <span>Probox</span></p>
-              <p>Car price: <span>2000</span>$</p>
-              <p>P.O price: <span id="po-price">1800</span>$</p>
-            </div>
-
-            <div class="interact-buttons ">  
-              <button class="big-button" onclick="unhide('#modify-po-form')">Modify Purchase price</button>
-              <button onclick="hide('car-id')">cancel purchase order</button>
-            </div>
+            <div class="close" onclick="hide('#modify-po-form')">+</div>
+            <form >
+              <label>Modify Purchase Order</label>
+              <input type="number" min="1" value="new-price" id="new-price" placeholder="New price" required>
+              <button onclick=" priceChange('po-price'), hide('#modify-po-form')">Submit</button>
+            </form>
           </div>
-          <hr>
 
-        </main>
-      </div>
     </div>
 
-    <footer>
-      <p>Email: automart@yahoo.com </p>
-      <p>Contact: 0232334343</p>
-    </footer>
-  </body>
-</html>
+    <div class="content">
+      <main>
+        <h2>Purchase Orders</h2>
+        <div id="car-id" class=" inline">
+          <div class="car-info">
+            <p>Car id: <span>001</span></p>
+            <p>Body Type: <span>Truck</span></p>
+            <p>Maunfacturer: <span>Toyota</span></p>
+            <p>Model: <span>Probox</span></p>
+            <p>Car price: <span>2000</span>$</p>
+            <p>P.O price: <span id="po-price">1800</span>$</p>
+          </div>
+
+          <div class="interact-buttons ">  
+            <button class="big-button" onclick="unhide('#modify-po-form')">Modify Purchase price</button>
+            <button onclick="hide('car-id')">cancel purchase order</button>
+          </div>
+        </div>
+        <hr>
+
+      </main>
+    </div>
