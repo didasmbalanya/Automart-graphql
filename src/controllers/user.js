@@ -1,12 +1,17 @@
 /* eslint-disable linebreak-style */
-const users = require('../models/user');
+import users from '../models/user';
 
-const getAllUsers = (req, res) => {
-  try {
-    res.status(200).send(users);
-  } catch (e) {
-    res.status(500).send(e);
-  }
+export const signup = (req, res) => {
+  users.push(req.body);
+  res.status(200).send(users);
 };
 
-module.exports = getAllUsers;
+export const signin = (req, res) => {
+  const { email, password } = req.body;
+  const foundUser = users.find(user => user.email === email);
+  if (foundUser.password === password) {
+    res.status(200).send(foundUser);
+  } else {
+    res.status(404).send('nothing');
+  }
+};

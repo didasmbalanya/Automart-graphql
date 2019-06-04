@@ -1,4 +1,6 @@
 /* eslint-disable linebreak-style */
+
+
 const cars = [
   {
     id: 'Integer',
@@ -14,4 +16,4 @@ const cars = [
 
 ];
 
-module.exports = cars;
+export default cars;

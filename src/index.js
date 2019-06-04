@@ -4,11 +4,9 @@ import express from 'express';
 import { json, urlencoded } from 'body-parser';
 import userRouter from './routes/user';
 
-require("../lib/babel-node");
-
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 
 app.use(json());
 app.use(urlencoded({ extended: true }));

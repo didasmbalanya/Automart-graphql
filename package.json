@@ -5,11 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "nodemon --exec ./node_modules/@babel/node/bin/babel-node src/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/didasmbalanya/AutoMart.git"
+    "start": "nodemon --exec babel-node src/index.js"
   },
   "keywords": [],
   "author": "",

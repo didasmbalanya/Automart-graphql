@@ -1,9 +1,10 @@
 /* eslint-disable linebreak-style */
-const express = require('express');
-const getUsers = require('../controllers/user');
+import express from 'express';
+import { signup, signin } from '../controllers/user';
 
-const router = new express.Router();
+const router = express.Router();
 
-router.get('/users', getUsers);
+router.post('/api/v1/auth/signup', signup);
+router.post('/api/v1/auth/signin', signin);
 
-module.exports = router;
+export default router;
