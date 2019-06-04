@@ -1,9 +1,18 @@
 /* eslint-disable linebreak-style */
-import users from '../models/user';
+import Joi from '@hapi/joi';
+import { users, signUnSchema } from '../models/user';
 
 export const signup = (req, res) => {
-  users.push(req.body);
-  res.status(200).send(users);
+  Joi.validate(req.body, signUnSchema).then(() => {
+    const isAdmin = req.body.is_admin || false;
+    const id = users.length + 1;
+    req.body.id = id;
+    req.body.is_admin = isAdmin;
+    users.push(req.body);
+    res.status(201).send(req.body);
+  }).catch((e) => {
+    res.status(422).send(e.details[0].message);
+  });
 };
 
 export const signin = (req, res) => {
