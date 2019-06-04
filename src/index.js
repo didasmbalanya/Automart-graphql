@@ -1,14 +1,17 @@
 /* eslint-disable linebreak-style */
-const express = require('express');
-const bodyParser = require('body-parser');
-const userRouter = require('./routes/user');
+
+import express from 'express';
+import { json, urlencoded } from 'body-parser';
+import userRouter from './routes/user';
+
+require("../lib/babel-node");
 
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(json());
+app.use(urlencoded({ extended: true }));
 
 app.use(userRouter);
 
