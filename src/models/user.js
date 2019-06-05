@@ -1,25 +1,26 @@
 /* eslint-disable linebreak-style */
 import Joi from '@hapi/joi';
 
-export const signUnSchema = Joi.object().keys({
-  first_name: Joi.string().min(2).max(30).required(),
-  last_name: Joi.string().min(2).max(30).required(),
-  address: Joi.number().integer().min(1900).max(2013),
-  email: Joi.string().email({ minDomainSegments: 2 }).required(),
-  is_admin: Joi.boolean().default(false),
-  password: Joi.string().min(7).required().strict(),
-  confirm_password: Joi.string().valid(Joi.ref('password')).required().strict(),
-});
-
 export const users = [
   {
-    id: 'Integer',
-    email: 'String',
-    first_name: 'String',
-    last_name: 'String',
-    password: 'Stringlk',
-    address: 'String',
+    id: '1',
+    email: 'obiOneKanobi@gmail.com',
+    first_name: 'ObiOne',
+    last_name: 'Kanobi',
+    password: 'obionekanobi',
+    address: 'Azgrad',
     is_admin: 'Boolean',
   },
 
 ];
+
+const availableEmails = users.map(user => user.email);
+export const signUnSchema = Joi.object().keys({
+  first_name: Joi.string().min(2).max(30).required(),
+  last_name: Joi.string().min(2).max(30).required(),
+  address: Joi.string().min(2).max(50),
+  email: Joi.string().invalid(availableEmails).email({ minDomainSegments: 2 }).required(),
+  is_admin: Joi.boolean().default(false),
+  password: Joi.string().min(7).required().strict(),
+  confirm_password: Joi.string().valid(Joi.ref('password')).required().strict(),
+});
