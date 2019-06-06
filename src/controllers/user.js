@@ -34,3 +34,7 @@ export const signin = (req, res) => {
     res.status(404).send('nothing');
   }
 };
+
+export const getUsers = (req, res) => {
+  res.send(users)
+}
