@@ -1,13 +1,13 @@
 /* eslint-disable linebreak-style */
 import express from 'express';
-import { getCars } from '../controllers/car';
+import { getCars, getCarById } from '../controllers/car';
 // import { auth } from '../middlewear/auth';
 // const auth = require('../middlewear/auth');
 
 const router = express.Router();
 
 router.get('/api/v1/car/', getCars);
-// router.get('/api/v1/car/:id/', getCarById);
+router.get('/api/v1/car/:id/', getCarById);
 router.get('/api/v1/car?status=available');
 router.get('/api/v1/car?status=available&min_price=XXXValue&max_price=XXXValue');
 router.get('/api/v1/car?status=available&state=new');
