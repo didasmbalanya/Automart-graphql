@@ -1,5 +1,12 @@
 /* eslint-disable linebreak-style */
-import { cars } from '../models/car';
+import Joi from '@hapi/joi';
+import { cars, carSchema } from '../models/car';
+
+export const postCar = (req, res) => {
+  Joi.validate(req.body, carSchema).then(() => {
+    res.send(req.body);
+  }).catch();
+};
 
 export const getCars = (req, res) => {
   if (cars.length >= 1) {

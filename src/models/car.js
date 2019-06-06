@@ -18,12 +18,12 @@ export const cars = [
 ];
 
 const availableCars = cars.map(car => car.model);
-export const CarSchema = Joi.object().keys({
+export const carSchema = Joi.object().keys({
   state: Joi.string().valid(['new', 'used']).required(),
   status: Joi.string().valid(['sold', 'available']).default('available'),
   price: Joi.number().min(1).max(100000000000)
     .required(),
   manufacturer: Joi.string(),
-  model: Joi.string().invalid(availableCars).required(),
+  model: Joi.string().required(),
   body_type: Joi.string().required(),
 });
