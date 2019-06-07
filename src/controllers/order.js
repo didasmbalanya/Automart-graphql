@@ -7,8 +7,10 @@ export const postOrder = (req, res) => {
   Joi.validate(req.body, purchaseOrderSchema).then(() => {
     const order = req.body;
     order.id = orders.length + 1;
-    order.car_id = req.body.id;
+    order.car_id = req.body.id; // temporary values
     order.created_on = Date();
+    order.status = 'pending';
+    order.buyer = 1; // temporary
     if (!order.price_offered) order.price_offered = req.body.price;
     orders.push(order);
     res.status(201).send(order);
