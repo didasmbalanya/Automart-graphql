@@ -3,6 +3,14 @@
 import Joi from '@hapi/joi';
 import { cars, carSchema } from '../models/car';
 
+const findCar = (id) => {
+  const foundCar = cars.find(car => car.id.toString() === id);
+  if (!foundCar) {
+    return false;
+  }
+  return foundCar;
+};
+
 export const postCar = (req, res) => {
   Joi.validate(req.body, carSchema).then(() => {
     const car = req.body;
@@ -19,6 +27,21 @@ export const postCar = (req, res) => {
   });
 };
 
+export const changeStatus = (req, res) => {
+  const { id, status } = req.params;
+  const foundCar = findCar(id);
+  if (!foundCar) {
+    return res.status(404).send('Car not found');
+  }
+  if (status.toLowerCase() === 'sold' || status.toLowerCase() === 'available') {
+    const carIndex = cars.indexOf(foundCar);
+    cars[carIndex].status = status.toLowerCase();
+    res.send(cars[carIndex]);
+  } else {
+    res.status(422).send('Invalid request');
+  }
+};
+
 export const getCars = (req, res) => {
   if (cars.length >= 1) {
     return res.status(200).send(cars);
@@ -28,9 +51,7 @@ export const getCars = (req, res) => {
 
 export const getCarById = (req, res) => {
   const { id } = req.params;
-  const foundCar = cars.find(car => car.id.toString() === id);
-  if (!foundCar) {
-    res.status(404).send('car not found');
-  }
-  res.status(200).send(foundCar);
+  const foundCar = findCar(id, res);
+  if (foundCar) res.status(200).send(foundCar);
+  else res.status(404).send('Car not found');
 };
