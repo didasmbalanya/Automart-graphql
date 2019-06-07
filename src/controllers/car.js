@@ -5,6 +5,7 @@ import { cars, carSchema } from '../models/car';
 
 const findCar = (id) => {
   const foundCar = cars.find(car => car.id.toString() === id);
+
   if (!foundCar) {
     return false;
   }
@@ -27,18 +28,26 @@ export const postCar = (req, res) => {
   });
 };
 
-export const changeStatus = (req, res) => {
-  const { id, status } = req.params;
+export const changeProperty = (req, res) => {
+  const { id } = req.params;
+  const { status, price } = req.query;
   const foundCar = findCar(id);
+
   if (!foundCar) {
     return res.status(404).send('Car not found');
   }
-  if (status.toLowerCase() === 'sold' || status.toLowerCase() === 'available') {
-    const carIndex = cars.indexOf(foundCar);
-    cars[carIndex].status = status.toLowerCase();
-    res.send(cars[carIndex]);
+  if (!price) {
+    if (status.toLowerCase() === 'sold' || status.toLowerCase() === 'available') {
+      const carIndex = cars.indexOf(foundCar);
+      cars[carIndex].status = status.toLowerCase();
+      res.status(204).send(cars[carIndex]);
+    } else {
+      return res.status(422).send('Invalid request');
+    }
   } else {
-    res.status(422).send('Invalid request');
+    const carIndex = cars.indexOf(foundCar);
+    cars[carIndex].price = price;
+    return res.status(204).send(cars[carIndex]);
   }
 };
 
