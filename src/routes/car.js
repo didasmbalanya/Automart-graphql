@@ -2,7 +2,7 @@
 import express from 'express';
 // eslint-disable-next-line import/named
 import {
-  getCars, getCarById, postCar, changeProperty,
+  getCars, getCarById, postCar, changeProperty, deleteCar,
 // eslint-disable-next-line import/named
 } from '../controllers/car';
 // import { auth } from '../middlewear/auth';
@@ -20,7 +20,7 @@ router.get('/api/v1/car?body_type=bodyType');
 router.get('/api/v1/car?status=available&manufacturer=XXXValue');
 router.post('/api/v1/car', postCar);
 router.patch('/api/v1/car/:id', changeProperty);
-router.delete('api/v1/car/<:car_id>/');
+router.delete('/api/v1/car/:id', deleteCar);
 
 
 export default router;
