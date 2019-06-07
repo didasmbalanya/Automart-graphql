@@ -64,3 +64,5 @@ export const getCarById = (req, res) => {
   if (foundCar) res.status(200).send(foundCar);
   else res.status(404).send('Car not found');
 };
+
+export const deleteCar = 1
