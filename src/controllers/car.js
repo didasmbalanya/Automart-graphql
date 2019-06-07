@@ -40,22 +40,15 @@ export const changeProperty = (req, res) => {
     if (status.toLowerCase() === 'sold' || status.toLowerCase() === 'available') {
       const carIndex = cars.indexOf(foundCar);
       cars[carIndex].status = status.toLowerCase();
-      res.status(204).send(cars[carIndex]);
+      res.status(200).send(cars[carIndex]);
     } else {
       return res.status(422).send('Invalid request');
     }
   } else {
     const carIndex = cars.indexOf(foundCar);
     cars[carIndex].price = price;
-    return res.status(204).send(cars[carIndex]);
+    return res.status(200).send(cars[carIndex]);
   }
-};
-
-export const getCars = (req, res) => {
-  if (cars.length >= 1) {
-    return res.status(200).send(cars);
-  }
-  res.send(404).send('cars not found');
 };
 
 export const getCarById = (req, res) => {
@@ -65,4 +58,18 @@ export const getCarById = (req, res) => {
   else res.status(404).send('Car not found');
 };
 
-export const deleteCar = 1
+export const deleteCar = (req, res) => {
+  const { id } = req.params;
+  const foundCar = findCar(id);
+  if (!foundCar) return res.status(404).send('Car add not found');
+  const carIndex = cars.indexOf(foundCar);
+  cars.splice(carIndex, 1);
+  return res.status(200).send('“Car Ad successfully deleted');
+};
+
+export const getCars = (req, res) => {
+  if (cars.length >= 1) {
+    return res.status(200).send(cars);
+  }
+  res.send(404).send('cars not found');
+};
