@@ -8,7 +8,7 @@ import { signUnSchema, users } from '../models/user';
 
 export const signup = (req, res) => {
   Joi.validate(req.body, signUnSchema).then(() => {
-    const { email, password, id } = req.body;
+    const { email, password } = req.body;
     const foundUser = users.find(user => user.email === email);
     if (foundUser) {
       return res.status(422).send('already signed up with email address');
