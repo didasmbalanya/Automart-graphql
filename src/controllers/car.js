@@ -42,6 +42,10 @@ export const changeStatus = (req, res) => {
   }
 };
 
+export const updatePrice = () => {
+
+};
+
 export const getCars = (req, res) => {
   if (cars.length >= 1) {
     return res.status(200).send(cars);
