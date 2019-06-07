@@ -19,6 +19,8 @@ export const postCar = (req, res) => {
   });
 };
 
+export const changeStatus = ();
+
 export const getCars = (req, res) => {
   if (cars.length >= 1) {
     return res.status(200).send(cars);
