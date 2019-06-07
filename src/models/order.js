@@ -1,12 +1,18 @@
 /* eslint-disable linebreak-style */
-const orders = [
+import Joi from '@hapi/joi';
+
+export const orders = [
   {
-    id: 'Integer',
-    buyer: 'Integer', // user id
-    car_id: 'Integer',
-    amount: 'Float', // price offered
+    id: 1,
+    buyer: 1, // user id
+    car_id: 1,
+    price: 'Float', // price offered
     status: 'String', // [pending, accepted, or rejected]
   },
-
 ];
-export default orders;
+
+export const purchaseOrderSchema = Joi.object().keys({
+  price: Joi.number().min(1).required(),
+  price_offered: Joi.number().min(1).required(),
+  status: Joi.string().valid(['pending', 'accepted', 'rejected']),
+});
