@@ -23,4 +23,23 @@ export const postOrder = (req, res) => {
   });
 };
 
-export const one = 1;
+export const updateOrder = (req, res) => {
+  if (req.query.price) {
+    const { id } = req.params;
+    const { price } = req.query;
+    const foundOrder = orders.find(order => order.id.toString() === id);
+    if (foundOrder) {
+      const orderIndex = orders.indexOf(foundOrder);
+      orders[orderIndex].new_price_offered = price;
+      const order = orders[orderIndex];
+      res.status(204).send(order);
+    }
+  }
+};
+
+export const getOrderById = (req, res) => {
+  const { id } = req.params;
+  const foundOrder = orders.find(order => order.id.toString() === id);
+  if (foundOrder) return res.status(200).send(foundOrder);
+  res.status(404).send('order not found');
+};
