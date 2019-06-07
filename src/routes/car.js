@@ -1,7 +1,9 @@
 /* eslint-disable linebreak-style */
 import express from 'express';
+// eslint-disable-next-line import/named
 import {
   getCars, getCarById, postCar, changeStatus,
+// eslint-disable-next-line import/named
 } from '../controllers/car';
 // import { auth } from '../middlewear/auth';
 // const auth = require('../middlewear/auth');
@@ -17,7 +19,7 @@ router.get('/api/v1/car?status=available&state=used');
 router.get('/api/v1/car?body_type=bodyType');
 router.get('/api/v1/car?status=available&manufacturer=XXXValue');
 router.post('/api/v1/car', postCar);
-router.patch('/api/v1/:id/status', changeStatus);
+router.patch('/api/v1/car/:id/:status', changeStatus);
 router.patch('/api/v1/:car-id/price');
 router.delete('api/v1/car/<:car_id>/');
 
