@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable camelcase */
 /* eslint-disable consistent-return */
 import Joi from '@hapi/joi';
 import { cars, carSchema } from '../models/car';
@@ -11,6 +12,16 @@ const findCar = (id) => {
   }
   return foundCar;
 };
+
+const findMinPrice = (price, list) => list.filter(
+  car => parseFloat(car.price, 10) >= parseFloat(price, 10),
+);
+
+const findMaxPrice = (price, list) => list.filter(
+  car => parseFloat(car.price, 10) <= parseFloat(price, 10),
+);
+
+const findByStatus = status => cars.filter(car => car.status === status);
 
 export const postCar = (req, res) => {
   Joi.validate(req.body, carSchema).then(() => {
@@ -68,9 +79,15 @@ export const deleteCar = (req, res) => {
 };
 
 export const getCars = (req, res) => {
+  const { min_price, max_price, status } = req.query;
   if (cars.length === 0) return res.send('No cars in the database');
-  const queries = req.query.keys();
-  switch (queries) {
-    case []
+  if (min_price && max_price && status === 'available') {
+    const avaCars = findByStatus(status);
+    const avaCarsMinPrice = findMinPrice(min_price, avaCars);
+    const avaMinMaxCars = findMaxPrice(max_price, avaCarsMinPrice);
+    if (avaMinMaxCars.length > 0) res.status(200).send(avaMinMaxCars);
+    else res.status(404).send('No car with specified filters found');
+  } else {
+    res.status(404).send('not found');
   }
 };

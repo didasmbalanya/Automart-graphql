@@ -13,6 +13,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 /* eslint-disable linebreak-style */
 
+/* eslint-disable camelcase */
+
 /* eslint-disable consistent-return */
 var findCar = function findCar(id) {
   var foundCar = _car.cars.find(function (car) {
@@ -24,6 +26,24 @@ var findCar = function findCar(id) {
   }
 
   return foundCar;
+};
+
+var findMinPrice = function findMinPrice(price, list) {
+  return list.filter(function (car) {
+    return parseFloat(car.price, 10) >= parseFloat(price, 10);
+  });
+};
+
+var findMaxPrice = function findMaxPrice(price, list) {
+  return list.filter(function (car) {
+    return parseFloat(car.price, 10) <= parseFloat(price, 10);
+  });
+};
+
+var findByStatus = function findByStatus(status) {
+  return _car.cars.filter(function (car) {
+    return car.status === status;
+  });
 };
 
 var postCar = function postCar(req, res) {
@@ -99,11 +119,20 @@ var deleteCar = function deleteCar(req, res) {
 exports.deleteCar = deleteCar;
 
 var getCars = function getCars(req, res) {
-  if (_car.cars.length >= 1) {
-    return res.status(200).send(_car.cars);
-  }
+  var _req$query2 = req.query,
+      min_price = _req$query2.min_price,
+      max_price = _req$query2.max_price,
+      status = _req$query2.status;
+  if (_car.cars.length === 0) return res.send('No cars in the database');
 
-  res.send(404).send('cars not found');
+  if (min_price && max_price && status === 'available') {
+    var avaCars = findByStatus(status);
+    var avaCarsMinPrice = findMinPrice(min_price, avaCars);
+    var avaMinMaxCars = findMaxPrice(max_price, avaCarsMinPrice);
+    if (avaMinMaxCars.length > 0) res.status(200).send(avaMinMaxCars);else res.status(404).send('No car with specified filters found');
+  } else {
+    res.status(404).send('not found');
+  }
 };
 
 exports.getCars = getCars;
