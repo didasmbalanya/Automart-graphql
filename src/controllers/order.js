@@ -10,7 +10,7 @@ export const postOrder = (req, res) => {
     order.car_id = req.body.id; // temporary values
     order.created_on = Date();
     order.status = 'pending';
-    order.buyer = 1; // temporary
+    order.buyer = req.user.id; // temporary
     if (!order.price_offered) order.price_offered = req.body.price;
     orders.push(order);
     res.status(201).send(order);
@@ -27,13 +27,14 @@ export const updateOrder = (req, res) => {
   if (req.query.price) {
     const { id } = req.params;
     const { price } = req.query;
-    const foundOrder = orders.find(order => order.id.toString() === id);
-    if (foundOrder) {
-      const orderIndex = orders.indexOf(foundOrder);
+
+    const PurchaseOrder = orders.find(ord => (ord.id.toString() === id));
+    if (PurchaseOrder.buyer === req.user.id) {
+      const orderIndex = orders.indexOf(PurchaseOrder);
       orders[orderIndex].new_price_offered = price;
       const order = orders[orderIndex];
       res.status(204).send(order);
-    }
+    } else res.status(404).send({ error: 'Purchase order not found' });
   }
 };
 

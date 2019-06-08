@@ -26,7 +26,8 @@ const findByStatus = status => cars.filter(car => car.status === status);
 export const postCar = (req, res) => {
   Joi.validate(req.body, carSchema).then(() => {
     const car = req.body;
-    car.id = cars.length + 1;
+    car.Id = cars.length + 1;
+    car.owner = req.user.id;
     car.created_on = Date();
     cars.push(car);
     res.send(car);
