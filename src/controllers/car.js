@@ -68,8 +68,9 @@ export const deleteCar = (req, res) => {
 };
 
 export const getCars = (req, res) => {
-  if (cars.length >= 1) {
-    return res.status(200).send(cars);
+  if (cars.length === 0) return res.send('No cars in the database');
+  const queries = req.query.keys();
+  switch (queries) {
+    case []
   }
-  res.send(404).send('cars not found');
 };
