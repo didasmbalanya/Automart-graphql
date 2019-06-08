@@ -17,7 +17,7 @@ export const signup = (req, res) => {
     req.body.id = users.length + 1;
     req.body.password = bcrtypt.hashSync(password, 8);
     req.body.confirm_password = bcrtypt.hashSync(password, 8);
-    const token = jwt.sign({ id: req.body.id }, secret);
+    const token = jwt.sign({ email }, secret, { expiresIn: '3h' });
     const user = req.body;
     users.push(req.body);
     res.status(201).send({ user, token });
@@ -34,7 +34,7 @@ export const signin = (req, res) => {
   }
 
   if (bcrtypt.compare(password, foundUser.password)) {
-    const token = jwt.sign({ id: foundUser.id }, secret);
+    const token = jwt.sign({ email }, secret, { expiresIn: '3h' });
     res.status(200).send({ user: foundUser, token });
   } else {
     res.status(404).send('nothing');
