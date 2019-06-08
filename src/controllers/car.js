@@ -85,10 +85,13 @@ export const getCars = (req, res) => {
     const avaCars = findByStatus(status);
     const avaCarsMinPrice = findMinPrice(min_price, avaCars);
     const avaMinMaxCars = findMaxPrice(max_price, avaCarsMinPrice);
-    if (avaMinMaxCars.length > 0) res.status(200).send(avaMinMaxCars);
-    else res.status(404).send('No car with specified filters found');
-  } else if (){
-    
+    if (avaMinMaxCars.length > 0) return res.status(200).send(avaMinMaxCars);
+    return res.status(404).send('No car with specified filters found');
+  // eslint-disable-next-line space-in-parens
+  }
+  if (status) {
+    const avaCars = findByStatus(status);
+    res.status(200).send(avaCars);
   } else {
     res.status(404).send('not found');
   }
