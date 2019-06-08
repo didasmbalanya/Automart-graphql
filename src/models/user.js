@@ -9,7 +9,6 @@ export const users = [
     last_name: 'Kanobi',
     password: 'obionekanobi',
     address: 'Azgrad',
-    token: 'dummytoken',
     is_admin: 'Boolean',
   },
 

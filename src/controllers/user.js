@@ -5,6 +5,7 @@ import bcrtypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { signUnSchema, users } from '../models/user';
 
+const { secret } = process.env;
 
 export const signup = (req, res) => {
   Joi.validate(req.body, signUnSchema).then(() => {
@@ -16,7 +17,7 @@ export const signup = (req, res) => {
     req.body.id = users.length + 1;
     req.body.password = bcrtypt.hashSync(password, 8);
     req.body.confirm_password = bcrtypt.hashSync(password, 8);
-    const token = jwt.sign({ id: req.body.id }, 'mysecret');
+    const token = jwt.sign({ id: req.body.id }, secret);
     const user = req.body;
     users.push(req.body);
     res.status(201).send({ user, token });
@@ -33,7 +34,8 @@ export const signin = (req, res) => {
   }
 
   if (bcrtypt.compare(password, foundUser.password)) {
-    res.status(200).send(foundUser);
+    const token = jwt.sign({ id: foundUser.id }, secret);
+    res.status(200).send({ user: foundUser, token });
   } else {
     res.status(404).send('nothing');
   }
