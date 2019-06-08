@@ -10,7 +10,7 @@ import {
 
 const router = express.Router();
 
-router.get('/api/v1/car/', getCars);
+router.get('/api/v1/car', getCars);
 router.get('/api/v1/car/:id/', getCarById);
 router.get('/api/v1/car?status=available');
 router.get('/api/v1/car?status=available&min_price=XXXValue&max_price=XXXValue');

@@ -9,7 +9,7 @@ export const cars = [
     created_on: 'DateTime',
     state: 'new', // new,used
     status: 'available', // sold,available - default is available
-    price: 'Float',
+    price: 150,
     manufacturer: 'String',
     model: 'String',
     body_type: 'String', // car, truck, trailer, van, etc

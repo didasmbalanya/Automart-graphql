@@ -17,7 +17,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 // const auth = require('../middlewear/auth');
 var router = _express["default"].Router();
 
-router.get('/api/v1/car/', _car.getCars);
+router.get('/api/v1/car', _car.getCars);
 router.get('/api/v1/car/:id/', _car.getCarById);
 router.get('/api/v1/car?status=available');
 router.get('/api/v1/car?status=available&min_price=XXXValue&max_price=XXXValue');
