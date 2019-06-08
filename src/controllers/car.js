@@ -93,6 +93,6 @@ export const getCars = (req, res) => {
     const avaCars = findByStatus(status);
     res.status(200).send(avaCars);
   } else {
-    res.status(404).send('not found');
+    res.status(200).send(cars);
   }
 };
