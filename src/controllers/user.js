@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-param-reassign */
 /* eslint-disable consistent-return */
 import Joi from '@hapi/joi';
 import bcrtypt from 'bcrypt';
@@ -7,6 +8,11 @@ import { signUnSchema, users } from '../models/user';
 
 const { secret } = process.env;
 
+const getPublicProfile = (userObject) => {
+  delete userObject.password;
+  delete userObject.confirm_password;
+  return userObject;
+};
 export const signup = (req, res) => {
   Joi.validate(req.body, signUnSchema).then(() => {
     const { email, password } = req.body;
@@ -20,7 +26,7 @@ export const signup = (req, res) => {
     const token = jwt.sign({ email }, secret, { expiresIn: '3h' });
     const user = req.body;
     users.push(req.body);
-    res.status(201).send({ user, token });
+    res.status(201).send({ user: getPublicProfile(user), token });
   }).catch((e) => {
     res.status(422).send(e.details[0].message);
   });
@@ -35,7 +41,7 @@ export const signin = (req, res) => {
 
   if (bcrtypt.compare(password, foundUser.password)) {
     const token = jwt.sign({ email }, secret, { expiresIn: '3h' });
-    res.status(200).send({ user: foundUser, token });
+    res.status(200).send({ user: getPublicProfile(foundUser), token });
   } else {
     res.status(404).send('nothing');
   }

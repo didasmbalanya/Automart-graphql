@@ -11,7 +11,7 @@ export const auth = async (req, res, next) => {
     if (!verifiedUser) {
       throw new Error();
     }
-    req.body.user = verifiedUser;
+    req.user = verifiedUser;
     next();
   } catch (e) {
     res.status(401).send({ error: 'Please Authenticate' });
