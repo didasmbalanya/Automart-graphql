@@ -87,6 +87,8 @@ export const getCars = (req, res) => {
     const avaMinMaxCars = findMaxPrice(max_price, avaCarsMinPrice);
     if (avaMinMaxCars.length > 0) res.status(200).send(avaMinMaxCars);
     else res.status(404).send('No car with specified filters found');
+  } else if (){
+    
   } else {
     res.status(404).send('not found');
   }
