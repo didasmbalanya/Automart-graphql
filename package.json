@@ -7,7 +7,7 @@
     "start": "babel-node dist/index.js",
     "build": "babel src --out-dir dist",
     "dev": "nodemon --exec babel-node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test" :"mocha --require @babel/register 'src/**/**test.js' --exit"
   },
   "keywords": [],
   "author": "",
@@ -31,8 +31,12 @@
     "@babel/register": "^7.4.4"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.17.3"
+    "eslint-plugin-import": "^2.17.3",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1"
   }
 }
