@@ -11,7 +11,7 @@ import {
 const router = express.Router();
 
 router.get('/api/v1/car', getCars);
-router.get('/api/v1/car/:id/', getCarById);
+router.get('/api/v1/car/:id', getCarById);
 router.get('/api/v1/car?status=available&state=new');
 router.get('/api/v1/car?status=available&state=used');
 router.get('/api/v1/car?body_type=bodyType');

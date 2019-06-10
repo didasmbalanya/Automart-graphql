@@ -5,44 +5,43 @@ import Joi from '@hapi/joi';
 import bcrtypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { signUnSchema, users } from '../models/user';
+import { getPublicProfile } from '../utils/user_utils';
 
 const { secret } = process.env;
 
-const getPublicProfile = (userObject) => {
-  delete userObject.password;
-  delete userObject.confirm_password;
-  return userObject;
-};
 export const signup = (req, res) => {
   Joi.validate(req.body, signUnSchema).then(() => {
     const { email, password } = req.body;
     const foundUser = users.find(user => user.email === email);
     if (foundUser) {
-      return res.status(422).send('already signed up with email address');
+      return res.status(422).send({ error: 'already signed up with email address' });
     }
     req.body.id = users.length + 1;
     req.body.password = bcrtypt.hashSync(password, 8);
     req.body.confirm_password = bcrtypt.hashSync(password, 8);
-    const token = jwt.sign({ email }, secret, { expiresIn: '3h' });
-    const user = req.body;
+    req.body.isAdmin = 'false';
+    const token = jwt.sign({ email, admin: req.body.isAdmin }, secret, { expiresIn: '3h' });
     users.push(req.body);
-    res.status(201).send({ user: getPublicProfile(user), token });
+    const user = getPublicProfile(req.body);
+    res.status(201).send({ data: user, token });
   }).catch((e) => {
-    res.status(422).send(e.details[0].message);
+    res.status(422).send(e);
   });
 };
 
 export const signin = (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, isAdmin } = req.body;
   const foundUser = users.find(user => user.email === email);
   if (!foundUser) {
-    return res.status(422).send('Invalid email address');
+    return res.status(422).send({ error: 'Invalid email address' });
   }
 
-  if (bcrtypt.compare(password, foundUser.password)) {
-    const token = jwt.sign({ email }, secret, { expiresIn: '3h' });
-    res.status(200).send({ user: getPublicProfile(foundUser), token });
-  } else {
-    res.status(404).send('nothing');
-  }
+  bcrtypt.compare(password, foundUser.password).then(() => {
+    const token = jwt.sign({ email, isAdmin }, secret, { expiresIn: '3h' });
+    res.status(200).send({ data: getPublicProfile(foundUser), token });
+  }).catch(e => res.status(404).send({ error: 'Wrong credintals', e }));
+};
+
+export const getMe = (req, res) => {
+  res.send(getPublicProfile(req.user));
 };
