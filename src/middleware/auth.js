@@ -1,9 +1,8 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable no-unused-vars */
 import jwt from 'jsonwebtoken';
 import { users } from '../models/user';
 
-export const auth = async (req, res, next) => {
+export const auth = (req, res, next) => {
   try {
     const token = req.header('Authorization').replace('Bearer ', '');
     const decoded = jwt.verify(token, process.env.secret);
@@ -18,6 +17,6 @@ export const auth = async (req, res, next) => {
   }
 };
 
-export const maintenance = async (req, res, next) => {
+export const maintenance = (req, res) => {
   if (req.method) res.status(503).send('Server under Maintenance');
 };

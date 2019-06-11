@@ -48,12 +48,11 @@ export const changeProperty = (req, res) => {
   }
 };
 
-export const getCarById = (req, res) => {
+export const getCarById = async (req, res) => {
   try {
     const { id } = req.params;
     const foundCarId = findCar(id, cars);
-    console.log(foundCarId);
-    res.status(200).send(foundCarId);
+    await res.status(200).send(foundCarId);
   } catch (e) {
     res.status(404).send('Car not found');
   }

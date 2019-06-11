@@ -4,7 +4,6 @@ import { auth } from '../middleware/auth';
 // eslint-disable-next-line import/named
 import {
   getCars, getCarById, postCar, changeProperty, deleteCar,
-// eslint-disable-next-line import/named
 } from '../controllers/car';
 
 
