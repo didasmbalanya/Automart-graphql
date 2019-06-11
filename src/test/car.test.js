@@ -4,7 +4,6 @@ import 'babel-polyfill';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
-import { cars } from '../models/car'
 
 app.use(chaiHttp);
 chai.should();

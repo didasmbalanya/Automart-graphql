@@ -17,7 +17,6 @@ var users = [{
   last_name: 'Kanobi',
   password: 'obionekanobi',
   address: 'Azgrad',
-  token: 'dummytoken',
   is_admin: 'Boolean'
 }];
 exports.users = users;

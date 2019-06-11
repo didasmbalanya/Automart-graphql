@@ -22,7 +22,7 @@ var postOrder = function postOrder(req, res) {
 
     order.created_on = Date();
     order.status = 'pending';
-    order.buyer = 1; // temporary
+    order.buyer = req.user.id; // temporary
 
     if (!order.price_offered) order.price_offered = req.body.price;
 
@@ -45,17 +45,19 @@ var updateOrder = function updateOrder(req, res) {
     var id = req.params.id;
     var price = req.query.price;
 
-    var foundOrder = _order.orders.find(function (order) {
-      return order.id.toString() === id;
+    var PurchaseOrder = _order.orders.find(function (ord) {
+      return ord.id.toString() === id;
     });
 
-    if (foundOrder) {
-      var orderIndex = _order.orders.indexOf(foundOrder);
+    if (PurchaseOrder.buyer === req.user.id) {
+      var orderIndex = _order.orders.indexOf(PurchaseOrder);
 
       _order.orders[orderIndex].new_price_offered = price;
       var order = _order.orders[orderIndex];
       res.status(204).send(order);
-    }
+    } else res.status(404).send({
+      error: 'Purchase order not found'
+    });
   }
 };
 
