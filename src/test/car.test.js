@@ -9,7 +9,6 @@ app.use(chaiHttp);
 chai.should();
 
 describe('Cars', () => {
-
   describe('/GET car requests', () => {
     it('should all cars stored in our dataset', (done) => {
       chai.request(app)

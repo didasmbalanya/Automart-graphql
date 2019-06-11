@@ -1,8 +1,10 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-unused-vars */
+/* eslint-disable camelcase */
 /* eslint-disable no-param-reassign */
 /* eslint-disable consistent-return */
 import Joi from '@hapi/joi';
-import bcrtypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { signUnSchema, users } from '../models/user';
 import { getPublicProfile } from '../utils/user_utils';
@@ -12,34 +14,40 @@ const { secret } = process.env;
 export const signup = (req, res) => {
   Joi.validate(req.body, signUnSchema).then(() => {
     const { email, password } = req.body;
+    let { is_admin } = req.body;
+    if (is_admin !== true) is_admin = false;
     const foundUser = users.find(user => user.email === email);
-    if (foundUser) {
-      return res.status(422).send({ error: 'already signed up with email address' });
-    }
-    req.body.id = users.length + 1;
-    req.body.password = bcrtypt.hashSync(password, 8);
-    req.body.confirm_password = bcrtypt.hashSync(password, 8);
-    req.body.isAdmin = 'false';
-    const token = jwt.sign({ email, admin: req.body.isAdmin }, secret, { expiresIn: '3h' });
-    users.push(req.body);
-    const user = getPublicProfile(req.body);
-    res.status(201).send({ data: user, token });
+    if (!foundUser) {
+      req.body.id = users.length + 1;
+      req.body.password = bcrypt.hashSync(password, 8);
+      req.body.confirm_password = bcrypt.hashSync(password, 8);
+      const isAdmin = is_admin.toString();
+      const token = jwt.sign({ email, isAdmin }, secret, { expiresIn: '3h' });
+      users.push(req.body);
+      const user = getPublicProfile(req.body);
+      res.status(201).send({ data: user, token });
+    } else res.status(422).send('Already signed up user');
   }).catch((e) => {
     res.status(422).send(e);
   });
 };
 
-export const signin = (req, res) => {
+export const signin = async (req, res) => {
   const { email, password, isAdmin } = req.body;
   const foundUser = users.find(user => user.email === email);
   if (!foundUser) {
     return res.status(422).send({ error: 'Invalid email address' });
   }
 
-  bcrtypt.compare(password, foundUser.password).then(() => {
-    const token = jwt.sign({ email, isAdmin }, secret, { expiresIn: '3h' });
-    res.status(200).send({ data: getPublicProfile(foundUser), token });
-  }).catch(e => res.status(404).send({ error: 'Wrong credintals', e }));
+  // eslint-disable-next-line no-shadow
+  bcrypt.compare(password, foundUser.password, (err, result) => {
+    if (err) res.status(404).send('Incorrect credentials');
+    else if (!result) return res.status(404).send('Incorrect credentials');
+    else {
+      const token = jwt.sign({ email, isAdmin }, secret, { expiresIn: '3h' });
+      res.status(200).send({ data: getPublicProfile(foundUser), token });
+    }
+  });
 };
 
 export const getMe = (req, res) => {
