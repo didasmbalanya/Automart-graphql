@@ -72,7 +72,7 @@ describe('Cars', () => {
   });
 
   describe('/DELETE car requests', () => {
-    it('should not be able to  delete car if user is not admin', (done) => {
+    it('should not be able to  delete car if user is not logged in or admin', (done) => {
       chai.request(app)
         .delete('/api/v1/car/1')
         .end((err, res) => {
@@ -81,5 +81,7 @@ describe('Cars', () => {
           done();
         });
     });
+
+    // admin can delete cars
   });
 });

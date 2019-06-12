@@ -28,9 +28,9 @@ export const updateOrder = (req, res) => {
     const { id } = req.params;
     const { price } = req.query;
 
-    const PurchaseOrder = orders.find(ord => (ord.id.toString() === id));
-    if (PurchaseOrder.buyer === req.user.id) {
-      const orderIndex = orders.indexOf(PurchaseOrder);
+    const purchaseOrder = orders.find(ord => (ord.id.toString() === id));
+    if (purchaseOrder.buyer.toString() === req.user.id) {
+      const orderIndex = orders.indexOf(purchaseOrder);
       orders[orderIndex].new_price_offered = price;
       const order = orders[orderIndex];
       res.status(204).send(order);
