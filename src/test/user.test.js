@@ -3,27 +3,41 @@
 
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import jwt from 'jsonwebtoken';
 import app from '../index';
 
 chai.use(chaiHttp);
 chai.should();
 
-const storedUser = {
+export const storedUser = {
 
   email: 'didasmbalanya@gmail.com',
   first_name: 'Strfgfging',
   last_name: 'didsda',
   password: 'passjijij',
   confirm_password: 'passjijij',
+  is_admin: 'false',
 };
+const { secret } = process.env;
+export const token = jwt.sign({ email: storedUser.email, is_admin: storedUser.is_admin }, secret, { expiresIn: '3h' });
 // parent Block
 describe('Users', () => {
   // test GET route
-  describe('/GET api-root page', () => {
+  describe('/GET root page and current logged in user', () => {
     it('should get all the api welcome page', (done) => {
       chai.request(app)
         .get('/')
         .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+    it('should get the currently logged in user after authorization', (done) => {
+      chai.request(app)
+        .get('/api/v1/auth/users/me')
+        .set('Authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          if (err) res.should.have.status(404);
           res.should.have.status(200);
           done();
         });

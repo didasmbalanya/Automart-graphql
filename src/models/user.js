@@ -7,12 +7,16 @@ export const users = [
     email: 'didasmbalanya@gmail.com',
     first_name: 'ObiOne',
     last_name: 'Kanobi',
-    password: '$2b$08$WxQL5DwbwUzxORZcJCDsWuJA5CJmUcrjoaq4V.VfK3W9RVTCUrd0u',
+    password: '$2b$08$WxQL5DwbwUzxORZcJCDsWuJA5CJmUcrjoaq4V.VfK3W9RVTCUrd0u', // obionekanobi
     address: 'Azgrad',
     is_admin: 'false',
   },
-
+/* token-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJlbWFpbCI6ImRpZGFzbWJhbGFueWFAZ21haWwuY29tIiwiaWF0IjoxNTYwMzMwNTkyLCJleHAiOjE1NjAzNDEzOTJ9.
+DhngbDVqaiHgAKGnCID3rcrpWl6CDZJxNkPVUjI1WSk
+*/
 ];
+
 
 export const signUnSchema = Joi.object().keys({
   first_name: Joi.string().min(2).max(30).required(),

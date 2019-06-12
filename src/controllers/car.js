@@ -15,7 +15,7 @@ export const postCar = (req, res) => {
     car.owner = req.user.id;
     car.created_on = Date();
     cars.push(car);
-    res.send(car);
+    res.status(201).send(car);
   }).catch((e) => {
     if (e.details[0].message) {
       res.status(422).send(e.details[0].message);
@@ -37,14 +37,14 @@ export const changeProperty = (req, res) => {
     if (status.toLowerCase() === 'sold' || status.toLowerCase() === 'available') {
       const carIndex = cars.indexOf(foundCar);
       cars[carIndex].status = status.toLowerCase();
-      res.status(200).send(cars[carIndex]);
+      res.status(204).send(cars[carIndex]);
     } else {
       return res.status(422).send('Invalid request');
     }
   } else {
     const carIndex = cars.indexOf(foundCar);
     cars[carIndex].price = price;
-    return res.status(200).send(cars[carIndex]);
+    return res.status(204).send(cars[carIndex]);
   }
 };
 
@@ -59,15 +59,14 @@ export const getCarById = async (req, res) => {
 };
 
 export const deleteCar = (req, res) => {
-  if (req.user.is_admin === 'true') {
-    const { id } = req.params;
-    const foundCar = findCar(id, cars);
-    if (!foundCar) return res.status(404).send('Car add not found');
+  const { id } = req.params;
+  const foundCar = findCar(id, cars);
+  if (!foundCar) return res.status(404).send('Car add not found');
+  if (foundCar.owner === req.user.id || req.user.is_admin === 'true') {
     const carIndex = cars.indexOf(foundCar);
     cars.splice(carIndex, 1);
     res.status(200).send('“Car Ad successfully deleted');
-  } else if (req.user.is_admin === 'false') res.status(405).send('Must be admin to delete car');
-  else res.status(404).send('not found');
+  } else res.status(405).send('not authorized to delete car');
 };
 
 export const getCars = (req, res) => {
