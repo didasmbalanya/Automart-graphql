@@ -12,7 +12,6 @@ export const orders = [
 ];
 
 export const purchaseOrderSchema = Joi.object().keys({
-  price: Joi.number().min(1).required(),
   price_offered: Joi.number().min(1).required(),
   status: Joi.string().valid(['pending', 'accepted', 'rejected']),
 });

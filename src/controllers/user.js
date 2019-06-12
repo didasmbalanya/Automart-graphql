@@ -38,11 +38,10 @@ export const signin = async (req, res) => {
   if (!foundUser) {
     return res.status(422).send({ error: 'Invalid email address' });
   }
-
   // eslint-disable-next-line no-shadow
   bcrypt.compare(password, foundUser.password, (err, result) => {
     if (err) res.status(404).send('Incorrect credentials');
-    else if (!result) return res.status(404).send('Incorrect credentials');
+    else if (!result) res.status(404).send('Incorrect credentials');
     else {
       const token = jwt.sign({ email, isAdmin }, secret, { expiresIn: '3h' });
       res.status(200).send({ data: getPublicProfile(foundUser), token });

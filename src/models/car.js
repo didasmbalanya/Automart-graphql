@@ -18,11 +18,11 @@ export const cars = [
 ];
 
 export const carSchema = Joi.object().keys({
-  state: Joi.string().valid(['new', 'used']).required(),
-  status: Joi.string().valid(['sold', 'available']).default('available'),
+  state: Joi.string().valid(['new', 'used']).required().trim(),
+  status: Joi.string().valid(['sold', 'available']).default('available').trim(),
   price: Joi.number().min(1).max(100000000000)
     .required(),
-  manufacturer: Joi.string(),
-  model: Joi.string().required(),
-  body_type: Joi.string().required(),
+  manufacturer: Joi.string().trim(),
+  model: Joi.string().required().trim(),
+  body_type: Joi.string().required().trim(),
 });
