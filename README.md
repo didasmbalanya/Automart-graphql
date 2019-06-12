@@ -1,5 +1,7 @@
 # AutoMart
 
+[![Build Status](https://travis-ci.org/didasmbalanya/AutoMart.svg?branch=server)](https://travis-ci.org/didasmbalanya/AutoMart)
+
 [![Coverage Status](https://coveralls.io/repos/github/didasmbalanya/AutoMart/badge.svg?branch=server)](https://coveralls.io/github/didasmbalanya/AutoMart?branch=server)
 
 #### AUTOMART WEB APP
