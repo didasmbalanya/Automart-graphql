@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/didasmbalanya/AutoMart.svg?branch=server)](https://travis-ci.org/didasmbalanya/AutoMart)
 
-[![Coverage Status](https://coveralls.io/repos/github/didasmbalanya/AutoMart/badge.png)](https://coveralls.io/github/didasmbalanya/AutoMart)
+[![Coverage Status](https://coveralls.io/repos/github/didasmbalanya/AutoMart/badge.svg?branch=server)](https://coveralls.io/github/didasmbalanya/AutoMart?branch=server)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/9965112b40b6faac472f/maintainability)](https://codeclimate.com/github/didasmbalanya/AutoMart/maintainability)
 #### AUTOMART WEB APP
