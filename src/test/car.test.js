@@ -109,7 +109,6 @@ describe('Cars', () => {
         .patch('/api/v1/car/1?status=sold')
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
-          console.log(res)
           if (err) err.should.have.status(404);
           else res.should.have.status(204);
           done();
