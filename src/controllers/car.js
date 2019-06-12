@@ -59,12 +59,15 @@ export const getCarById = async (req, res) => {
 };
 
 export const deleteCar = (req, res) => {
-  const { id } = req.params;
-  const foundCar = findCar(id, cars);
-  if (!foundCar) return res.status(404).send('Car add not found');
-  const carIndex = cars.indexOf(foundCar);
-  cars.splice(carIndex, 1);
-  return res.status(200).send('“Car Ad successfully deleted');
+  if (req.user.is_admin === 'true') {
+    const { id } = req.params;
+    const foundCar = findCar(id, cars);
+    if (!foundCar) return res.status(404).send('Car add not found');
+    const carIndex = cars.indexOf(foundCar);
+    cars.splice(carIndex, 1);
+    res.status(200).send('“Car Ad successfully deleted');
+  } else if (req.user.is_admin === 'false') res.status(405).send('Must be admin to delete car');
+  else res.status(404).send('not found');
 };
 
 export const getCars = (req, res) => {

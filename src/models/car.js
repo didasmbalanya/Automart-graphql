@@ -10,9 +10,9 @@ export const cars = [
     state: 'new', // new,used
     status: 'available', // sold,available - default is available
     price: 150,
-    manufacturer: 'String',
-    model: 'String',
-    body_type: 'String', // car, truck, trailer, van, etc
+    manufacturer: 'Mazda',
+    model: 'es1',
+    body_type: 'van', // car, truck, trailer, van, etc
   },
 
 ];

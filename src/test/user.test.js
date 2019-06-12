@@ -54,7 +54,7 @@ describe('Users', () => {
         });
     });
 
-    it('should be able to not be to signin a non registered user', (done) => {
+    it('should not be able to signin a non registered user', (done) => {
       const newUser = { email: 'didassexter@gmaiil.com', password: 'obionekanobi' };
       chai.request(app)
         .post('/api/v1/auth/signin')
