@@ -23,7 +23,7 @@ export const token = jwt.sign({ email: storedUser.email, is_admin: storedUser.is
 // parent Block
 describe('Users', () => {
   // test GET route
-  describe('/GET ', () => {
+  describe('/GET root page and current logged in user', () => {
     it('should get all the api welcome page', (done) => {
       chai.request(app)
         .get('/')
