@@ -3,5 +3,7 @@ node_js :
   - 'stable'
 script:
   - npm test
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 after success: 
   - npm run coveralls
