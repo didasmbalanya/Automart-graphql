@@ -7,7 +7,8 @@
     "start": "babel-node dist/index.js",
     "build": "babel src --out-dir dist",
     "dev": "nodemon --exec babel-node src/index.js",
-    "test": "mocha --require @babel/register 'src/**/**test.js' --exit"
+    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register 'src/**/**test.js' --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [],
   "author": "",
@@ -36,6 +37,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "coveralls": "^3.0.4",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.3",

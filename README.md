@@ -1,4 +1,7 @@
 # AutoMart
+
+[![Coverage Status](https://coveralls.io/repos/github/didasmbalanya/AutoMart/badge.svg?branch=server)](https://coveralls.io/github/didasmbalanya/AutoMart?branch=server)
+
 #### AUTOMART WEB APP
 #### By **Didas**
 ## Description

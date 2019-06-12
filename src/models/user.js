@@ -19,9 +19,10 @@ DhngbDVqaiHgAKGnCID3rcrpWl6CDZJxNkPVUjI1WSk
 
 
 export const signUnSchema = Joi.object().keys({
-  first_name: Joi.string().min(2).max(30).required(),
-  last_name: Joi.string().min(2).max(30).required(),
-  address: Joi.string().min(2).max(50),
+  first_name: Joi.string().min(2).max(30).required()
+    .trim(),
+  last_name: Joi.string().min(2).max(30).required()
+    .trim(),
   email: Joi.string().required(),
   is_admin: Joi.boolean().default(false).valid([true, false]),
   password: Joi.string().min(7).required().strict(),

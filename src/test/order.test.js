@@ -57,7 +57,6 @@ describe('Orders', () => {
         .set('Authorization', `Bearer ${token}`)
         .send(
           {
-            price: 2000,
             price_offered: 3000,
           },
         )
