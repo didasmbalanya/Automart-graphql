@@ -15,14 +15,14 @@ export const signup = (req, res) => {
   Joi.validate(req.body, signUnSchema).then(() => {
     const { email, password } = req.body;
     let { is_admin } = req.body;
-    if (is_admin !== true) is_admin = false;
+    if (!is_admin) is_admin = 'false';
     const foundUser = users.find(user => user.email === email);
     if (!foundUser) {
+      req.body.is_admin = is_admin;
       req.body.id = users.length + 1;
       req.body.password = bcrypt.hashSync(password, 8);
       req.body.confirm_password = bcrypt.hashSync(password, 8);
-      const isAdmin = is_admin.toString();
-      const token = jwt.sign({ email, isAdmin }, secret, { expiresIn: '3h' });
+      const token = jwt.sign({ email, is_admin }, secret, { expiresIn: '3h' });
       users.push(req.body);
       const user = getPublicProfile(req.body);
       res.status(201).send({ data: user, token });

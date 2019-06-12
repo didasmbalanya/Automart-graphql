@@ -9,7 +9,7 @@ export const users = [
     last_name: 'Kanobi',
     password: '$2b$08$WxQL5DwbwUzxORZcJCDsWuJA5CJmUcrjoaq4V.VfK3W9RVTCUrd0u',
     address: 'Azgrad',
-    is_admin: 'Boolean',
+    is_admin: 'false',
   },
 
 ];
