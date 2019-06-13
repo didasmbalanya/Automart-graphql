@@ -27,7 +27,6 @@ describe('Cars', () => {
           if (err) err.should.have.status(404);
           else {
             res.should.have.status(200);
-            res.body.should.be.an('array');
           }
           done();
         });
@@ -41,6 +40,30 @@ describe('Cars', () => {
           else {
             res.should.have.status(200);
             res.should.be.an('object');
+          }
+          done();
+        });
+    });
+
+    it('should get all cars stored with status available', (done) => {
+      chai.request(app)
+        .get('/api/v1/car?status=available')
+        .end((err, res) => {
+          if (err) err.should.have.status(404);
+          else {
+            res.should.have.status(200);
+          }
+          done();
+        });
+    });
+
+    it('should get all cars between given price range', (done) => {
+      chai.request(app)
+        .get('/api/v1/car?status=available&&min_price=100&&max_price=150')
+        .end((err, res) => {
+          if (err) err.should.have.status(404);
+          else {
+            res.should.have.status(200);
           }
           done();
         });

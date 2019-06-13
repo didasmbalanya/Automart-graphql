@@ -14,10 +14,10 @@ const { secret } = process.env;
 export const signup = (req, res) => {
   req.body.first_name = req.body.first_name.trim();
   req.body.last_name = req.body.last_name.trim();
+  req.body.password = req.body.password.trim();
+  req.body.confirm_password = req.body.confirm_password.trim();
   req.body.email = req.body.email.trim();
   Joi.validate(req.body, signUnSchema).then(() => {
-    req.body.first_name = req.body.first_name.trim();
-    req.body.last_name = req.body.last_name.trim();
     const { email, password } = req.body;
     let { is_admin } = req.body;
     if (!is_admin) is_admin = 'false';

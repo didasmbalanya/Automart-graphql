@@ -41,6 +41,9 @@ export const updateOrder = (req, res) => {
 export const getOrderById = (req, res) => {
   const { id } = req.params;
   const foundOrder = orders.find(order => order.id.toString() === id);
-  if (foundOrder) return res.status(200).send(foundOrder);
+  if (req.user.id.toString() === foundOrder.buyer.toString()) {
+    if (foundOrder) return res.status(200).send(foundOrder);
+    res.status(404).send('order not found');
+  }
   res.status(404).send('order Id not found');
 };

@@ -35,7 +35,7 @@ export const changeProperty = (req, res) => {
   const { id } = req.params;
   const { status, price } = req.query;
   const foundCar = findCar(id, cars);
-
+  if (foundCar.owner.toString() !== req.user.id) return res.status(422).send('not allowed');
   if (!foundCar) {
     return res.status(404).send('Car not found');
   }
@@ -58,7 +58,8 @@ export const getCarById = async (req, res) => {
   try {
     const { id } = req.params;
     const foundCarId = findCar(id, cars);
-    await res.status(200).send(foundCarId);
+    if (foundCarId) res.status(200).send(foundCarId);
+    else throw new Error();
   } catch (e) {
     res.status(404).send('Car not found');
   }
@@ -87,7 +88,8 @@ export const getCars = (req, res) => {
   }
   if (status) {
     const avaCars = findByStatus(status, cars);
-    res.status(200).send(avaCars);
+    if (avaCars.length > 0) res.status(200).send(avaCars);
+    else res.status(404).send('No car with specified filters found');
   } else {
     res.status(200).send(cars);
   }
