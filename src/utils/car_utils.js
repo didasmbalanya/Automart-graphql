@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 export const findCar = (id, data) => {
-  const foundCar = data.find(car => car.id.toString() === id);
+  const foundCar = data.find(car => car.id.toString() === id.toString());
 
   if (!foundCar) {
     return false;
