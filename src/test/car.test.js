@@ -89,7 +89,7 @@ describe('Cars', () => {
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           if (err) err.should.have.status(404);
-          else res.should.have.status(204);
+          else res.should.have.status(200);
           done();
         });
     });
@@ -110,7 +110,7 @@ describe('Cars', () => {
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           if (err) err.should.have.status(404);
-          else res.should.have.status(204);
+          else res.should.have.status(200);
           done();
         });
     });

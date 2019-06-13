@@ -12,7 +12,12 @@ import { getPublicProfile } from '../utils/user_utils';
 const { secret } = process.env;
 
 export const signup = (req, res) => {
-  Joi.validate(req.body, signUnSchema, { convert: true }).then(() => {
+  req.body.first_name = req.body.first_name.trim();
+  req.body.last_name = req.body.last_name.trim();
+  req.body.email = req.body.email.trim();
+  Joi.validate(req.body, signUnSchema).then(() => {
+    req.body.first_name = req.body.first_name.trim();
+    req.body.last_name = req.body.last_name.trim();
     const { email, password } = req.body;
     let { is_admin } = req.body;
     if (!is_admin) is_admin = 'false';
@@ -28,7 +33,8 @@ export const signup = (req, res) => {
       res.status(201).send({ data: user, token });
     } else res.status(422).send('Already signed up user');
   }).catch((e) => {
-    res.status(422).send(e);
+    if (e.isJoi) res.status(422).send(e.details[0].message);
+    else res.status(404).send('Invalid request');
   });
 };
 

@@ -9,6 +9,12 @@ import {
 
 
 export const postCar = (req, res) => {
+  req.body.manufacturer = req.body.manufacturer.trim();
+  req.body.model = req.body.model.trim();
+  req.body.body_type = req.body.body_type.trim();
+  req.body.status = req.body.status.trim();
+  req.body.state = req.body.state.trim();
+  req.body.price = req.body.price.trim();
   Joi.validate(req.body, carSchema).then(async () => {
     const car = req.body;
     car.id = cars.length + 1;
@@ -37,14 +43,14 @@ export const changeProperty = (req, res) => {
     if (status.toLowerCase() === 'sold' || status.toLowerCase() === 'available') {
       const carIndex = cars.indexOf(foundCar);
       cars[carIndex].status = status.toLowerCase();
-      res.status(204).send(cars[carIndex]);
+      res.status(200).send(cars[carIndex]);
     } else {
       return res.status(422).send('Invalid request');
     }
   } else {
     const carIndex = cars.indexOf(foundCar);
     cars[carIndex].price = price;
-    return res.status(204).send(cars[carIndex]);
+    return res.status(200).send(cars[carIndex]);
   }
 };
 

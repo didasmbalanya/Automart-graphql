@@ -23,8 +23,9 @@ export const signUnSchema = Joi.object().keys({
     .trim(),
   last_name: Joi.string().min(2).max(30).required()
     .trim(),
-  email: Joi.string().required(),
+  email: Joi.string().email().required(),
   is_admin: Joi.boolean().default(false).valid([true, false]),
-  password: Joi.string().min(7).required().strict(),
+  password: Joi.string().min(7).required().strict()
+    .regex(/^[a-zA-Z0-9]{7,30}$/),
   confirm_password: Joi.string().valid(Joi.ref('password')).required().strict(),
 });

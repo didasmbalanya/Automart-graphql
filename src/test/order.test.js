@@ -76,7 +76,7 @@ describe('Orders', () => {
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           if (err) res.should.have.status(404);
-          else res.should.have.status(204);
+          else res.should.have.status(200);
           done();
         });
     });

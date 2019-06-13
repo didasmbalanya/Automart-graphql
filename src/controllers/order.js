@@ -33,7 +33,7 @@ export const updateOrder = (req, res) => {
       const orderIndex = orders.indexOf(purchaseOrder);
       orders[orderIndex].new_price_offered = price;
       const order = orders[orderIndex];
-      res.status(204).send(order);
+      res.status(200).send(order);
     } else res.status(404).send({ error: 'Purchase order not found' });
   }
 };
