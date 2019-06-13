@@ -20,20 +20,20 @@ var cars = [{
   status: 'available',
   // sold,available - default is available
   price: 150,
-  manufacturer: 'String',
-  model: 'String',
-  body_type: 'String' // car, truck, trailer, van, etc
+  manufacturer: 'Mazda',
+  model: 'es1',
+  body_type: 'van' // car, truck, trailer, van, etc
 
 }];
 exports.cars = cars;
 
 var carSchema = _joi["default"].object().keys({
-  state: _joi["default"].string().valid(['new', 'used']).required(),
-  status: _joi["default"].string().valid(['sold', 'available'])["default"]('available'),
+  state: _joi["default"].string().valid(['new', 'used']).required().trim(),
+  status: _joi["default"].string().valid(['sold', 'available'])["default"]('available').trim(),
   price: _joi["default"].number().min(1).max(100000000000).required(),
-  manufacturer: _joi["default"].string(),
-  model: _joi["default"].string().required(),
-  body_type: _joi["default"].string().required()
+  manufacturer: _joi["default"].string().trim(),
+  model: _joi["default"].string().required().trim(),
+  body_type: _joi["default"].string().required().trim()
 });
 
 exports.carSchema = carSchema;

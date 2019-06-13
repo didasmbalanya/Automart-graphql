@@ -8,7 +8,7 @@ exports.findByStatus = exports.findMaxPrice = exports.findMinPrice = exports.fin
 /* eslint-disable linebreak-style */
 var findCar = function findCar(id, data) {
   var foundCar = data.find(function (car) {
-    return car.id.toString() === id;
+    return car.id.toString() === id.toString();
   });
 
   if (!foundCar) {

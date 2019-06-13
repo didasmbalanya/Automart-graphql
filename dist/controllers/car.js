@@ -18,16 +18,40 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var postCar = function postCar(req, res) {
-  _joi["default"].validate(req.body, _car.carSchema).then(function () {
-    var car = req.body;
-    car.id = _car.cars.length + 1;
-    car.owner = req.user.id;
-    car.created_on = Date();
+  req.body.manufacturer = req.body.manufacturer.trim();
+  req.body.model = req.body.model.trim();
+  req.body.body_type = req.body.body_type.trim();
+  req.body.status = req.body.status.trim();
+  req.body.state = req.body.state.trim();
+  req.body.price = req.body.price.trim();
 
-    _car.cars.push(car);
+  _joi["default"].validate(req.body, _car.carSchema).then(
+  /*#__PURE__*/
+  _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee() {
+    var car;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            car = req.body;
+            car.id = _car.cars.length + 1;
+            car.owner = req.user.id;
+            car.created_on = Date();
 
-    res.send(car);
-  })["catch"](function (e) {
+            _car.cars.push(car);
+
+            _context.next = 7;
+            return res.status(201).send(car);
+
+          case 7:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  })))["catch"](function (e) {
     if (e.details[0].message) {
       res.status(422).send(e.details[0].message);
     } else {
@@ -44,6 +68,7 @@ var changeProperty = function changeProperty(req, res) {
       status = _req$query.status,
       price = _req$query.price;
   var foundCar = (0, _car_utils.findCar)(id, _car.cars);
+  if (foundCar.owner.toString() !== req.user.id) return res.status(422).send('not allowed');
 
   if (!foundCar) {
     return res.status(404).send('Car not found');
@@ -71,39 +96,49 @@ exports.changeProperty = changeProperty;
 var getCarById =
 /*#__PURE__*/
 function () {
-  var _ref = _asyncToGenerator(
+  var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee(req, res) {
+  regeneratorRuntime.mark(function _callee2(req, res) {
     var id, foundCarId;
-    return regeneratorRuntime.wrap(function _callee$(_context) {
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
-        switch (_context.prev = _context.next) {
+        switch (_context2.prev = _context2.next) {
           case 0:
-            _context.prev = 0;
+            _context2.prev = 0;
             id = req.params.id;
             foundCarId = (0, _car_utils.findCar)(id, _car.cars);
-            _context.next = 5;
-            return res.status(200).send(foundCarId);
 
-          case 5:
-            _context.next = 10;
+            if (!foundCarId) {
+              _context2.next = 7;
+              break;
+            }
+
+            res.status(200).send(foundCarId);
+            _context2.next = 8;
             break;
 
           case 7:
-            _context.prev = 7;
-            _context.t0 = _context["catch"](0);
-            res.status(404).send('Car not found');
+            throw new Error();
+
+          case 8:
+            _context2.next = 13;
+            break;
 
           case 10:
+            _context2.prev = 10;
+            _context2.t0 = _context2["catch"](0);
+            res.status(404).send('Car not found');
+
+          case 13:
           case "end":
-            return _context.stop();
+            return _context2.stop();
         }
       }
-    }, _callee, null, [[0, 7]]);
+    }, _callee2, null, [[0, 10]]);
   }));
 
   return function getCarById(_x, _x2) {
-    return _ref.apply(this, arguments);
+    return _ref2.apply(this, arguments);
   };
 }();
 
@@ -114,11 +149,13 @@ var deleteCar = function deleteCar(req, res) {
   var foundCar = (0, _car_utils.findCar)(id, _car.cars);
   if (!foundCar) return res.status(404).send('Car add not found');
 
-  var carIndex = _car.cars.indexOf(foundCar);
+  if (foundCar.owner === req.user.id || req.user.is_admin === 'true') {
+    var carIndex = _car.cars.indexOf(foundCar);
 
-  _car.cars.splice(carIndex, 1);
+    _car.cars.splice(carIndex, 1);
 
-  return res.status(200).send('“Car Ad successfully deleted');
+    res.status(200).send('“Car Ad successfully deleted');
+  } else res.status(405).send('not authorized to delete car');
 };
 
 exports.deleteCar = deleteCar;
@@ -141,7 +178,7 @@ var getCars = function getCars(req, res) {
   if (status) {
     var _avaCars = (0, _car_utils.findByStatus)(status, _car.cars);
 
-    res.status(200).send(_avaCars);
+    if (_avaCars.length > 0) res.status(200).send(_avaCars);else res.status(404).send('No car with specified filters found');
   } else {
     res.status(200).send(_car.cars);
   }

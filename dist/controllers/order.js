@@ -9,6 +9,8 @@ var _joi = _interopRequireDefault(require("@hapi/joi"));
 
 var _order = require("../models/order");
 
+var _car = require("../models/car");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 /* eslint-disable linebreak-style */
@@ -17,24 +19,28 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var postOrder = function postOrder(req, res) {
   _joi["default"].validate(req.body, _order.purchaseOrderSchema).then(function () {
     var order = req.body;
-    order.id = _order.orders.length + 1;
-    order.car_id = req.body.id; // temporary values
 
-    order.created_on = Date();
-    order.status = 'pending';
-    order.buyer = req.user.id; // temporary
+    var carAva = _car.cars.find(function (car) {
+      return car.id === order.car_id;
+    });
 
-    if (!order.price_offered) order.price_offered = req.body.price;
+    if (carAva) {
+      order.buyer = req.user.id;
+      if (carAva.owner.toString() === order.buyer.toString()) return res.status(422).send('cannot buy your own car');
+      order.id = _order.orders.length + 1;
+      order.created_on = Date();
+      order.status = 'pending';
+      if (!order.price_offered) order.price_offered = req.body.price;
 
-    _order.orders.push(order);
+      _order.orders.push(order);
 
-    res.status(201).send(order);
+      res.status(201).send(order);
+    } else throw Error('car not found');
   })["catch"](function (e) {
-    if (e.details[0].message) {
-      res.status(422).send(e.details[0].message);
-    } else {
-      res.status(404).send('Invalid post request');
-    }
+    res.status(404).send({
+      err: 'Invalid post request',
+      e: e
+    });
   });
 };
 
@@ -45,16 +51,16 @@ var updateOrder = function updateOrder(req, res) {
     var id = req.params.id;
     var price = req.query.price;
 
-    var PurchaseOrder = _order.orders.find(function (ord) {
+    var purchaseOrder = _order.orders.find(function (ord) {
       return ord.id.toString() === id;
     });
 
-    if (PurchaseOrder.buyer === req.user.id) {
-      var orderIndex = _order.orders.indexOf(PurchaseOrder);
+    if (purchaseOrder.buyer.toString() === req.user.id) {
+      var orderIndex = _order.orders.indexOf(purchaseOrder);
 
       _order.orders[orderIndex].new_price_offered = price;
       var order = _order.orders[orderIndex];
-      res.status(204).send(order);
+      res.status(200).send(order);
     } else res.status(404).send({
       error: 'Purchase order not found'
     });
@@ -70,7 +76,11 @@ var getOrderById = function getOrderById(req, res) {
     return order.id.toString() === id;
   });
 
-  if (foundOrder) return res.status(200).send(foundOrder);
+  if (req.user.id.toString() === foundOrder.buyer.toString()) {
+    if (foundOrder) return res.status(200).send(foundOrder);
+    res.status(404).send('order not found');
+  }
+
   res.status(404).send('order Id not found');
 };
 

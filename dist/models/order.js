@@ -15,15 +15,15 @@ var orders = [{
   buyer: 1,
   // user id
   car_id: 1,
-  price: 'Float',
+  price: 200,
   // price offered
-  status: 'String' // [pending, accepted, or rejected]
+  status: 'Pending' // [pending, accepted, or rejected]
 
 }];
 exports.orders = orders;
 
 var purchaseOrderSchema = _joi["default"].object().keys({
-  price: _joi["default"].number().min(1).required(),
+  car_id: _joi["default"].number().required().min(1),
   price_offered: _joi["default"].number().min(1).required(),
   status: _joi["default"].string().valid(['pending', 'accepted', 'rejected'])
 });
