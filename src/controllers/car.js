@@ -9,7 +9,7 @@ import {
 
 
 export const postCar = (req, res) => {
-  Joi.validate(req.body, carSchema, { convert: true }).then(async () => {
+  Joi.validate(req.body, carSchema).then(async () => {
     const car = req.body;
     car.id = cars.length + 1;
     car.owner = req.user.id;

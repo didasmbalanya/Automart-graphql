@@ -40,7 +40,7 @@ describe('Orders', () => {
         .post('/api/v1/order')
         .send(
           {
-            price: 2000,
+            car_id:1,
             price_offered: 3000,
           },
         )
@@ -51,18 +51,19 @@ describe('Orders', () => {
         });
     });
 
-    it('should be able to post order if authenticated', (done) => {
+    it('should not be able to buy their own car if authenticated', (done) => {
       chai.request(app)
         .post('/api/v1/order')
         .set('Authorization', `Bearer ${token}`)
         .send(
           {
+            car_id:1,
             price_offered: 3000,
           },
         )
         .end((err, res) => {
           if (err) res.should.have.status(404);
-          else res.should.have.status(201);
+          else res.should.have.status(422);
           done();
         });
     });

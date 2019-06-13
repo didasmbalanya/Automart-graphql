@@ -2,24 +2,24 @@
 /* eslint-disable consistent-return */
 import Joi from '@hapi/joi';
 import { orders, purchaseOrderSchema } from '../models/order';
+import { cars } from '../models/car';
 
 export const postOrder = (req, res) => {
   Joi.validate(req.body, purchaseOrderSchema).then(() => {
     const order = req.body;
-    order.id = orders.length + 1;
-    order.car_id = req.body.id; // temporary values
-    order.created_on = Date();
-    order.status = 'pending';
-    order.buyer = req.user.id; // temporary
-    if (!order.price_offered) order.price_offered = req.body.price;
-    orders.push(order);
-    res.status(201).send(order);
+    const carAva = cars.find(car => car.id === order.car_id);
+    if (carAva) {
+      order.buyer = req.user.id;
+      if (carAva.owner.toString() === order.buyer.toString()) return res.status(422).send('cannot buy your own car');
+      order.id = orders.length + 1;
+      order.created_on = Date();
+      order.status = 'pending';
+      if (!order.price_offered) order.price_offered = req.body.price;
+      orders.push(order);
+      res.status(201).send(order);
+    } else throw Error('car not found');
   }).catch((e) => {
-    if (e.details[0].message) {
-      res.status(422).send(e.details[0].message);
-    } else {
-      res.status(404).send('Invalid post request');
-    }
+    res.status(404).send({ err: 'Invalid post request', e });
   });
 };
 
