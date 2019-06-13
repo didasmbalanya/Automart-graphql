@@ -9,13 +9,13 @@ import {
 
 
 export const postCar = (req, res) => {
-  Joi.validate(req.body, carSchema).then(() => {
+  Joi.validate(req.body, carSchema, { convert: true }).then(async () => {
     const car = req.body;
     car.id = cars.length + 1;
     car.owner = req.user.id;
     car.created_on = Date();
     cars.push(car);
-    res.status(201).send(car);
+    await res.status(201).send(car);
   }).catch((e) => {
     if (e.details[0].message) {
       res.status(422).send(e.details[0].message);

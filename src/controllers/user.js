@@ -12,7 +12,7 @@ import { getPublicProfile } from '../utils/user_utils';
 const { secret } = process.env;
 
 export const signup = (req, res) => {
-  Joi.validate(req.body, signUnSchema).then(() => {
+  Joi.validate(req.body, signUnSchema, { convert: true }).then(() => {
     const { email, password } = req.body;
     let { is_admin } = req.body;
     if (!is_admin) is_admin = 'false';
