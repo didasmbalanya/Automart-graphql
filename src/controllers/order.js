@@ -28,22 +28,23 @@ export const updateOrder = (req, res) => {
     const { id } = req.params;
     const { price } = req.query;
 
-    const purchaseOrder = orders.find(ord => (ord.id.toString() === id));
+    const purchaseOrder = orders.find(ord => (ord.id.toString() === id.toString()));
+    if (!purchaseOrder) return res.status(404).send({ error: 'Purchase order not found' });
     if (purchaseOrder.buyer.toString() === req.user.id) {
       const orderIndex = orders.indexOf(purchaseOrder);
       orders[orderIndex].new_price_offered = price;
       const order = orders[orderIndex];
       res.status(200).send({ data: order });
-    } else res.status(404).send({ error: 'Purchase order not found' });
+    } else res.status(403).send({ error: 'not allowed' });
   }
 };
 
 export const getOrderById = (req, res) => {
   const { id } = req.params;
   const foundOrder = orders.find(order => order.id.toString() === id);
+  if (!foundOrder) return res.status(404).send({ error: 'Purchase order not found' });
   if (req.user.id.toString() === foundOrder.buyer.toString()) {
-    if (foundOrder) return res.status(200).send({ data: foundOrder });
-    res.status(404).send({ error: 'order not found' });
+    return res.status(200).send({ data: foundOrder });
   }
-  res.status(404).send({ error: 'order Id not found' });
+  res.status(404).send({ error: 'order not found' });
 };
