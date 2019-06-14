@@ -38,7 +38,7 @@ export const changeProperty = (req, res) => {
   if (!foundCar) {
     return res.status(404).send({ error: 'Car not found' });
   }
-  if (foundCar.owner.toString() !== req.user.id.toString()) return res.status(422).send('not allowed');
+  if (foundCar.owner.toString() !== req.user.id.toString()) return res.status(403).send({ error: 'not allowed' });
   if (!price) {
     if (status.toLowerCase() === 'sold' || status.toLowerCase() === 'available') {
       const carIndex = cars.indexOf(foundCar);
