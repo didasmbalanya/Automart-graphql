@@ -35,10 +35,10 @@ export const changeProperty = (req, res) => {
   const { id } = req.params;
   const { status, price } = req.query;
   const foundCar = findCar(id, cars);
-  if (foundCar.owner.toString() !== req.user.id) return res.status(422).send('not allowed');
   if (!foundCar) {
     return res.status(404).send('Car not found');
   }
+  if (foundCar.owner.toString() !== req.user.id.toString()) return res.status(422).send('not allowed');
   if (!price) {
     if (status.toLowerCase() === 'sold' || status.toLowerCase() === 'available') {
       const carIndex = cars.indexOf(foundCar);
@@ -69,7 +69,7 @@ export const deleteCar = (req, res) => {
   const { id } = req.params;
   const foundCar = findCar(id, cars);
   if (!foundCar) return res.status(404).send('Car add not found');
-  if (foundCar.owner === req.user.id || req.user.is_admin === 'true') {
+  if (foundCar.owner.toString() === req.user.id.toString() || req.user.is_admin === 'true') {
     const carIndex = cars.indexOf(foundCar);
     cars.splice(carIndex, 1);
     res.status(200).send('“Car Ad successfully deleted');
