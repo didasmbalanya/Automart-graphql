@@ -31,10 +31,10 @@ export const signup = (req, res) => {
       users.push(req.body);
       const user = getPublicProfile(req.body);
       res.status(201).send({ data: user, token });
-    } else res.status(422).send('Already signed up user');
+    } else res.status(422).send({ error: 'Already signed up user' });
   }).catch((e) => {
-    if (e.isJoi) res.status(422).send(e.details[0].message);
-    else res.status(404).send('Invalid request');
+    if (e.isJoi) res.status(422).send({ error: e.details[0].message });
+    else res.status(404).send({ error: 'Invalid request' });
   });
 };
 
@@ -46,8 +46,8 @@ export const signin = async (req, res) => {
   }
   // eslint-disable-next-line no-shadow
   bcrypt.compare(password, foundUser.password, (err, result) => {
-    if (err) res.status(404).send('Incorrect credentials');
-    else if (!result) res.status(404).send('Incorrect credentials');
+    if (err) res.status(404).send({ error: 'Incorrect credentials' });
+    else if (!result) res.status(404).send({ error: 'Incorrect credentials' });
     else {
       const token = jwt.sign({ email, isAdmin }, secret, { expiresIn: '3h' });
       res.status(200).send({ data: getPublicProfile(foundUser), token });
@@ -56,5 +56,5 @@ export const signin = async (req, res) => {
 };
 
 export const getMe = (req, res) => {
-  res.send(getPublicProfile(req.user));
+  res.send({ data: getPublicProfile(req.user) });
 };

@@ -18,5 +18,5 @@ export const auth = (req, res, next) => {
 };
 
 export const maintenance = (req, res) => {
-  if (req.method) res.status(503).send('Server under Maintenance');
+  if (req.method) res.status(503).send({ error: 'Server under Maintenance' });
 };

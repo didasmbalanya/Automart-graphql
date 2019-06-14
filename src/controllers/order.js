@@ -10,13 +10,13 @@ export const postOrder = (req, res) => {
     const carAva = cars.find(car => car.id === order.car_id);
     if (carAva) {
       order.buyer = req.user.id;
-      if (carAva.owner.toString() === order.buyer.toString()) return res.status(422).send('cannot buy your own car');
+      if (carAva.owner.toString() === order.buyer.toString()) return res.status(422).send({ error: 'cannot buy your own car' });
       order.id = orders.length + 1;
       order.created_on = Date();
       order.status = 'pending';
       if (!order.price_offered) order.price_offered = req.body.price;
       orders.push(order);
-      res.status(201).send(order);
+      res.status(201).send({ data: order });
     } else throw Error('car not found');
   }).catch((e) => {
     res.status(404).send({ err: 'Invalid post request', e });
@@ -33,7 +33,7 @@ export const updateOrder = (req, res) => {
       const orderIndex = orders.indexOf(purchaseOrder);
       orders[orderIndex].new_price_offered = price;
       const order = orders[orderIndex];
-      res.status(200).send(order);
+      res.status(200).send({ data: order });
     } else res.status(404).send({ error: 'Purchase order not found' });
   }
 };
@@ -42,8 +42,8 @@ export const getOrderById = (req, res) => {
   const { id } = req.params;
   const foundOrder = orders.find(order => order.id.toString() === id);
   if (req.user.id.toString() === foundOrder.buyer.toString()) {
-    if (foundOrder) return res.status(200).send(foundOrder);
-    res.status(404).send('order not found');
+    if (foundOrder) return res.status(200).send({ data: foundOrder });
+    res.status(404).send({ error: 'order not found' });
   }
-  res.status(404).send('order Id not found');
+  res.status(404).send({ error: 'order Id not found' });
 };
