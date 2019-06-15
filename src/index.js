@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-
+import dotenv from 'dotenv';
 import express from 'express';
 import { json, urlencoded } from 'body-parser';
 import swaggerUi from 'swagger-ui-express';
@@ -8,10 +8,11 @@ import carRouter from './routes/car';
 import orderRouter from './routes/order';
 import swaggerDoc from '../swagger.json';
 
-
+dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(express.json());
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use('/api/V1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
