@@ -3,3 +3,4 @@
 /coverage
 /dist
 feedback.txt
+.env
