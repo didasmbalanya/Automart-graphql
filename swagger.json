@@ -7,10 +7,11 @@
     "contact": {}
   },
   "host": "localhost:3000",
-  "basePath": "/",
+  "basePath": "/api/v1",
   "securityDefinitions": {},
   "schemes": [
-    "http"
+    "http",
+    "https"
   ],
   "consumes": [
     "application/json"
@@ -21,24 +22,15 @@
   "paths": {
     "/": {
       "get": {
-        "description": "TODO: Add Description",
+        "description": "Root page of the application",
         "summary": "root page",
         "tags": [
-          "Misc"
+          "USER"
         ],
         "operationId": "UnnammedEndpointGet",
         "deprecated": false,
         "produces": [
           "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": false,
-            "default": "Bearer {token}",
-            "type": "string"
-          }
         ],
         "responses": {
           "200": {
@@ -50,10 +42,10 @@
     },
     "/auth/signup": {
       "post": {
-        "description": "TODO: Add Description",
-        "summary": "signup",
+        "description": "sign up new users",
+        "summary": "sign up",
         "tags": [
-          "Misc"
+          "USER"
         ],
         "operationId": "AuthSignupPost",
         "deprecated": false,
@@ -61,13 +53,6 @@
           "application/json"
         ],
         "parameters": [
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
           {
             "name": "Body",
             "in": "body",
@@ -89,10 +74,10 @@
     },
     "/auth/signin": {
       "post": {
-        "description": "TODO: Add Description",
-        "summary": "signin",
+        "description": "Sign in already registered  users",
+        "summary": "sign in",
         "tags": [
-          "Misc"
+          "USER"
         ],
         "operationId": "AuthSigninPost",
         "deprecated": false,
@@ -100,13 +85,7 @@
           "application/json"
         ],
         "parameters": [
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
+          
           {
             "name": "Body",
             "in": "body",
@@ -128,10 +107,10 @@
     },
     "/auth/users/me": {
       "get": {
-        "description": "TODO: Add Description",
+        "description": "Get current login user profile",
         "summary": "get profile",
         "tags": [
-          "Misc"
+          "USER"
         ],
         "operationId": "AuthUsersMeGet",
         "deprecated": false,
@@ -157,10 +136,10 @@
     },
     "/car": {
       "get": {
-        "description": "TODO: Add Description",
-        "summary": "getCars",
+        "description": "Get a list of all stored cars",
+        "summary": "get cars",
         "tags": [
-          "Misc"
+          "CAR"
         ],
         "operationId": "CarGet",
         "deprecated": false,
@@ -168,13 +147,7 @@
           "application/json"
         ],
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": false,
-            "default": "Bearer {token}",
-            "type": "string"
-          }
+    
         ],
         "responses": {
           "200": {
@@ -184,10 +157,10 @@
         }
       },
       "post": {
-        "description": "TODO: Add Description",
+        "description": "Add a new car post for a specific user",
         "summary": "post car",
         "tags": [
-          "Misc"
+          "CAR"
         ],
         "operationId": "CarPost",
         "deprecated": false,
@@ -198,16 +171,9 @@
           {
             "name": "Authorization",
             "in": "header",
-            "required": false,
+            "required": true,
             "default": "Bearer {token}",
             "type": "string"
-          },
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
           },
           {
             "name": "Body",
@@ -227,7 +193,7 @@
           "401": {
             "description": "Unauthorized",
             "schema": {
-              "$ref": "#/definitions/postcar"
+              "$ref": "#/definitions/postcarrequest"
             },
             "examples": {
               "application/json": {
@@ -238,12 +204,12 @@
         }
       }
     },
-    "/car/2": {
+    "/car/:id": {
       "get": {
-        "description": "TODO: Add Description",
-        "summary": "getCar",
+        "description": "Get car using the ID",
+        "summary": "get Car with ID",
         "tags": [
-          "Misc"
+          "CAR"
         ],
         "operationId": "Car2Get",
         "deprecated": false,
@@ -260,10 +226,10 @@
         "security": []
       },
       "delete": {
-        "description": "TODO: Add Description",
+        "description": "Delete car",
         "summary": "delete add",
         "tags": [
-          "Misc"
+          "ADMIN"
         ],
         "operationId": "Car2Delete",
         "deprecated": false,
@@ -285,14 +251,12 @@
             "headers": {}
           }
         }
-      }
-    },
-    "/car/1": {
+      },
       "patch": {
-        "description": "TODO: Add Description",
+        "description": "Change car status, available to sold or vice-versa",
         "summary": "change status",
         "tags": [
-          "Misc"
+          "CAR"
         ],
         "operationId": "Car1Patch",
         "deprecated": false,
@@ -332,10 +296,10 @@
     },
     "/order/": {
       "post": {
-        "description": "TODO: Add Description",
+        "description": "Allow user to post purchase order for an existing car",
         "summary": "post purchase order",
         "tags": [
-          "Misc"
+          "ORDER"
         ],
         "operationId": "OrderPost",
         "deprecated": false,
@@ -375,12 +339,12 @@
         }
       }
     },
-    "/order/1": {
+    "/order/:id": {
       "patch": {
-        "description": "TODO: Add Description",
+        "description": "User can update the buy price on his purchase order",
         "summary": "update PO price",
         "tags": [
-          "Misc"
+          "ORDER"
         ],
         "operationId": "Order1Patch",
         "deprecated": false,
@@ -412,10 +376,10 @@
         }
       },
       "get": {
-        "description": "TODO: Add Description",
+        "description": "User can get a specific purchase order",
         "summary": "get order by id",
         "tags": [
-          "Misc"
+          "ORDER"
         ],
         "operationId": "Order1Get",
         "deprecated": false,
@@ -444,12 +408,12 @@
     "signuprequest": {
       "title": "signuprequest",
       "example": {
-        "email": "didasmbalanya4@gmail.com",
-        "first_name": "Strfgfging",
-        "last_name": "  diDAS  ",
+        "email": "didasmbalanya1@gmail.com",
+        "first_name": "Didas",
+        "last_name": " Mbalanya ",
         "password": "kenya123",
         "confirm_password": "kenya123",
-        "is_admin": "true"
+        "is_admin": "false"
       },
       "type": "object",
       "properties": {
@@ -477,8 +441,7 @@
         "first_name",
         "last_name",
         "password",
-        "confirm_password",
-        "is_admin"
+        "confirm_password"
       ]
     },
     "signinrequest": {
@@ -505,11 +468,11 @@
       "title": "postcarrequest",
       "example": {
         "state": "new",
-        "status": "     available",
+        "status": "available",
         "price": " 210",
-        "manufacturer": "  String",
-        "model": "  String",
-        "body_type": "  String"
+        "manufacturer": "Toyota",
+        "model": "  Vitz",
+        "body_type": "  Car"
       },
       "type": "object",
       "properties": {
@@ -534,30 +497,14 @@
       },
       "required": [
         "state",
-        "status",
         "price",
         "manufacturer",
         "model",
         "body_type"
       ]
     },
-    "postcar": {
-      "title": "postcar",
-      "example": {
-        "error": "Please Authenticate"
-      },
-      "type": "object",
-      "properties": {
-        "error": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "error"
-      ]
-    },
     "postpurchaseorderrequest": {
-      "title": "postpurchaseorderrequest",
+      "title": "post purchase orderrequest",
       "example": {
         "car_id": 1,
         "price_offered": 3000
@@ -578,11 +525,5 @@
         "price_offered"
       ]
     }
-  },
-  "tags": [
-    {
-      "name": "Misc",
-      "description": ""
-    }
-  ]
+  }
 }
