@@ -2,6 +2,5 @@
 /.nyc_output
 /coverage
 /dist
-/config
 feedback.txt
 .env
