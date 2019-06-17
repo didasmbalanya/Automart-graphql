@@ -3,7 +3,7 @@
 /* eslint-disable no-console */
 
 import dotenv from 'dotenv';
-import pool from './src/config/db_config';
+import pool from './config/db_config';
 
 dotenv.config();
 console.log(process.env.NODE_ENV);
