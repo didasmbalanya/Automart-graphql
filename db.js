@@ -8,12 +8,11 @@ import pool from './config/db_config';
 dotenv.config();
 console.log(process.env.NODE_ENV);
 
-
 pool.on('connect', () => {
   console.log('connected to the db');
 });
 
-const createTables = () => {
+const createTables = async () => {
   const queryText = `CREATE TABLE IF NOT EXISTS 
   users (
         id BIGSERIAL PRIMARY KEY,
@@ -49,7 +48,7 @@ const createTables = () => {
         reason TEXT NOT NULL,
         description TEXT NOT NULL
       );`;
-  pool.query(queryText)
+  await pool.query(queryText)
     .then((res) => {
       console.log(res[0].command);
       pool.end();
