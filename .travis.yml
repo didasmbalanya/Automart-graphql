@@ -1,6 +1,11 @@
 language: node_js
 node_js : 
   - node
+services:
+ - postgresql
+
+before_install:
+ - psql -c 'create database automart_test_db' -U postgres
 install:
   - npm install
 cache:
