@@ -1,6 +1,8 @@
 /* eslint-disable linebreak-style */
 import Joi from '@hapi/joi';
+import dotenv from 'dotenv';
 
+dotenv.config();
 export const users = [
   {
     id: '1',
@@ -16,7 +18,6 @@ eyJlbWFpbCI6ImRpZGFzbWJhbGFueWFAZ21haWwuY29tIiwiaWF0IjoxNTYwMzMwNTkyLCJleHAiOjE1
 DhngbDVqaiHgAKGnCID3rcrpWl6CDZJxNkPVUjI1WSk
 */
 ];
-
 
 export const signUnSchema = Joi.object().keys({
   first_name: Joi.string().min(2).max(30).required()

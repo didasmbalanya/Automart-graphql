@@ -7,11 +7,13 @@ import userRouter from './routes/user';
 import carRouter from './routes/car';
 import orderRouter from './routes/order';
 import swaggerDoc from '../swagger.json';
+import { createTables } from '../db';
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+createTables();
 app.use(express.json());
 app.use(json());
 app.use(urlencoded({ extended: true }));

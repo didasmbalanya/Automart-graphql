@@ -1,23 +1,22 @@
 /* eslint-disable linebreak-style */
+
 /* eslint-disable no-console */
 
-import { Pool } from 'pg';
 import dotenv from 'dotenv';
+import pool from './src/config/db_config';
 
 dotenv.config();
+console.log(process.env.NODE_ENV);
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
 
 pool.on('connect', () => {
   console.log('connected to the db');
 });
 
-export const createTables = () => {
+const createTables = () => {
   const queryText = `CREATE TABLE IF NOT EXISTS 
   users (
-        id UUID PRIMARY KEY,
+        id BIGSERIAL PRIMARY KEY,
         email VARCHAR(128) NOT NULL,
         first_name VARCHAR(128) NOT NULL,
         last_name VARCHAR(128) NOT NULL,
@@ -26,8 +25,8 @@ export const createTables = () => {
         is_Admin BOOLEAN DEFAULT false
       );
        CREATE TABLE IF NOT EXISTS cars (
-        id UUID PRIMARY KEY,
-        owner UUID REFERENCES users(id),
+        id BIGSERIAL PRIMARY KEY,
+        owner BIGSERIAL REFERENCES users(id),
         created_on DATE DEFAULT CURRENT_DATE,
         state VARCHAR(128) NOT NULL,
         status VARCHAR(128) NOT NULL,
@@ -37,22 +36,22 @@ export const createTables = () => {
         body_type VARCHAR(128) NOT NULL
       );
       CREATE TABLE IF NOT EXISTS orders (
-        id UUID PRIMARY KEY,
-        buyer UUID REFERENCES users(id),
-        car_id UUID REFERENCES cars(id),
+        id BIGSERIAL PRIMARY KEY,
+        buyer BIGSERIAL REFERENCES users(id),
+        car_id BIGSERIAL REFERENCES cars(id),
         amount MONEY NOT NULL,
         status VARCHAR(128) DEFAULT 'pending'
       );
       CREATE TABLE IF NOT EXISTS flags (
-        id UUID PRIMARY KEY,
-        car_id UUID REFERENCES cars(id),
+        id BIGSERIAL PRIMARY KEY,
+        car_id BIGSERIAL REFERENCES cars(id),
         created_on DATE DEFAULT CURRENT_DATE,
         reason TEXT NOT NULL,
         description TEXT NOT NULL
       );`;
   pool.query(queryText)
     .then((res) => {
-      console.log(res);
+      console.log(res[0].command);
       pool.end();
     })
     .catch((err) => {
@@ -61,7 +60,7 @@ export const createTables = () => {
     });
 };
 
-export const dropTables = () => {
+const dropTables = () => {
   const queryText = 'DROP TABLE IF EXISTS users, cars, orders, flags;';
   pool.query(queryText)
     .then((res) => {
@@ -74,7 +73,7 @@ export const dropTables = () => {
     });
 };
 
-export const dropTable = (table) => {
+const dropTable = (table) => {
   const queryText = `DROP TABLE IF EXISTS ${table};`;
   pool.query(queryText)
     .then((res) => {
@@ -93,4 +92,10 @@ pool.on('remove', () => {
 });
 
 // eslint-disable-next-line import/first
-import 'make-runnable';
+module.exports = {
+  createTables,
+  dropTables,
+  dropTable,
+  pool,
+};
+require('make-runnable');
