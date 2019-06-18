@@ -102,7 +102,7 @@ describe('Users', async () => {
         .post('/api/v1/auth/signin')
         .send(signInUser)
         .end((err, res) => {
-          if (err) err.should.have.status(404);
+          if (err) err.should.have.status(422);
           res.should.have.status(422);
         });
       done();
