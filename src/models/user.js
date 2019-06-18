@@ -41,3 +41,13 @@ export const findUserByEmail = async (userEmail) => {
   if (userData.rows.length === 0) return false;
   return userData.rows[0];
 };
+
+export const addNewUser = async (params) => {
+  const result = pool.query(`INSERT INTO users (
+    first_name,
+    last_name,
+    email,
+    address,
+    password) VALUES ($1 $2 $3 $4 $5) returning *;`, params);
+  return result;
+};

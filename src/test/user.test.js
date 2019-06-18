@@ -10,7 +10,6 @@ chai.use(chaiHttp);
 chai.should();
 
 export const storedUser = {
-
   email: 'didasmbalanya@gmail.com',
   first_name: 'Strfgfging',
   last_name: 'didsda',
@@ -18,6 +17,16 @@ export const storedUser = {
   confirm_password: 'passjijij',
   is_admin: 'false',
 };
+
+const dummy = {
+  first_name: 'Dexter',
+  last_name: 'Didss',
+  email: 'didas1mbalanya@gmail.com',
+  address: 'Nairobi',
+  password: 'kenya123',
+  confirm_password:'kenya123',
+};
+
 const { secret } = process.env;
 export const token = jwt.sign({ email: storedUser.email, is_admin: storedUser.is_admin }, secret, { expiresIn: '3h' });
 // parent Block
@@ -39,8 +48,8 @@ describe('Users', () => {
         .end((err, res) => {
           if (err) res.should.have.status(404);
           res.should.have.status(200);
-          done();
         });
+        done();
     });
   });
 
@@ -60,7 +69,7 @@ describe('Users', () => {
       storedUser.email = 'didasdexter@gmail.com';
       chai.request(app)
         .post('/api/v1/auth/signup')
-        .send(storedUser)
+        .send(dummy)
         .end((err, res) => {
           if (err) err.should.have.status(404);
           res.should.have.status(201);
