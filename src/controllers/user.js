@@ -47,14 +47,14 @@ export const signin = async (req, res) => {
   if (foundUser) {
   // eslint-disable-next-line no-shadow
     bcrypt.compare(password, foundUser.password, (err, result) => {
-      if (err) res.status(404).send({ error: 'Incorrect credentials' });
+      if (err) res.status(422).send({ status: 422, error: 'Incorrect credentials' });
       else if (!result) res.status(404).send({ status: 404, error: 'Incorrect credentials' });
       else {
         const token = jwt.sign({ email, isAdmin }, secret, { expiresIn: '3h' });
         res.status(200).send({ status: 200, data: getPublicProfile(foundUser), token });
       }
     });
-  } else return res.status(404).send({ status: 404, error: 'Email not found address' });
+  } else return res.status(422).send({ status: 422, error: 'Email not registred' });
 };
 
 export const getMe = (req, res) => {
