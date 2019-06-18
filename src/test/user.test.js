@@ -1,37 +1,35 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
-
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import jwt from 'jsonwebtoken';
 import app from '../index';
+import { createTables, dropTables } from '../../db';
+import { addNewUser } from '../models/user';
 
 chai.use(chaiHttp);
 chai.should();
 
-export const storedUser = {
+export const firstUser = {
+  first_name: 'didas',
+  last_name: 'Mbalanya',
   email: 'didasmbalanya@gmail.com',
-  first_name: 'Strfgfging',
-  last_name: 'didsda',
-  password: 'passjijij',
-  confirm_password: 'passjijij',
-  is_admin: 'false',
-};
-
-const dummy = {
-  first_name: 'Dexter',
-  last_name: 'Didss',
-  email: 'didas1mbalanya@gmail.com',
   address: 'Nairobi',
-  password: 'kenya123',
-  confirm_password:'kenya123',
+  password: 'obionekanobi',
+  confirm_password: 'obionekanobi',
 };
 
 const { secret } = process.env;
-export const token = jwt.sign({ email: storedUser.email, is_admin: storedUser.is_admin }, secret, { expiresIn: '3h' });
+export const token = jwt.sign({ email: firstUser.email, is_admin: 'false' }, secret, { expiresIn: '3h' });
 // parent Block
-describe('Users', () => {
+describe('Users', async () => {
   // test GET route
+  await beforeEach(async () => {
+    await dropTables();
+    await createTables();
+    await addNewUser(FirstUser);
+  });
+
   describe('/GET root page and current logged in user', () => {
     it('should get all the api welcome page', (done) => {
       chai.request(app)
@@ -49,7 +47,7 @@ describe('Users', () => {
           if (err) res.should.have.status(404);
           res.should.have.status(200);
         });
-        done();
+      done();
     });
   });
 
@@ -57,36 +55,36 @@ describe('Users', () => {
     it('should not be able to create an already signed up user', (done) => {
       chai.request(app)
         .post('/api/v1/auth/signup')
-        .send(storedUser)
+        .send(firstUser)
         .end((err, res) => {
           if (err) err.should.have.status(404);
           res.should.have.status(422);
-          done();
         });
+      done();
     });
 
     it('should be able to add new users', (done) => {
-      storedUser.email = 'didasdexter@gmail.com';
+      firstUser.email = 'didasdexter@gmail.com';
       chai.request(app)
         .post('/api/v1/auth/signup')
-        .send(dummy)
+        .send(firstUser)
         .end((err, res) => {
           if (err) err.should.have.status(404);
           res.should.have.status(201);
-          done();
         });
+      done();
     });
 
     it('should not be able to signin a non registered user', (done) => {
-      const newUser = { email: 'didassexter@gmaiil.com', password: 'obionekanobi' };
+      const newUser = { email: 'didaskanobi@gmaiil.com', password: 'kobionekanobi' };
       chai.request(app)
         .post('/api/v1/auth/signin')
         .send(newUser)
         .end((err, res) => {
           if (err) err.should.have.status(404);
           res.should.have.status(422);
-          done();
         });
+      done();
     });
 
     it('a registered user can not signin with wrong password', (done) => {
@@ -97,8 +95,8 @@ describe('Users', () => {
         .end((err, res) => {
           if (err) err.should.have.status(422);
           res.should.have.status(404);
-          done();
         });
+      done();
     });
 
     it('a registered user can signin with right password', (done) => {
@@ -109,8 +107,8 @@ describe('Users', () => {
         .end((err, res) => {
           if (err) err.should.have.status(422);
           res.should.have.status(200);
-          done();
         });
+      done();
     });
   });
 });

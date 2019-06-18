@@ -1,6 +1,5 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
 /* eslint-disable consistent-return */
 import Joi from '@hapi/joi';
 import dotenv from 'dotenv';
@@ -28,8 +27,9 @@ export const signUnSchema = Joi.object().keys({
     .trim(),
   last_name: Joi.string().min(2).max(30).required()
     .trim(),
+  address: Joi.string().min(2).max(30).required()
+    .trim(),
   email: Joi.string().email().required(),
-  is_admin: Joi.boolean().default(false).valid([true, false]),
   password: Joi.string().min(7).required().strict()
     .regex(/^[a-zA-Z0-9]{7,30}$/),
   confirm_password: Joi.string().valid(Joi.ref('password')).required().strict(),
@@ -37,17 +37,17 @@ export const signUnSchema = Joi.object().keys({
 
 export const findUserByEmail = async (userEmail) => {
   const userData = await pool.query(`SELECT * FROM users WHERE email='${userEmail}'`);
-  await pool.end();
   if (userData.rows.length === 0) return false;
   return userData.rows[0];
 };
 
-export const addNewUser = async (params) => {
-  const result = pool.query(`INSERT INTO users (
+export const addNewUser = async (values) => {
+  const result = await pool.query(`INSERT INTO users(
     first_name,
     last_name,
     email,
     address,
-    password) VALUES ($1 $2 $3 $4 $5) returning *;`, params);
+    password,
+    is_admin) VALUES($1,$2,$3,$4,$5,$6) returning *`, values);
   return result;
 };
