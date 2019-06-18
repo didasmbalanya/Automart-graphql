@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 
 import dotenv from 'dotenv';
@@ -16,7 +16,7 @@ const createTables = async () => {
   const queryText = `CREATE TABLE IF NOT EXISTS 
   users (
         id BIGSERIAL PRIMARY KEY,
-        email VARCHAR(128) NOT NULL,
+        email VARCHAR(128) NOT NULL UNIQUE,
         first_name VARCHAR(128) NOT NULL,
         last_name VARCHAR(128) NOT NULL,
         password VARCHAR(150) NOT NULL,
@@ -51,11 +51,9 @@ const createTables = async () => {
   await pool.query(queryText)
     .then((res) => {
       console.log(res[0].command);
-      pool.end();
     })
     .catch((err) => {
       console.log(err);
-      pool.end();
     });
 };
 
@@ -63,12 +61,10 @@ const dropTables = () => {
   const queryText = 'DROP TABLE IF EXISTS users, cars, orders, flags;';
   pool.query(queryText)
     .then((res) => {
-      console.log(res);
-      pool.end();
+      console.log('dropped');
     })
     .catch((err) => {
       console.log(err);
-      pool.end();
     });
 };
 
@@ -76,8 +72,7 @@ const dropTable = (table) => {
   const queryText = `DROP TABLE IF EXISTS ${table};`;
   pool.query(queryText)
     .then((res) => {
-      console.log(res);
-      pool.end();
+      console.log(res[0].command);
     })
     .catch((err) => {
       console.log(err);

@@ -7,8 +7,10 @@
     "start": "cross-env NODE_ENV=production babel-node dist/index.js",
     "build": "babel src --out-dir dist",
     "dev": "cross-env NODE_ENV=development nodemon --exec babel-node src/index.js",
-    "tables":"cross-env NODE_ENV=test babel-node ./db.js createTables",
-    "dev_tables":"cross-env NODE_ENV=development babel-node ./db.js createTables",
+    "create_test_tables":"cross-env NODE_ENV=test babel-node ./db.js createTables",
+    "drop_test_tables":"cross-env NODE_ENV=test babel-node ./db.js dropTables",
+    "drop_dev_tables":"cross-env NODE_ENV=development babel-node ./db.js dropTables",
+    "create_dev_tables":"cross-env NODE_ENV=development babel-node ./db.js createTables",
     "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --require @babel/register 'src/**/**test.js' --exit",
     "coverage": "nyc --reporter=lcov --reporter=text-lcov npm run test",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"

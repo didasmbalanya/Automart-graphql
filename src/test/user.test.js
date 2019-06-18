@@ -1,28 +1,44 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
-
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import jwt from 'jsonwebtoken';
 import app from '../index';
+import { createTables, dropTables } from '../../db';
+import { addNewUser } from '../models/user';
 
 chai.use(chaiHttp);
 chai.should();
 
 export const storedUser = {
-
-  email: 'didasmbalanya@gmail.com',
   first_name: 'Strfgfging',
   last_name: 'didsda',
+  email: 'didasmbalanya@gmail.com',
   password: 'passjijij',
   confirm_password: 'passjijij',
   is_admin: 'false',
 };
+
+const dummy = {
+  first_name: 'Dexter',
+  last_name: 'Didss',
+  email: 'didasmbalanya1@gmail.com',
+  address: 'Nairobi',
+  password: 'kenya123',
+  confirm_password: 'kenya123',
+};
+
+
 const { secret } = process.env;
 export const token = jwt.sign({ email: storedUser.email, is_admin: storedUser.is_admin }, secret, { expiresIn: '3h' });
 // parent Block
-describe('Users', () => {
-  // test GET route
+describe('Users', async () => {
+  await beforeEach(async () => {
+    // await dropTables();
+    await createTables();
+    await addNewUser(storedUser);
+  });
+
   describe('/GET root page and current logged in user', () => {
     it('should get all the api welcome page', (done) => {
       chai.request(app)
@@ -39,8 +55,8 @@ describe('Users', () => {
         .end((err, res) => {
           if (err) res.should.have.status(404);
           res.should.have.status(200);
-          done();
         });
+      done();
     });
   });
 
@@ -60,12 +76,12 @@ describe('Users', () => {
       storedUser.email = 'didasdexter@gmail.com';
       chai.request(app)
         .post('/api/v1/auth/signup')
-        .send(storedUser)
+        .send(dummy)
         .end((err, res) => {
           if (err) err.should.have.status(404);
           res.should.have.status(201);
-          done();
         });
+      done();
     });
 
     it('should not be able to signin a non registered user', (done) => {
@@ -76,8 +92,8 @@ describe('Users', () => {
         .end((err, res) => {
           if (err) err.should.have.status(404);
           res.should.have.status(422);
-          done();
         });
+      done();
     });
 
     it('a registered user can not signin with wrong password', (done) => {
@@ -87,9 +103,9 @@ describe('Users', () => {
         .send(signInUser)
         .end((err, res) => {
           if (err) err.should.have.status(422);
-          res.should.have.status(404);
-          done();
+          res.should.have.status(422);
         });
+      done();
     });
 
     it('a registered user can signin with right password', (done) => {
@@ -98,10 +114,10 @@ describe('Users', () => {
         .post('/api/v1/auth/signin')
         .send(usertwo)
         .end((err, res) => {
-          if (err) err.should.have.status(422);
+          if (err) err.should.have.status(404);
           res.should.have.status(200);
-          done();
         });
+      done();
     });
   });
 });

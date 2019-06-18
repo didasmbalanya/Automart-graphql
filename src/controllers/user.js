@@ -6,7 +6,9 @@
 import Joi from '@hapi/joi';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { signUnSchema, users, findUserByEmail } from '../models/user';
+import {
+  signUnSchema, users, findUserByEmail, addNewUser,
+} from '../models/user';
 import { getPublicProfile } from '../utils/user_utils';
 
 const { secret } = process.env;
@@ -18,44 +20,43 @@ export const signup = async (req, res) => {
   req.body.password = req.body.password.trim();
   req.body.confirm_password = req.body.confirm_password.trim();
   req.body.email = req.body.email.trim();
-  Joi.validate(req.body, signUnSchema).then(() => {
-    const { email, password } = req.body;
-    let { is_admin } = req.body;
-    if (!is_admin) is_admin = 'false';
-    const foundUser = users.find(user => user.email === req.body.email);
+  Joi.validate(req.body, signUnSchema).then(async () => {
+    const {
+      first_name, last_name, email, address, password, is_admin,
+    } = req.body;
+    const foundUser = await findUserByEmail(req.body.email);
     if (!foundUser) {
-      req.body.is_admin = is_admin;
-      req.body.id = users.length + 1;
       req.body.password = bcrypt.hashSync(password, 8);
       req.body.confirm_password = bcrypt.hashSync(password, 8);
       const token = jwt.sign({ email, is_admin }, secret, { expiresIn: '3h' });
-      users.push(req.body);
+      req.body.is_admin = 'false';
+      const values = [first_name, last_name, email, address, req.body.password, req.body.is_admin];
+      await addNewUser(values);
       const user = getPublicProfile(req.body);
-      res.status(201).send({ data: user, token });
-    } else res.status(422).send({ error: 'Already signed up user' });
+      res.status(201).send({ status: 201, data: user, token });
+    } else res.status(422).send({ status: 422, error: 'Already signed up user' });
   }).catch((e) => {
-    if (e.isJoi) res.status(422).send({ error: e.details[0].message });
-    else res.status(404).send({ error: 'Invalid request' });
+    if (e.isJoi) res.status(422).send({ status: 422, error: e.details[0].message });
+    else res.status(404).send({ status: 404, error: 'Invalid request' });
   });
 };
 
 export const signin = async (req, res) => {
   const { email, password, isAdmin } = req.body;
-  const foundUser = users.find(user => user.email === email);
-  if (!foundUser) {
-    return res.status(422).send({ error: 'Invalid email address' });
-  }
+  const foundUser = await findUserByEmail(email);
+  if (foundUser) {
   // eslint-disable-next-line no-shadow
-  bcrypt.compare(password, foundUser.password, (err, result) => {
-    if (err) res.status(404).send({ error: 'Incorrect credentials' });
-    else if (!result) res.status(404).send({ error: 'Incorrect credentials' });
-    else {
-      const token = jwt.sign({ email, isAdmin }, secret, { expiresIn: '3h' });
-      res.status(200).send({ data: getPublicProfile(foundUser), token });
-    }
-  });
+    bcrypt.compare(password, foundUser.password, (err, result) => {
+      if (err) res.status(422).send({ status: 422, error: 'Incorrect credentials' });
+      else if (!result) res.status(404).send({ status: 404, error: 'Incorrect credentials' });
+      else {
+        const token = jwt.sign({ email, isAdmin }, secret, { expiresIn: '3h' });
+        res.status(200).send({ status: 200, data: getPublicProfile(foundUser), token });
+      }
+    });
+  } else return res.status(422).send({ status: 422, error: 'Email not registred' });
 };
 
 export const getMe = (req, res) => {
-  res.send({ data: getPublicProfile(req.user) });
+  res.send({ status: 200, data: getPublicProfile(req.user) });
 };

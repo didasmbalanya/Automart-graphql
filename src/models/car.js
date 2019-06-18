@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 import Joi from '@hapi/joi';
-
+// import pool from '../../config/db_config';
 
 export const cars = [
   {
