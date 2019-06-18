@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 
 import dotenv from 'dotenv';
@@ -50,11 +51,9 @@ const createTables = async () => {
   await pool.query(queryText)
     .then((res) => {
       console.log(res[0].command);
-      pool.end();
     })
     .catch((err) => {
       console.log(err);
-      pool.end();
     });
 };
 
@@ -62,8 +61,7 @@ const dropTables = () => {
   const queryText = 'DROP TABLE IF EXISTS users, cars, orders, flags;';
   pool.query(queryText)
     .then((res) => {
-      console.log(res[0].command);
-      pool.end();
+      console.log('dropped');
     })
     .catch((err) => {
       console.log(err);
@@ -76,7 +74,6 @@ const dropTable = (table) => {
   pool.query(queryText)
     .then((res) => {
       console.log(res[0].command);
-      pool.end();
     })
     .catch((err) => {
       console.log(err);
