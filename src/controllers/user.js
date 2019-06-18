@@ -54,7 +54,7 @@ export const signin = async (req, res) => {
         res.status(200).send({ status: 200, data: getPublicProfile(foundUser), token });
       }
     });
-  } else return res.status(422).send({ status: 422, error: 'Invalid email address' });
+  } else return res.status(404).send({ status: 404, error: 'Email not found address' });
 };
 
 export const getMe = (req, res) => {
