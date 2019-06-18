@@ -26,7 +26,9 @@ var postOrder = function postOrder(req, res) {
 
     if (carAva) {
       order.buyer = req.user.id;
-      if (carAva.owner.toString() === order.buyer.toString()) return res.status(422).send('cannot buy your own car');
+      if (carAva.owner.toString() === order.buyer.toString()) return res.status(422).send({
+        error: 'cannot buy your own car'
+      });
       order.id = _order.orders.length + 1;
       order.created_on = Date();
       order.status = 'pending';
@@ -34,7 +36,9 @@ var postOrder = function postOrder(req, res) {
 
       _order.orders.push(order);
 
-      res.status(201).send(order);
+      res.status(201).send({
+        data: order
+      });
     } else throw Error('car not found');
   })["catch"](function (e) {
     res.status(404).send({
@@ -52,7 +56,11 @@ var updateOrder = function updateOrder(req, res) {
     var price = req.query.price;
 
     var purchaseOrder = _order.orders.find(function (ord) {
-      return ord.id.toString() === id;
+      return ord.id.toString() === id.toString();
+    });
+
+    if (!purchaseOrder) return res.status(404).send({
+      error: 'Purchase order not found'
     });
 
     if (purchaseOrder.buyer.toString() === req.user.id) {
@@ -60,9 +68,11 @@ var updateOrder = function updateOrder(req, res) {
 
       _order.orders[orderIndex].new_price_offered = price;
       var order = _order.orders[orderIndex];
-      res.status(200).send(order);
-    } else res.status(404).send({
-      error: 'Purchase order not found'
+      res.status(200).send({
+        data: order
+      });
+    } else res.status(403).send({
+      error: 'not allowed'
     });
   }
 };
@@ -76,12 +86,19 @@ var getOrderById = function getOrderById(req, res) {
     return order.id.toString() === id;
   });
 
+  if (!foundOrder) return res.status(404).send({
+    error: 'Purchase order not found'
+  });
+
   if (req.user.id.toString() === foundOrder.buyer.toString()) {
-    if (foundOrder) return res.status(200).send(foundOrder);
-    res.status(404).send('order not found');
+    return res.status(200).send({
+      data: foundOrder
+    });
   }
 
-  res.status(404).send('order Id not found');
+  res.status(404).send({
+    error: 'order not found'
+  });
 };
 
 exports.getOrderById = getOrderById;

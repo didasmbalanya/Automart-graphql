@@ -61,9 +61,15 @@ var signup = function signup(req, res) {
         data: user,
         token: token
       });
-    } else res.status(422).send('Already signed up user');
+    } else res.status(422).send({
+      error: 'Already signed up user'
+    });
   })["catch"](function (e) {
-    if (e.isJoi) res.status(422).send(e.details[0].message);else res.status(404).send('Invalid request');
+    if (e.isJoi) res.status(422).send({
+      error: e.details[0].message
+    });else res.status(404).send({
+      error: 'Invalid request'
+    });
   });
 };
 
@@ -98,7 +104,11 @@ function () {
           case 4:
             // eslint-disable-next-line no-shadow
             _bcrypt["default"].compare(password, foundUser.password, function (err, result) {
-              if (err) res.status(404).send('Incorrect credentials');else if (!result) res.status(404).send('Incorrect credentials');else {
+              if (err) res.status(404).send({
+                error: 'Incorrect credentials'
+              });else if (!result) res.status(404).send({
+                error: 'Incorrect credentials'
+              });else {
                 var token = _jsonwebtoken["default"].sign({
                   email: email,
                   isAdmin: isAdmin
@@ -129,7 +139,9 @@ function () {
 exports.signin = signin;
 
 var getMe = function getMe(req, res) {
-  res.send((0, _user_utils.getPublicProfile)(req.user));
+  res.send({
+    data: (0, _user_utils.getPublicProfile)(req.user)
+  });
 };
 
 exports.getMe = getMe;

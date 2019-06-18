@@ -18,7 +18,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var router = _express["default"].Router();
 
 router.get('/', function (req, res) {
-  return res.send('Welcome to AUTOMARTS API');
+  return res.send({
+    message: 'Welcome to AUTOMARTS API'
+  });
 });
 router.get('/api/v1/car', _car.getCars);
 router.get('/api/v1/car/:id', _car.getCarById);

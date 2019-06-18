@@ -43,7 +43,9 @@ var postCar = function postCar(req, res) {
             _car.cars.push(car);
 
             _context.next = 7;
-            return res.status(201).send(car);
+            return res.status(201).send({
+              data: car
+            });
 
           case 7:
           case "end":
@@ -53,9 +55,13 @@ var postCar = function postCar(req, res) {
     }, _callee);
   })))["catch"](function (e) {
     if (e.details[0].message) {
-      res.status(422).send(e.details[0].message);
+      res.status(422).send({
+        error: e.details[0].message
+      });
     } else {
-      res.status(404).send('Invalid post request');
+      res.status(404).send({
+        error: 'Invalid post request'
+      });
     }
   });
 };
@@ -68,11 +74,16 @@ var changeProperty = function changeProperty(req, res) {
       status = _req$query.status,
       price = _req$query.price;
   var foundCar = (0, _car_utils.findCar)(id, _car.cars);
-  if (foundCar.owner.toString() !== req.user.id) return res.status(422).send('not allowed');
 
   if (!foundCar) {
-    return res.status(404).send('Car not found');
+    return res.status(404).send({
+      error: 'Car not found'
+    });
   }
+
+  if (foundCar.owner.toString() !== req.user.id.toString()) return res.status(403).send({
+    error: 'not allowed'
+  });
 
   if (!price) {
     if (status.toLowerCase() === 'sold' || status.toLowerCase() === 'available') {
@@ -81,13 +92,17 @@ var changeProperty = function changeProperty(req, res) {
       _car.cars[carIndex].status = status.toLowerCase();
       res.status(200).send(_car.cars[carIndex]);
     } else {
-      return res.status(422).send('Invalid request');
+      return res.status(422).send({
+        error: 'Invalid request'
+      });
     }
   } else {
     var _carIndex = _car.cars.indexOf(foundCar);
 
     _car.cars[_carIndex].price = price;
-    return res.status(200).send(_car.cars[_carIndex]);
+    return res.status(200).send({
+      data: _car.cars[_carIndex]
+    });
   }
 };
 
@@ -113,7 +128,9 @@ function () {
               break;
             }
 
-            res.status(200).send(foundCarId);
+            res.status(200).send({
+              data: foundCarId
+            });
             _context2.next = 8;
             break;
 
@@ -127,7 +144,9 @@ function () {
           case 10:
             _context2.prev = 10;
             _context2.t0 = _context2["catch"](0);
-            res.status(404).send('Car not found');
+            res.status(404).send({
+              error: 'Car not found'
+            });
 
           case 13:
           case "end":
@@ -147,15 +166,21 @@ exports.getCarById = getCarById;
 var deleteCar = function deleteCar(req, res) {
   var id = req.params.id;
   var foundCar = (0, _car_utils.findCar)(id, _car.cars);
-  if (!foundCar) return res.status(404).send('Car add not found');
+  if (!foundCar) return res.status(404).send({
+    error: 'Car add not found'
+  });
 
-  if (foundCar.owner === req.user.id || req.user.is_admin === 'true') {
+  if (foundCar.owner.toString() === req.user.id.toString() || req.user.is_admin === 'true') {
     var carIndex = _car.cars.indexOf(foundCar);
 
     _car.cars.splice(carIndex, 1);
 
-    res.status(200).send('“Car Ad successfully deleted');
-  } else res.status(405).send('not authorized to delete car');
+    res.status(200).send({
+      message: 'Car Ad successfully deleted'
+    });
+  } else res.status(403).send({
+    error: 'not authorized to delete car'
+  });
 };
 
 exports.deleteCar = deleteCar;
@@ -165,22 +190,34 @@ var getCars = function getCars(req, res) {
       min_price = _req$query2.min_price,
       max_price = _req$query2.max_price,
       status = _req$query2.status;
-  if (_car.cars.length === 0) return res.send('No cars in the database');
+  if (_car.cars.length === 0) return res.send({
+    data: _car.cars
+  });
 
   if (min_price && max_price && status === 'available') {
     var avaCars = (0, _car_utils.findByStatus)(status, _car.cars);
     var avaCarsMinPrice = (0, _car_utils.findMinPrice)(min_price, avaCars);
     var avaMinMaxCars = (0, _car_utils.findMaxPrice)(max_price, avaCarsMinPrice);
-    if (avaMinMaxCars.length > 0) return res.status(200).send(avaMinMaxCars);
-    return res.status(404).send('No car with specified filters found');
+    if (avaMinMaxCars.length > 0) return res.status(200).send({
+      data: avaMinMaxCars
+    });
+    return res.status(404).send({
+      data: 'No car with specified filters found'
+    });
   }
 
   if (status) {
     var _avaCars = (0, _car_utils.findByStatus)(status, _car.cars);
 
-    if (_avaCars.length > 0) res.status(200).send(_avaCars);else res.status(404).send('No car with specified filters found');
+    if (_avaCars.length > 0) res.status(200).send({
+      data: _avaCars
+    });else res.status(404).send({
+      error: 'No car with specified filters found'
+    });
   } else {
-    res.status(200).send(_car.cars);
+    res.status(200).send({
+      data: _car.cars
+    });
   }
 };
 
