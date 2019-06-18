@@ -1,7 +1,10 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
+/* eslint-disable consistent-return */
 import Joi from '@hapi/joi';
 import dotenv from 'dotenv';
-// import pool from '../../db';
+import pool from '../../config/db_config';
 
 dotenv.config();
 export const users = [
@@ -31,3 +34,10 @@ export const signUnSchema = Joi.object().keys({
     .regex(/^[a-zA-Z0-9]{7,30}$/),
   confirm_password: Joi.string().valid(Joi.ref('password')).required().strict(),
 });
+
+export const findUserByEmail = async (userEmail) => {
+  const userData = await pool.query(`SELECT * FROM users WHERE email='${userEmail}'`);
+  await pool.end();
+  if (userData.rows.length === 0) return false;
+  return userData.rows[0];
+};

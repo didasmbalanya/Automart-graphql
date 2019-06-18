@@ -6,12 +6,13 @@
 import Joi from '@hapi/joi';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { signUnSchema, users } from '../models/user';
+import { signUnSchema, users, findUserByEmail } from '../models/user';
 import { getPublicProfile } from '../utils/user_utils';
 
 const { secret } = process.env;
 
-export const signup = (req, res) => {
+
+export const signup = async (req, res) => {
   req.body.first_name = req.body.first_name.trim();
   req.body.last_name = req.body.last_name.trim();
   req.body.password = req.body.password.trim();
@@ -21,7 +22,7 @@ export const signup = (req, res) => {
     const { email, password } = req.body;
     let { is_admin } = req.body;
     if (!is_admin) is_admin = 'false';
-    const foundUser = users.find(user => user.email === email);
+    const foundUser = users.find(user => user.email === req.body.email);
     if (!foundUser) {
       req.body.is_admin = is_admin;
       req.body.id = users.length + 1;
