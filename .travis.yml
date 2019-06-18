@@ -12,6 +12,7 @@ cache:
   directories:
     - "node_modules"
 before_script:
+  - npm run drop_test_tables
   - npm run create_test_tables
 script:
   - npm run test

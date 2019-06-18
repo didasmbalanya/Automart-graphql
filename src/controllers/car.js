@@ -21,12 +21,12 @@ export const postCar = (req, res) => {
     car.owner = req.user.id;
     car.created_on = Date();
     cars.push(car);
-    await res.status(201).send({ data: car });
+    await res.status(201).send({ status: 201, data: car });
   }).catch((e) => {
     if (e.details[0].message) {
-      res.status(422).send({ error: e.details[0].message });
+      res.status(422).send({ status: 422, error: e.details[0].message });
     } else {
-      res.status(404).send({ error: 'Invalid post request' });
+      res.status(404).send({ status: 404, error: 'Invalid post request' });
     }
   });
 };
@@ -36,21 +36,21 @@ export const changeProperty = (req, res) => {
   const { status, price } = req.query;
   const foundCar = findCar(id, cars);
   if (!foundCar) {
-    return res.status(404).send({ error: 'Car not found' });
+    return res.status(404).send({ status: 404, error: 'Car not found' });
   }
-  if (foundCar.owner.toString() !== req.user.id.toString()) return res.status(403).send({ error: 'not allowed' });
+  if (foundCar.owner.toString() !== req.user.id.toString()) return res.status(403).send({ status: 403, error: 'not allowed' });
   if (!price) {
     if (status.toLowerCase() === 'sold' || status.toLowerCase() === 'available') {
       const carIndex = cars.indexOf(foundCar);
       cars[carIndex].status = status.toLowerCase();
-      res.status(200).send(cars[carIndex]);
+      res.status(200).send({ status: 200, data: cars[carIndex] });
     } else {
-      return res.status(422).send({ error: 'Invalid request' });
+      return res.status(422).send({ status: 422, error: 'Invalid request' });
     }
   } else {
     const carIndex = cars.indexOf(foundCar);
     cars[carIndex].price = price;
-    return res.status(200).send({ data: cars[carIndex] });
+    return res.status(200).send({ status: 200, data: cars[carIndex] });
   }
 };
 
@@ -61,36 +61,36 @@ export const getCarById = async (req, res) => {
     if (foundCarId) res.status(200).send({ data: foundCarId });
     else throw new Error();
   } catch (e) {
-    res.status(404).send({ error: 'Car not found' });
+    res.status(404).send({ status: 404, error: 'Car not found' });
   }
 };
 
 export const deleteCar = (req, res) => {
   const { id } = req.params;
   const foundCar = findCar(id, cars);
-  if (!foundCar) return res.status(404).send({ error: 'Car add not found' });
+  if (!foundCar) return res.status(404).send({ status: 404, error: 'Car add not found' });
   if (foundCar.owner.toString() === req.user.id.toString() || req.user.is_admin === 'true') {
     const carIndex = cars.indexOf(foundCar);
     cars.splice(carIndex, 1);
-    res.status(200).send({ message: 'Car Ad successfully deleted' });
-  } else res.status(403).send({ error: 'not authorized to delete car' });
+    res.status(200).send({ status: 200, message: 'Car Ad successfully deleted' });
+  } else res.status(403).send({ status: 403, error: 'not authorized to delete car' });
 };
 
 export const getCars = (req, res) => {
   const { min_price, max_price, status } = req.query;
-  if (cars.length === 0) return res.send({ data: cars });
+  if (cars.length === 0) return res.send({ status: 200, data: cars });
   if (min_price && max_price && status === 'available') {
     const avaCars = findByStatus(status, cars);
     const avaCarsMinPrice = findMinPrice(min_price, avaCars);
     const avaMinMaxCars = findMaxPrice(max_price, avaCarsMinPrice);
-    if (avaMinMaxCars.length > 0) return res.status(200).send({ data: avaMinMaxCars });
-    return res.status(404).send({ data: 'No car with specified filters found' });
+    if (avaMinMaxCars.length > 0) return res.status(200).send({ status: 200, data: avaMinMaxCars });
+    return res.status(404).send({ status: 404, data: 'No car with specified filters found' });
   }
   if (status) {
     const avaCars = findByStatus(status, cars);
-    if (avaCars.length > 0) res.status(200).send({ data: avaCars });
-    else res.status(404).send({ error: 'No car with specified filters found' });
+    if (avaCars.length > 0) res.status(200).send({ status: 200, data: avaCars });
+    else res.status(404).send({ status: 404, error: 'No car with specified filters found' });
   } else {
-    res.status(200).send({ data: cars });
+    res.status(200).send({ status: 200, data: cars });
   }
 };

@@ -65,7 +65,6 @@ const dropTables = () => {
     })
     .catch((err) => {
       console.log(err);
-      pool.end();
     });
 };
 

@@ -10,24 +10,33 @@ import { addNewUser } from '../models/user';
 chai.use(chaiHttp);
 chai.should();
 
-export const firstUser = {
-  first_name: 'didas',
-  last_name: 'Mbalanya',
+export const storedUser = {
+  first_name: 'Strfgfging',
+  last_name: 'didsda',
   email: 'didasmbalanya@gmail.com',
-  address: 'Nairobi',
-  password: 'obionekanobi',
-  confirm_password: 'obionekanobi',
+  password: 'passjijij',
+  confirm_password: 'passjijij',
+  is_admin: 'false',
 };
 
+const dummy = {
+  first_name: 'Dexter',
+  last_name: 'Didss',
+  email: 'didasmbalanya1@gmail.com',
+  address: 'Nairobi',
+  password: 'kenya123',
+  confirm_password: 'kenya123',
+};
+
+
 const { secret } = process.env;
-export const token = jwt.sign({ email: firstUser.email, is_admin: 'false' }, secret, { expiresIn: '3h' });
+export const token = jwt.sign({ email: storedUser.email, is_admin: storedUser.is_admin }, secret, { expiresIn: '3h' });
 // parent Block
 describe('Users', async () => {
-  // test GET route
   await beforeEach(async () => {
-    await dropTables();
+    // await dropTables();
     await createTables();
-    await addNewUser(FirstUser);
+    await addNewUser(storedUser);
   });
 
   describe('/GET root page and current logged in user', () => {
@@ -55,19 +64,19 @@ describe('Users', async () => {
     it('should not be able to create an already signed up user', (done) => {
       chai.request(app)
         .post('/api/v1/auth/signup')
-        .send(firstUser)
+        .send(storedUser)
         .end((err, res) => {
           if (err) err.should.have.status(404);
           res.should.have.status(422);
+          done();
         });
-      done();
     });
 
     it('should be able to add new users', (done) => {
-      firstUser.email = 'didasdexter@gmail.com';
+      storedUser.email = 'didasdexter@gmail.com';
       chai.request(app)
         .post('/api/v1/auth/signup')
-        .send(firstUser)
+        .send(dummy)
         .end((err, res) => {
           if (err) err.should.have.status(404);
           res.should.have.status(201);
@@ -76,7 +85,7 @@ describe('Users', async () => {
     });
 
     it('should not be able to signin a non registered user', (done) => {
-      const newUser = { email: 'didaskanobi@gmaiil.com', password: 'kobionekanobi' };
+      const newUser = { email: 'didassexter@gmaiil.com', password: 'obionekanobi' };
       chai.request(app)
         .post('/api/v1/auth/signin')
         .send(newUser)
