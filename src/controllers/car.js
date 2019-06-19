@@ -49,14 +49,10 @@ export const changeProperty = async (req, res) => {
 };
 
 export const getCarById = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const foundCarId = findCar(id, cars);
-    if (foundCarId) res.status(200).send({ data: foundCarId });
-    else throw new Error();
-  } catch (e) {
-    res.status(404).send({ status: 404, error: 'Car not found' });
-  }
+  const { id } = req.params;
+  const foundCar = await getCarId(id);
+  if (!foundCar) return res.status(404).send({ status: 404, data: 'Car not found' });
+  return res.status(200).send({ status: 200, data: foundCar });
 };
 
 export const deleteCar = (req, res) => {
