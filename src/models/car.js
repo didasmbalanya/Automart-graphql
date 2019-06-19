@@ -44,3 +44,8 @@ export const getCarsBy = async (key, value) => {
   if (result.rows.length === 0) return [];
   return result.rows;
 };
+export const getCarsMinMax = async (minPrice, maxPrice) => {
+  const result = await pool.query(`SELECT * FROM cars WHERE status='available' AND price>='${minPrice}' AND price<='${maxPrice}'`);
+  if (result.rows.length === 0) return [];
+  return result.rows;
+};
