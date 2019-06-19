@@ -44,14 +44,9 @@ export const getCarsBy = async (key, value) => {
   if (result.rows.length === 0) return [];
   return result.rows;
 };
-export const getCarsMinMax = async (minPrice, maxPrice) => {
-  const result = await pool.query(`SELECT * FROM cars WHERE status='available' AND price>='${minPrice}' AND price<='${maxPrice}'`);
-  if (result.rows.length === 0) return [];
-  return result.rows;
-};
 
 export const markSold = async (id) => {
-  const result = await pool.query(`UPDATE cars SET status='sold' WHERE id='${id}'`);
+  const result = await pool.query(`UPDATE cars SET status='sold' WHERE id='${id}' RETURNING *`);
   return result;
 };
 
@@ -59,4 +54,15 @@ export const getCarId = async (id) => {
   const result = await pool.query(`SELECT * FROM cars WHERE id='${id}'`);
   if (result.rows.length === 0) return false;
   return result.rows[0];
+};
+
+export const updatePriceId = async (id, price) => {
+  const result = await pool.query(`UPDATE cars SET price='${price}' WHERE id='${id}' RETURNING *`);
+  return result;
+};
+
+export const getCarsMinMax = async (minPrice, maxPrice) => {
+  const result = await pool.query(`SELECT * FROM cars WHERE status='available' AND price>='${minPrice}' AND price<='${maxPrice}'`);
+  if (result.rows.length === 0) return false;
+  return result.rows;
 };

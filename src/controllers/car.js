@@ -4,7 +4,7 @@
 /* eslint-disable consistent-return */
 import Joi from '@hapi/joi';
 import {
-  cars, carSchema, addNewCar, getCarsBy, getCarsMinMax, getCarId, markSold,
+  cars, carSchema, addNewCar, getCarsBy, getCarId, markSold, getCarsMinMax,
 } from '../models/car';
 import { findCar } from '../utils/car_utils';
 
@@ -38,8 +38,8 @@ export const markCarSold = async (req, res) => {
   }
   if (foundCar.owner.toString() !== req.user.id) return res.status(403).send({ status: 403, error: 'not allowed' });
   if (foundCar.status === 'available' && !price) {
-    await markSold(id);
-    res.status(200).send({ status: 200, data: await getCarId(id) });
+    const data = await markSold(id);
+    res.status(200).send({ status: 200, data });
   } else if (price && !status) {
     return price;
   } else {
