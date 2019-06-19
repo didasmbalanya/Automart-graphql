@@ -1,8 +1,9 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable max-len */
 /* eslint-disable camelcase */
 /* eslint-disable consistent-return */
 import Joi from '@hapi/joi';
-import { cars, carSchema } from '../models/car';
+import { cars, carSchema, addNewCar } from '../models/car';
 import {
   findCar, findByStatus, findMaxPrice, findMinPrice,
 } from '../utils/car_utils';
@@ -14,17 +15,14 @@ export const postCar = (req, res) => {
   req.body.body_type = req.body.body_type.trim();
   req.body.status = req.body.status.trim();
   req.body.state = req.body.state.trim();
-  req.body.price = req.body.price.trim();
   Joi.validate(req.body, carSchema).then(async () => {
     const car = req.body;
-    car.id = cars.length + 1;
     car.owner = req.user.id;
-    car.created_on = Date();
-    cars.push(car);
+    await addNewCar([car.owner, car.created_on, car.state, car.status, car.price, car.manufacturer, car.model, car.body_type]);
     await res.status(201).send({ status: 201, data: car });
   }).catch((e) => {
-    if (e.details[0].message) {
-      res.status(422).send({ status: 422, error: e.details[0].message });
+    if (e) {
+      res.status(422).send({ status: 422, error: e });
     } else {
       res.status(404).send({ status: 404, error: 'Invalid post request' });
     }
