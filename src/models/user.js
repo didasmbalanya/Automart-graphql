@@ -25,9 +25,8 @@ export const signUnSchema = Joi.object().keys({
     .trim(),
   last_name: Joi.string().min(2).max(30).required()
     .trim(),
-  address: Joi.string().min(2).max(30).required()
-    .trim(),
   email: Joi.string().email().required(),
+  is_admin: Joi.boolean().default(false).valid([true, false]),
   password: Joi.string().min(7).required().strict()
     .regex(/^[a-zA-Z0-9]{7,30}$/),
   confirm_password: Joi.string().valid(Joi.ref('password')).required().strict(),
@@ -39,13 +38,12 @@ export const findUserByEmail = async (userEmail) => {
   return userData.rows[0];
 };
 
-export const addNewUser = async (values) => {
-  const result = await pool.query(`INSERT INTO users(
+export const addNewUser = async (params) => {
+  const result = pool.query(`INSERT INTO users (
     first_name,
     last_name,
     email,
     address,
-    password,
-    is_admin) VALUES($1,$2,$3,$4,$5,$6) returning *`, values);
+    password) VALUES ($1 $2 $3 $4 $5) returning *;`, params);
   return result;
 };

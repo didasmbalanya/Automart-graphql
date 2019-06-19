@@ -107,7 +107,7 @@ describe.skip('Cars', async () => {
     });
   });
 
-  describe('/POST Car requests', () => {
+  describe.skip('/POST Car requests', () => {
     it.skip('should not be able to post car if user is not logged in', (done) => {
       chai.request(app)
         .post('/api/v1/car')

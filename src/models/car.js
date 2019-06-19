@@ -38,3 +38,9 @@ export const addNewCar = async (values) => {
     body_type) VALUES($1,$2,$3,$4,$5,$6,$7) returning *`, values);
   return result;
 };
+
+export const getCarsBy = async (key, value) => {
+  const result = await pool.query(`SELECT * FROM cars WHERE ${key}='${value}'`);
+  if (result.rows.length === 0) return [];
+  return result.rows;
+};
