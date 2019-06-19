@@ -29,7 +29,7 @@ export const postCar = (req, res) => {
   });
 };
 
-export const changeProperty = (req, res) => {
+export const markCarSold = (req, res) => {
   const { id } = req.params;
   const { status, price } = req.query;
   const foundCar = findCar(id, cars);
