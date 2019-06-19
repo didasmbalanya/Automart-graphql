@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 import Joi from '@hapi/joi';
-// import pool from '../../config/db_config';
+import pool from '../../config/db_config';
 
 export const orders = [
   {
@@ -14,6 +14,15 @@ export const orders = [
 
 export const purchaseOrderSchema = Joi.object().keys({
   car_id: Joi.number().required().min(1),
-  price_offered: Joi.number().min(1).required(),
+  amount: Joi.number().min(1).required(),
   status: Joi.string().valid(['pending', 'accepted', 'rejected']),
 });
+
+export const createOrder = async (values) => {
+  const newOrder = await pool.query(`INSERT INTO orders(
+    buyer,
+    car_id,
+    amount,
+    status) VALUES($1,$2,$3,$4) returning *`, values);
+  return newOrder;
+};

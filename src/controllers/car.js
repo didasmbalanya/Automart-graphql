@@ -18,8 +18,8 @@ export const postCar = (req, res) => {
   Joi.validate(req.body, carSchema).then(async () => {
     const car = req.body;
     car.owner = req.user.id;
-    await addNewCar([car.owner, car.state, car.status, car.price, car.manufacturer, car.model, car.body_type]);
-    await res.status(201).send({ status: 201, data: car });
+    const newCar = await addNewCar([car.owner, car.state, car.status, car.price, car.manufacturer, car.model, car.body_type]);
+    await res.status(201).send({ status: 201, data: newCar.rows[0] });
   }).catch((e) => {
     if (e) {
       res.status(422).send({ status: 422, error: e });
