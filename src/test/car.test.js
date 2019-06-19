@@ -28,8 +28,8 @@ describe('Cars', () => {
           else {
             res.should.have.status(200);
           }
-          done();
         });
+      done();
     });
 
     it('should return a car by its ID', (done) => {
@@ -41,8 +41,8 @@ describe('Cars', () => {
             res.should.have.status(200);
             res.should.be.an('object');
           }
-          done();
         });
+      done();
     });
 
     it('should get all cars stored with status available', (done) => {
@@ -53,8 +53,8 @@ describe('Cars', () => {
           else {
             res.should.have.status(200);
           }
-          done();
         });
+      done();
     });
 
     it('should get all cars between given price range', (done) => {
@@ -65,8 +65,8 @@ describe('Cars', () => {
           else {
             res.should.have.status(200);
           }
-          done();
         });
+      done();
     });
   });
 
@@ -78,8 +78,8 @@ describe('Cars', () => {
         .end((err, res) => {
           if (err) err.should.have.status(404);
           else res.should.have.status(401);
-          done();
         });
+      done();
     });
 
     it('should be able to post car if user is logged in', (done) => {
@@ -90,8 +90,8 @@ describe('Cars', () => {
         .end((err, res) => {
           if (err) err.should.have.status(404);
           else res.should.have.status(201);
-          done();
         });
+      done();
     });
   });
 
@@ -102,8 +102,8 @@ describe('Cars', () => {
         .end((err, res) => {
           if (err) err.should.have.status(404);
           else res.should.have.status(401);
-          done();
         });
+      done();
     });
 
     it('should be able to update car sale price if user is logged in', (done) => {
@@ -113,8 +113,8 @@ describe('Cars', () => {
         .end((err, res) => {
           if (err) err.should.have.status(404);
           else res.should.have.status(200);
-          done();
         });
+      done();
     });
 
     it('should not be able to mark as sold if user is not logged in', (done) => {
@@ -123,8 +123,8 @@ describe('Cars', () => {
         .end((err, res) => {
           if (err) err.should.have.status(404);
           else res.should.have.status(401);
-          done();
         });
+      done();
     });
 
     it('should be able to mark car as sold if user is logged in', (done) => {
@@ -134,8 +134,8 @@ describe('Cars', () => {
         .end((err, res) => {
           if (err) err.should.have.status(404);
           else res.should.have.status(200);
-          done();
         });
+      done();
     });
   });
 
@@ -146,8 +146,8 @@ describe('Cars', () => {
         .end((err, res) => {
           if (err) err.should.have.status(404);
           else res.should.have.status(401);
-          done();
         });
+      done();
     });
 
     // admin can delete cars

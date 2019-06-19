@@ -26,7 +26,7 @@ const createTables = async () => {
        CREATE TABLE IF NOT EXISTS cars (
         id BIGSERIAL PRIMARY KEY,
         owner INTEGER REFERENCES users(id),
-        created_on DATE DEFAULT CURRENT_DATE,
+        created_on TIMESTAMP DEFAULT NOW(),
         state VARCHAR(128) NOT NULL,
         status VARCHAR(128) NOT NULL,
         price MONEY NOT NULL,
@@ -44,7 +44,7 @@ const createTables = async () => {
       CREATE TABLE IF NOT EXISTS flags (
         id BIGSERIAL PRIMARY KEY,
         car_id INTEGER REFERENCES cars(id),
-        created_on DATE DEFAULT CURRENT_DATE,
+        created_on TIMESTAMP DEFAULT NOW(),
         reason TEXT NOT NULL,
         description TEXT NOT NULL
       );`;

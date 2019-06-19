@@ -30,12 +30,11 @@ export const carSchema = Joi.object().keys({
 export const addNewCar = async (values) => {
   const result = await pool.query(`INSERT INTO cars(
     owner,
-    created_on,
     state,
     status,
     price,
     manufacturer,
     model,
-    body_type) VALUES($1,$2,$3,$4,$5,$6,$7,$8) returning *`, values);
+    body_type) VALUES($1,$2,$3,$4,$5,$6,$7) returning *`, values);
   return result;
 };
