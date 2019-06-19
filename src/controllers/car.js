@@ -29,7 +29,7 @@ export const postCar = (req, res) => {
   });
 };
 
-export const markCarSold = async (req, res) => {
+export const changeProperty = async (req, res) => {
   const { id } = req.params;
   const { status, price } = req.query;
   const foundCar = await getCarId(id);
