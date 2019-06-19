@@ -19,17 +19,15 @@ const cars = [
 ];
 
 describe('CAR utils tests', () => {
-  it('should return an abject if it finds a car', (done) => {
+  it('should return an object if it finds a car', () => {
     const result = findCar(1, cars);
     result.should.be.an('object');
-    done();
   });
 
-  it('should return false if it does not finds a car', (done) => {
+  it('should return false if it does not finds a car', () => {
     const result = findCar(10, cars);
     result.should.be.a('boolean');
     result.should.be.false;
-    done();
   });
 
   it('should return a list of cars with price higher than min', () => {

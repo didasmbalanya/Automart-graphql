@@ -28,7 +28,7 @@ export const signup = async (req, res) => {
     if (!foundUser) {
       req.body.password = bcrypt.hashSync(password, 8);
       req.body.confirm_password = bcrypt.hashSync(password, 8);
-      const token = jwt.sign({ email, is_admin }, secret, { expiresIn: '3h' });
+      const token = jwt.sign({ email }, secret, { expiresIn: '3h' });
       req.body.is_admin = 'false';
       const values = [first_name, last_name, email, address, req.body.password, req.body.is_admin];
       await addNewUser(values);
@@ -42,19 +42,19 @@ export const signup = async (req, res) => {
 };
 
 export const signin = async (req, res) => {
-  const { email, password, isAdmin } = req.body;
+  const { email, password } = req.body;
   const foundUser = await findUserByEmail(email);
   if (foundUser) {
   // eslint-disable-next-line no-shadow
     bcrypt.compare(password, foundUser.password, (err, result) => {
       if (err) res.status(422).send({ status: 422, error: 'Incorrect credentials' });
-      else if (!result) res.status(404).send({ status: 404, error: 'Incorrect credentials' });
+      else if (!result) return res.status(404).send({ status: 404, error: 'Incorrect credentials' });
       else {
-        const token = jwt.sign({ email, isAdmin }, secret, { expiresIn: '3h' });
+        const token = jwt.sign({ email }, secret, { expiresIn: '3h' });
         res.status(200).send({ status: 200, data: getPublicProfile(foundUser), token });
       }
     });
-  } else return res.status(422).send({ status: 422, error: 'Email not registred' });
+  } else return res.status(404).send({ status: 404, error: 'Email not registred' });
 };
 
 export const getMe = (req, res) => {
