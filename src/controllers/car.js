@@ -3,10 +3,10 @@
 /* eslint-disable camelcase */
 /* eslint-disable consistent-return */
 import Joi from '@hapi/joi';
-import { cars, carSchema, addNewCar } from '../models/car';
 import {
-  findCar, findByStatus, findMaxPrice, findMinPrice,
-} from '../utils/car_utils';
+  cars, carSchema, addNewCar, getCarsBy,
+} from '../models/car';
+import { findCar } from '../utils/car_utils';
 
 
 export const postCar = (req, res) => {
@@ -74,21 +74,10 @@ export const deleteCar = (req, res) => {
   } else res.status(403).send({ status: 403, error: 'not authorized to delete car' });
 };
 
-export const getCars = (req, res) => {
-  const { min_price, max_price, status } = req.query;
-  if (cars.length === 0) return res.send({ status: 200, data: cars });
-  if (min_price && max_price && status === 'available') {
-    const avaCars = findByStatus(status, cars);
-    const avaCarsMinPrice = findMinPrice(min_price, avaCars);
-    const avaMinMaxCars = findMaxPrice(max_price, avaCarsMinPrice);
-    if (avaMinMaxCars.length > 0) return res.status(200).send({ status: 200, data: avaMinMaxCars });
-    return res.status(404).send({ status: 404, data: 'No car with specified filters found' });
-  }
-  if (status) {
-    const avaCars = findByStatus(status, cars);
-    if (avaCars.length > 0) res.status(200).send({ status: 200, data: avaCars });
-    else res.status(404).send({ status: 404, error: 'No car with specified filters found' });
-  } else {
-    res.status(200).send({ status: 200, data: cars });
-  }
+export const getCars = async (req, res) => {
+  const { status } = req.query;
+  if (status && status.toLowerCase() === 'available') {
+    const avaCars = await getCarsBy('status', 'available');
+    res.status(200).send({ status: 200, data: avaCars });
+  } else res.status(404).send({ status: 404, error: 'Invalid query' });
 };

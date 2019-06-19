@@ -3,15 +3,15 @@ import express from 'express';
 import { auth } from '../middleware/auth';
 // eslint-disable-next-line import/named
 import {
-  getCars, getCarById, postCar, changeProperty, deleteCar,
+  getCarById, postCar, changeProperty, deleteCar, getCars,
 } from '../controllers/car';
 
 
 const router = express.Router();
 
 router.get('/', (req, res) => res.send({ message: 'Welcome to AUTOMARTS API' }));
-router.get('/api/v1/car', getCars);
 router.get('/api/v1/car/:id', getCarById);
+router.get('/api/v1/car', getCars);
 router.get('/api/v1/car?status=available&state=new');
 router.get('/api/v1/car?status=available&state=used');
 router.get('/api/v1/car?body_type=bodyType');
