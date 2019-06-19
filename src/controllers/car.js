@@ -4,7 +4,7 @@
 /* eslint-disable consistent-return */
 import Joi from '@hapi/joi';
 import {
-  cars, carSchema, addNewCar, getCarsBy, getCarsMinMax,
+  cars, carSchema, addNewCar, getCarsBy, getCarsMinMax, getCarId, markSold,
 } from '../models/car';
 import { findCar } from '../utils/car_utils';
 
@@ -29,26 +29,21 @@ export const postCar = (req, res) => {
   });
 };
 
-export const markCarSold = (req, res) => {
+export const markCarSold = async (req, res) => {
   const { id } = req.params;
   const { status, price } = req.query;
-  const foundCar = findCar(id, cars);
+  const foundCar = await getCarId(id);
   if (!foundCar) {
     return res.status(404).send({ status: 404, error: 'Car not found' });
   }
-  if (foundCar.owner.toString() !== req.user.id.toString()) return res.status(403).send({ status: 403, error: 'not allowed' });
-  if (!price) {
-    if (status.toLowerCase() === 'sold' || status.toLowerCase() === 'available') {
-      const carIndex = cars.indexOf(foundCar);
-      cars[carIndex].status = status.toLowerCase();
-      res.status(200).send({ status: 200, data: cars[carIndex] });
-    } else {
-      return res.status(422).send({ status: 422, error: 'Invalid request' });
-    }
+  if (foundCar.owner.toString() !== req.user.id) return res.status(403).send({ status: 403, error: 'not allowed' });
+  if (foundCar.status === 'available' && !price) {
+    await markSold(id);
+    res.status(200).send({ status: 200, data: await getCarId(id) });
+  } else if (price && !status) {
+    return price;
   } else {
-    const carIndex = cars.indexOf(foundCar);
-    cars[carIndex].price = price;
-    return res.status(200).send({ status: 200, data: cars[carIndex] });
+    return res.status(422).send({ status: 422, error: 'Invalid request' });
   }
 };
 
