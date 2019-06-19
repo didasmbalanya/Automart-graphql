@@ -49,3 +49,14 @@ export const getCarsMinMax = async (minPrice, maxPrice) => {
   if (result.rows.length === 0) return [];
   return result.rows;
 };
+
+export const markSold = async (id) => {
+  const result = await pool.query(`UPDATE cars SET status='sold' WHERE id='${id}'`);
+  return result;
+};
+
+export const getCarId = async (id) => {
+  const result = await pool.query(`SELECT * FROM cars WHERE id='${id}'`);
+  if (result.rows.length === 0) return false;
+  return result.rows[0];
+};
