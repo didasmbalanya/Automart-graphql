@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 import Joi from '@hapi/joi';
-// import pool from '../../config/db_config';
+import pool from '../../config/db_config';
 
 export const cars = [
   {
@@ -26,3 +26,15 @@ export const carSchema = Joi.object().keys({
   model: Joi.string().required().trim(),
   body_type: Joi.string().required().trim(),
 });
+
+export const addNewCar = async (values) => {
+  const result = await pool.query(`INSERT INTO cars(
+    owner,
+    state,
+    status,
+    price,
+    manufacturer,
+    model,
+    body_type) VALUES($1,$2,$3,$4,$5,$6,$7) returning *`, values);
+  return result;
+};
