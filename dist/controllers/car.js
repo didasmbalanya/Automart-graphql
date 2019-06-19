@@ -23,7 +23,6 @@ var postCar = function postCar(req, res) {
   req.body.body_type = req.body.body_type.trim();
   req.body.status = req.body.status.trim();
   req.body.state = req.body.state.trim();
-  req.body.price = req.body.price.trim();
 
   _joi["default"].validate(req.body, _car.carSchema).then(
   /*#__PURE__*/
@@ -36,30 +35,32 @@ var postCar = function postCar(req, res) {
         switch (_context.prev = _context.next) {
           case 0:
             car = req.body;
-            car.id = _car.cars.length + 1;
             car.owner = req.user.id;
-            car.created_on = Date();
+            _context.next = 4;
+            return (0, _car.addNewCar)([car.owner, car.state, car.status, car.price, car.manufacturer, car.model, car.body_type]);
 
-            _car.cars.push(car);
-
-            _context.next = 7;
+          case 4:
+            _context.next = 6;
             return res.status(201).send({
+              status: 201,
               data: car
             });
 
-          case 7:
+          case 6:
           case "end":
             return _context.stop();
         }
       }
     }, _callee);
   })))["catch"](function (e) {
-    if (e.details[0].message) {
+    if (e) {
       res.status(422).send({
-        error: e.details[0].message
+        status: 422,
+        error: e
       });
     } else {
       res.status(404).send({
+        status: 404,
         error: 'Invalid post request'
       });
     }
@@ -77,11 +78,13 @@ var changeProperty = function changeProperty(req, res) {
 
   if (!foundCar) {
     return res.status(404).send({
+      status: 404,
       error: 'Car not found'
     });
   }
 
   if (foundCar.owner.toString() !== req.user.id.toString()) return res.status(403).send({
+    status: 403,
     error: 'not allowed'
   });
 
@@ -90,9 +93,13 @@ var changeProperty = function changeProperty(req, res) {
       var carIndex = _car.cars.indexOf(foundCar);
 
       _car.cars[carIndex].status = status.toLowerCase();
-      res.status(200).send(_car.cars[carIndex]);
+      res.status(200).send({
+        status: 200,
+        data: _car.cars[carIndex]
+      });
     } else {
       return res.status(422).send({
+        status: 422,
         error: 'Invalid request'
       });
     }
@@ -101,6 +108,7 @@ var changeProperty = function changeProperty(req, res) {
 
     _car.cars[_carIndex].price = price;
     return res.status(200).send({
+      status: 200,
       data: _car.cars[_carIndex]
     });
   }
@@ -145,6 +153,7 @@ function () {
             _context2.prev = 10;
             _context2.t0 = _context2["catch"](0);
             res.status(404).send({
+              status: 404,
               error: 'Car not found'
             });
 
@@ -167,6 +176,7 @@ var deleteCar = function deleteCar(req, res) {
   var id = req.params.id;
   var foundCar = (0, _car_utils.findCar)(id, _car.cars);
   if (!foundCar) return res.status(404).send({
+    status: 404,
     error: 'Car add not found'
   });
 
@@ -176,49 +186,80 @@ var deleteCar = function deleteCar(req, res) {
     _car.cars.splice(carIndex, 1);
 
     res.status(200).send({
+      status: 200,
       message: 'Car Ad successfully deleted'
     });
   } else res.status(403).send({
+    status: 403,
     error: 'not authorized to delete car'
   });
 };
 
 exports.deleteCar = deleteCar;
 
-var getCars = function getCars(req, res) {
-  var _req$query2 = req.query,
-      min_price = _req$query2.min_price,
-      max_price = _req$query2.max_price,
-      status = _req$query2.status;
-  if (_car.cars.length === 0) return res.send({
-    data: _car.cars
-  });
+var getCars =
+/*#__PURE__*/
+function () {
+  var _ref3 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee3(req, res) {
+    var _req$query2, status, max_price, min_price, maxMinCars, avaCars;
 
-  if (min_price && max_price && status === 'available') {
-    var avaCars = (0, _car_utils.findByStatus)(status, _car.cars);
-    var avaCarsMinPrice = (0, _car_utils.findMinPrice)(min_price, avaCars);
-    var avaMinMaxCars = (0, _car_utils.findMaxPrice)(max_price, avaCarsMinPrice);
-    if (avaMinMaxCars.length > 0) return res.status(200).send({
-      data: avaMinMaxCars
-    });
-    return res.status(404).send({
-      data: 'No car with specified filters found'
-    });
-  }
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _req$query2 = req.query, status = _req$query2.status, max_price = _req$query2.max_price, min_price = _req$query2.min_price;
 
-  if (status) {
-    var _avaCars = (0, _car_utils.findByStatus)(status, _car.cars);
+            if (!(status && max_price && min_price)) {
+              _context3.next = 8;
+              break;
+            }
 
-    if (_avaCars.length > 0) res.status(200).send({
-      data: _avaCars
-    });else res.status(404).send({
-      error: 'No car with specified filters found'
-    });
-  } else {
-    res.status(200).send({
-      data: _car.cars
-    });
-  }
-};
+            _context3.next = 4;
+            return (0, _car.getCarsMinMax)(min_price, max_price);
+
+          case 4:
+            maxMinCars = _context3.sent;
+            res.status(200).send(maxMinCars);
+            _context3.next = 16;
+            break;
+
+          case 8:
+            if (!(status && status.toLowerCase() === 'available')) {
+              _context3.next = 15;
+              break;
+            }
+
+            _context3.next = 11;
+            return (0, _car.getCarsBy)('status', 'available');
+
+          case 11:
+            avaCars = _context3.sent;
+            res.status(200).send({
+              status: 200,
+              data: avaCars
+            });
+            _context3.next = 16;
+            break;
+
+          case 15:
+            res.status(404).send({
+              status: 404,
+              error: 'Invalid query'
+            });
+
+          case 16:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+
+  return function getCars(_x3, _x4) {
+    return _ref3.apply(this, arguments);
+  };
+}();
 
 exports.getCars = getCars;

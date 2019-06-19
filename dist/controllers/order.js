@@ -27,6 +27,7 @@ var postOrder = function postOrder(req, res) {
     if (carAva) {
       order.buyer = req.user.id;
       if (carAva.owner.toString() === order.buyer.toString()) return res.status(422).send({
+        status: 422,
         error: 'cannot buy your own car'
       });
       order.id = _order.orders.length + 1;
@@ -37,11 +38,13 @@ var postOrder = function postOrder(req, res) {
       _order.orders.push(order);
 
       res.status(201).send({
+        status: 422,
         data: order
       });
     } else throw Error('car not found');
   })["catch"](function (e) {
     res.status(404).send({
+      status: 422,
       err: 'Invalid post request',
       e: e
     });
@@ -60,6 +63,7 @@ var updateOrder = function updateOrder(req, res) {
     });
 
     if (!purchaseOrder) return res.status(404).send({
+      status: 404,
       error: 'Purchase order not found'
     });
 
@@ -69,9 +73,11 @@ var updateOrder = function updateOrder(req, res) {
       _order.orders[orderIndex].new_price_offered = price;
       var order = _order.orders[orderIndex];
       res.status(200).send({
+        status: 200,
         data: order
       });
     } else res.status(403).send({
+      status: 403,
       error: 'not allowed'
     });
   }
@@ -87,16 +93,19 @@ var getOrderById = function getOrderById(req, res) {
   });
 
   if (!foundOrder) return res.status(404).send({
+    status: 404,
     error: 'Purchase order not found'
   });
 
   if (req.user.id.toString() === foundOrder.buyer.toString()) {
     return res.status(200).send({
+      status: 200,
       data: foundOrder
     });
   }
 
   res.status(404).send({
+    status: 404,
     error: 'order not found'
   });
 };
