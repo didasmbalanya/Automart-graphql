@@ -1,12 +1,12 @@
 /* eslint-disable linebreak-style */
 import jwt from 'jsonwebtoken';
-import { users } from '../models/user';
+import { findUserByEmail } from '../models/user';
 
-export const auth = (req, res, next) => {
+export const auth = async (req, res, next) => {
   try {
     const token = req.header('Authorization').replace('Bearer ', '');
-    const decoded = jwt.verify(token, process.env.secret);
-    const verifiedUser = users.find(user => user.email === decoded.email);
+    const decoded = await jwt.verify(token, process.env.secret);
+    const verifiedUser = await findUserByEmail(decoded.email);
     if (!verifiedUser) {
       throw new Error();
     }
