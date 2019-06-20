@@ -35,7 +35,7 @@ var signUnSchema = _joi["default"].object().keys({
   first_name: _joi["default"].string().min(2).max(30).required().trim(),
   last_name: _joi["default"].string().min(2).max(30).required().trim(),
   email: _joi["default"].string().email().required(),
-  is_admin: _joi["default"]["boolean"]()["default"](false).valid([true, false]),
+  address: _joi["default"].string(),
   password: _joi["default"].string().min(7).required().strict().regex(/^[a-zA-Z0-9]{7,30}$/),
   confirm_password: _joi["default"].string().valid(_joi["default"].ref('password')).required().strict()
 });
@@ -95,7 +95,7 @@ function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            result = _db_config["default"].query("INSERT INTO users (\n    first_name,\n    last_name,\n    email,\n    address,\n    password) VALUES ($1 $2 $3 $4 $5) returning *;", params);
+            result = _db_config["default"].query("INSERT INTO users (\n    first_name,\n    last_name,\n    email,\n    address,\n    password) VALUES ($1,$2,$3,$4,$5) returning *;", params);
             return _context2.abrupt("return", result);
 
           case 2:

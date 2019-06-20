@@ -44,7 +44,7 @@ function () {
             _asyncToGenerator(
             /*#__PURE__*/
             regeneratorRuntime.mark(function _callee() {
-              var _req$body, first_name, last_name, email, address, password, is_admin, foundUser, token, values, user;
+              var _req$body, first_name, last_name, email, address, password, is_admin, foundUser, token, values, result, user;
 
               return regeneratorRuntime.wrap(function _callee$(_context) {
                 while (1) {
@@ -58,7 +58,7 @@ function () {
                       foundUser = _context.sent;
 
                       if (foundUser) {
-                        _context.next = 16;
+                        _context.next = 17;
                         break;
                       }
 
@@ -70,27 +70,28 @@ function () {
                         expiresIn: '3h'
                       });
                       req.body.is_admin = 'false';
-                      values = [first_name, last_name, email, address, req.body.password, req.body.is_admin];
+                      values = [first_name, last_name, email, address, req.body.password];
                       _context.next = 12;
                       return (0, _user.addNewUser)(values);
 
                     case 12:
-                      user = (0, _user_utils.getPublicProfile)(req.body);
+                      result = _context.sent;
+                      user = (0, _user_utils.getPublicProfile)(result.rows[0]);
                       res.status(201).send({
                         status: 201,
                         data: user,
                         token: token
                       });
-                      _context.next = 17;
+                      _context.next = 18;
                       break;
 
-                    case 16:
+                    case 17:
                       res.status(422).send({
                         status: 422,
                         error: 'Already signed up user'
                       });
 
-                    case 17:
+                    case 18:
                     case "end":
                       return _context.stop();
                   }

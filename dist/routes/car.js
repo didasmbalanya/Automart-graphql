@@ -24,6 +24,7 @@ router.get('/', function (req, res) {
 });
 router.get('/api/v1/car/:id', _car.getCarById);
 router.get('/api/v1/car', _car.getCars);
+router.get('/api/v1/car');
 router.get('/api/v1/car?status=available&state=new');
 router.get('/api/v1/car?status=available&state=used');
 router.get('/api/v1/car?body_type=bodyType');
