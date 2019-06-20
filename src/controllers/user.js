@@ -14,12 +14,12 @@ const { secret } = process.env;
 
 
 export const signup = async (req, res) => {
-  req.body.first_name = req.body.first_name.trim();
-  req.body.last_name = req.body.last_name.trim();
-  req.body.password = req.body.password.trim();
-  req.body.confirm_password = req.body.confirm_password.trim();
-  req.body.email = req.body.email.trim();
   Joi.validate(req.body, signUnSchema).then(async () => {
+    req.body.first_name = req.body.first_name.trim();
+    req.body.last_name = req.body.last_name.trim();
+    req.body.password = req.body.password.trim();
+    req.body.confirm_password = req.body.confirm_password.trim();
+    req.body.email = req.body.email.trim();
     const {
       first_name, last_name, email, address, password,
     } = req.body;

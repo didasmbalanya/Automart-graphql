@@ -8,8 +8,7 @@ if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'producti
   module.exports = new Pool({
     connectionString: process.env.DATABASE_URL,
   });
-}
-if (process.env.NODE_ENV === 'test') {
+} else if (process.env.NODE_ENV === 'test') {
   module.exports = new Pool({
     connectionString: process.env.DATABASE_URL_TEST,
   });

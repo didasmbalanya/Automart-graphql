@@ -4,86 +4,78 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import jwt from 'jsonwebtoken';
 import app from '../index';
-// import { createTables, dropTables } from '../../db';
+import pool from '../../config/db_config';
 
 chai.use(chaiHttp);
 chai.should();
 
 const storedUser = {
-  first_name: 'dexter',
-  last_name: 'didas',
-  email: 'didasdexter@gmail.com',
+  first_name: 'didas',
+  last_name: 'Mbalanya',
+  email: 'didas@gmail.com',
   address: 'Nairobi',
   password: 'obionekanobi',
   confirm_password: 'obionekanobi',
 };
-
+const what = storedUser.email;
 const { secret } = process.env;
-const token = jwt.sign({ email: storedUser.email }, secret, { expiresIn: '3h' });
+const token = jwt.sign({ what }, secret, { expiresIn: '3h' });
 
-describe.skip('Users', () => {
-  it('should be able to add new users', (done) => {
-    chai.request(app)
-      .post('/api/v1/auth/signup')
-      .send(storedUser)
-      .end((err, res) => {
-        if (err) err.should.have.status(404);
-        res.should.have.status(201);
-      });
-    done();
+
+describe('Users', () => {
+  before(async () => {
+    await pool.on('connect', () => {
+      console.log('connected');
+    });
   });
-  describe.skip('/GET root page and current logged in user', () => {
+
+  describe('/GET root page and current logged in user', () => {
     it('should get all the api welcome page', (done) => {
       chai.request(app)
         .get('/')
         .end((err, res) => {
           res.should.have.status(200);
-        })
-        done()
-    });
-    it('should get the currently logged in user after authorization', (done) => {
-      chai.request(app)
-        .get('/api/v1/auth/users/me')
-        .set('Authorization', `Bearer ${token}`)
-        .end((err, res) => {
-          if (err) res.should.have.status(404);
-          res.should.have.status(200);
         });
       done();
     });
   });
-
   describe('/POST user', () => {
-    it.skip('should not be able to create an already signed up user', (done) => {
+    it('should be able to create an already signed up user', (done) => {
       chai.request(app)
         .post('/api/v1/auth/signup')
         .send(storedUser)
         .end((err, res) => {
-          if (err) err.should.have.status(404);
+          res.should.have.status(201);
+        });
+      done();
+    });
+    it('should not be able to create an already signed up user', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signup')
+        .send(storedUser)
+        .end((err, res) => {
           res.should.have.status(422);
         });
       done();
     });
 
-    it.skip('should not be able to signin a non registered user', (done) => {
-      const newUser = { email: 'didasdexter@gmail.com', password: 'obionekanobi' };
+    it('should not be able to signin a non registered user', (done) => {
+      const newUser = { email: 'didaskanobi@gmail.com', password: 'obionekanobi' };
       chai.request(app)
         .post('/api/v1/auth/signin')
         .send(newUser)
         .end((err, res) => {
-          if (err) err.should.have.status(404);
           res.should.have.status(404);
         });
       done();
     });
 
-    it.skip('a registered user can not signin with wrong password', (done) => {
-      const signInUser = { email: 'didasmbalanya@gmail.com', password: 'obi1kanobil' };
+    it('a registered user can not signin with wrong password', (done) => {
+      const signInUser = { email: 'didasmbalanya@gmail.com', password: 'obi1dsdskanobil' };
       chai.request(app)
         .post('/api/v1/auth/signin')
         .send(signInUser)
         .end((err, res) => {
-          if (err) err.should.have.status(422);
           res.should.have.status(404);
         });
       done();
@@ -95,10 +87,21 @@ describe.skip('Users', () => {
         .post('/api/v1/auth/signin')
         .send(usertwo)
         .end((err, res) => {
-          if (err) err.should.have.status(404);
           res.should.have.status(200);
         });
       done();
     });
+  });
+});
+
+describe('Other tests', () => {
+  it('should get the currently logged in user after authorization', (done) => {
+    chai.request(app)
+      .get('/api/v1/auth/users/me')
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        res.should.have.status(200);
+      });
+    done();
   });
 });
