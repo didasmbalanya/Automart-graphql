@@ -14,7 +14,7 @@ export const auth = async (req, res, next) => {
     req.user = verifiedUser[0];
     next();
   } catch (e) {
-    res.status(401).send({ error: 'Please Authenticate' });
+    res.status(401).send({ status: 401, error: 'Please Authenticate' });
   }
 };
 

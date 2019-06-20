@@ -1,4 +1,8 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-unused-vars */
+/* eslint-disable linebreak-style */
+/* eslint-disable no-restricted-globals */
+/* eslint-disable radix */
 /* eslint-disable max-len */
 /* eslint-disable consistent-return */
 import Joi from '@hapi/joi';
@@ -21,11 +25,12 @@ export const postOrder = (req, res) => {
       res.status(201).send({ status: 201, data: data.rows[0] });
     } else throw Error('car not found');
   }).catch((e) => {
-    res.status(404).send({ status: 422, err: 'Invalid post request', e });
+    res.status(404).send({ status: 400, error: 'Bad request' });
   });
 };
 export const getOrderById = async (req, res) => {
   const { id } = req.params;
+  if (isNaN(id) === true) return res.status(400).send({ status: 400, error: 'Bad Request' });
   const foundOrder = await orderId(id);
   if (foundOrder) res.status(200).send({ status: 200, data: foundOrder });
   else res.status(404).send({ status: 404, error: 'Not found' });

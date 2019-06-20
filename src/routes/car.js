@@ -1,25 +1,29 @@
 /* eslint-disable linebreak-style */
 import express from 'express';
 import { auth } from '../middleware/auth';
+import method from '../middleware/method';
 // eslint-disable-next-line import/named
 import {
-  getCarById, postCar, deleteCar, getCars, changeProperty,
+  getCarById, postCar, deleteCar, getCars, changeProperty, getAdmincars,
 } from '../controllers/car';
-
 
 const router = express.Router();
 
-router.get('/', (req, res) => res.send({ message: 'Welcome to AUTOMARTS API' }));
-router.get('/api/v1/car/:id', getCarById);
-router.get('/api/v1/car', getCars);
-router.get('/api/v1/car');
-router.get('/api/v1/car?status=available&state=new');
-router.get('/api/v1/car?status=available&state=used');
-router.get('/api/v1/car?body_type=bodyType');
-router.get('/api/v1/car?status=available&manufacturer=XXXValue');
-router.post('/api/v1/car', auth, postCar);
-router.patch('/api/v1/car/:id', auth, changeProperty);
-router.delete('/api/v1/car/:id', auth, deleteCar);
-
+router.route('/')
+  .get((req, res) => res.send({ message: 'Welcome to AUTOMARTS API' }))
+  .all(method);
+router.route('/api/v1/car/:id')
+  .get(getCarById)
+  .delete(auth, deleteCar)
+  .patch(auth, changeProperty)
+  .all(method);
+router.route('/api/v1/car')
+  .get(getCars)
+  .post(auth, postCar)
+  .all(method);
+router.route('/api/v1/admin/car')
+  .get(auth, getAdmincars)
+  .delete(auth, deleteCar)
+  .all(method);
 
 export default router;

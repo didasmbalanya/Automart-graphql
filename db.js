@@ -3,13 +3,30 @@
 /* eslint-disable no-console */
 
 import dotenv from 'dotenv';
-import pool from './config/db_config';
+// import pool from './config/db_config';
+
+/* eslint-disable linebreak-style */
+import { Pool } from 'pg';
+
 
 dotenv.config();
-console.log(process.env.NODE_ENV);
+let DATABASE_URL_TRY;
+let pool;
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production') {
+  DATABASE_URL_TRY = process.env.DATABASE_URL;
+  pool = new Pool({
+    connectionString: DATABASE_URL_TRY,
+  });
+} else if (process.env.NODE_ENV === 'test') {
+  DATABASE_URL_TRY = process.env.DATABASE_URL_TEST;
+  pool = new Pool({
+    connectionString: DATABASE_URL_TRY,
+  });
+}
+
 
 pool.on('connect', () => {
-  console.log('connected to the db');
+  console.log(`connected to the ${DATABASE_URL_TRY}`);
 });
 
 const createTables = async () => {
@@ -56,7 +73,6 @@ const createTables = async () => {
     })
     .catch((err) => {
       console.log(err);
-      pool.end();
     });
 };
 
@@ -71,18 +87,6 @@ const dropTables = () => {
     });
 };
 
-const dropTable = (table) => {
-  const queryText = `DROP TABLE IF EXISTS ${table};`;
-  pool.query(queryText)
-    .then((res) => {
-      console.log(res[0].command);
-    })
-    .catch((err) => {
-      console.log(err);
-      pool.end();
-    });
-};
-
 pool.on('remove', () => {
   console.log('client removed');
   process.exit(0);
@@ -92,7 +96,5 @@ pool.on('remove', () => {
 module.exports = {
   createTables,
   dropTables,
-  dropTable,
-  pool,
 };
 require('make-runnable');

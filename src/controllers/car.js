@@ -1,4 +1,6 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-constant-condition */
+/* eslint-disable radix */
 /* eslint-disable max-len */
 /* eslint-disable camelcase */
 /* eslint-disable consistent-return */
@@ -20,64 +22,83 @@ export const postCar = (req, res) => {
     await res.status(201).send({ status: 201, data: newCar.rows[0] });
   }).catch((e) => {
     if (e) {
-      res.status(422).send({ status: 422, error: e });
+      res.status(400).send({ status: 400, error: e });
     } else {
-      res.status(404).send({ status: 404, error: 'Invalid post request' });
+      res.status(400).send({ status: 400, error: 'Bad request' });
     }
   });
 };
 
 export const changeProperty = async (req, res) => {
-  const { id } = req.params;
-  const { status, price } = req.query;
-  const foundCar = await getCarId(id);
-  if (!foundCar) {
-    return res.status(404).send({ status: 404, error: 'Car not found' });
-  }
-  if (foundCar.owner.toString() !== req.user.id) return res.status(403).send({ status: 403, error: 'not allowed' });
-  if (foundCar.status === 'available' && !price) {
-    const data = await markSold(id);
-    res.status(200).send({ status: 200, data: data.rows[0] });
-  } else if (price && !status) {
-    const dataNewPrice = await updatePriceId(id, price);
-    res.status(200).send({ data: dataNewPrice.rows[0] });
-  } else {
-    return res.status(422).send({ status: 422, error: 'Invalid request' });
+  try {
+    const { id } = req.params;
+    const { status, price } = req.query;
+    if ((parseInt(id) === 'NaN')) return res.status(400).send({ status: 400, error: 'Bad request id' });
+    const foundCar = await getCarId(id);
+    if (!foundCar) {
+      return res.status(404).send({ status: 404, error: 'Car not found' });
+    }
+    if (foundCar.owner.toString() !== req.user.id) return res.status(403).send({ status: 403, error: 'not allowed' });
+    if (foundCar.status === 'available' && !price && status === 'sold') {
+      const data = await markSold(id);
+      res.status(200).send({ status: 200, data: data.rows[0] });
+    } else if (price && parseInt(price) !== 'NaN' && !status) {
+      const dataNewPrice = await updatePriceId(id, price);
+      res.status(200).send({ data: dataNewPrice.rows[0] });
+    } else {
+      return res.status(400).send({ status: 400, error: 'Bad request' });
+    }
+  } catch (e) {
+    res.status(400).send({ error: 'Bad request' });
   }
 };
 
 export const getCarById = async (req, res) => {
-  const { id } = req.params;
-  const foundCar = await getCarId(id);
-  if (!foundCar) return res.status(404).send({ status: 404, data: 'Car not found' });
-  return res.status(200).send({ status: 200, data: foundCar });
+  try {
+    const { id } = req.params;
+    const foundCar = await getCarId(id);
+    if (!foundCar || foundCar.status === 'sold') return res.status(404).send({ status: 200, error: 'Not Found' });
+    return res.status(200).send({ status: 200, data: foundCar });
+  } catch (e) {
+    res.status(400).send({ status: 400, error: 'Bad Request' });
+  }
 };
 
 export const deleteCar = async (req, res) => {
   const { id } = req.params;
-  const foundCar = await getCarId(id);
-  if (!foundCar) return res.status(404).send({ status: 404, error: 'Car add not found' });
-  if (foundCar.owner.toString() === req.user.id.toString() || req.user.is_admin === 'true') {
-    const result = await DeleteCarId(id);
-    res.status(200).send({ status: 200, message: 'Car Ad successfully deleted', data: result.rows[0] });
-  } else res.status(403).send({ status: 403, error: 'not authorized to delete car' });
+  try {
+    const foundCar = await getCarId(id);
+    if (!foundCar) return res.status(404).send({ status: 404, error: 'Car add not found' });
+    if (foundCar.owner.toString() === req.user.id.toString() || req.user.is_admin === 'true') {
+      const result = await DeleteCarId(id);
+      res.status(200).send({ status: 200, message: 'Car Ad successfully deleted', data: result.rows[0] });
+    } else res.status(403).send({ status: 403, error: 'not authorized to delete car' });
+  } catch (e) { res.status(400).send({ status: 400, error: 'Bad Request' }); }
 };
 
 export const getCars = async (req, res) => {
   const { status, max_price, min_price } = req.query;
   try {
+    if (status !== 'available' || (parseInt(max_price) === 'NaN') || (parseInt(min_price) === 'NaN')) throw Error();
     if (status === 'available' && max_price && min_price) {
       const maxMinCars = await getCarsMinMax(min_price, max_price);
-      res.status(200).send({ data: maxMinCars });
-    } else if (status && status.toLowerCase() === 'available') {
+      return res.status(200).send({ data: maxMinCars });
+    } if (status && status.toLowerCase() === 'available') {
       let avaCars = await getBy('cars', 'status', 'available');
       if (!avaCars) avaCars = [];
       res.status(200).send({ status: 200, data: avaCars });
-    } else {
-      const allCars = await getAllCars();
-      res.status(200).send({ status: 200, data: allCars.rows });
     }
   } catch (e) {
-    res.send({ status: 404, error: e });
+    res.send({ status: 400, error: 'Bad request' });
+  }
+};
+
+export const getAdmincars = async (req, res) => {
+  try {
+    const allCars = await getAllCars();
+    if (req.user.is_admin === true) return res.status(200).send({ status: 200, data: allCars.rows });
+    return res.status(404).send({ status: 401, error: 'Method not allowed' });
+  } catch (e) {
+    res.status(400).send({ status: 400, error: 'Invalid request' });
   }
 };

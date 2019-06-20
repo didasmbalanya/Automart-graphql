@@ -14,12 +14,12 @@ const { secret } = process.env;
 
 
 export const signup = async (req, res) => {
-  req.body.first_name = req.body.first_name.trim();
-  req.body.last_name = req.body.last_name.trim();
-  req.body.password = req.body.password.trim();
-  req.body.confirm_password = req.body.confirm_password.trim();
-  req.body.email = req.body.email.trim();
   Joi.validate(req.body, signUnSchema).then(async () => {
+    req.body.first_name = req.body.first_name.trim();
+    req.body.last_name = req.body.last_name.trim();
+    req.body.password = req.body.password.trim();
+    req.body.confirm_password = req.body.confirm_password.trim();
+    req.body.email = req.body.email.trim();
     const {
       first_name, last_name, email, address, password,
     } = req.body;
@@ -34,9 +34,9 @@ export const signup = async (req, res) => {
       const result = await addNewUser(values);
       const user = getPublicProfile(result.rows[0]);
       res.status(201).send({ status: 201, data: user, token });
-    } else res.status(422).send({ status: 422, error: 'Already signed up user' });
+    } else res.status(409).send({ status: 409, error: 'Already signed up user' });
   }).catch((e) => {
-    if (e.isJoi) res.status(422).send({ status: 422, error: e.details[0].message });
+    if (e.isJoi) res.status(400).send({ status: 400, error: e.details[0].message });
     else res.status(404).send({ status: 404, error: 'Invalid request' });
   });
 };
@@ -47,8 +47,8 @@ export const signin = async (req, res) => {
   if (foundUser) {
     foundUser = foundUser[0];
     bcrypt.compare(password, foundUser.password, (err, result) => {
-      if (err) res.status(422).send({ status: 422, error: 'Incorrect credentials' });
-      else if (!result) return res.status(404).send({ status: 404, error: 'Incorrect credentials' });
+      if (err) res.status(401).send({ status: 401, error: 'Incorrect credentials' });
+      else if (!result) return res.status(401).send({ status: 401, error: 'Incorrect credentials' });
       else {
         const token = jwt.sign({ email }, secret, { expiresIn: '3h' });
         res.status(200).send({ status: 200, data: getPublicProfile(foundUser), token });
