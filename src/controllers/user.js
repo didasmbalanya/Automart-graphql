@@ -1,7 +1,5 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable camelcase */
-/* eslint-disable no-param-reassign */
 /* eslint-disable consistent-return */
 import Joi from '@hapi/joi';
 import bcrypt from 'bcrypt';

@@ -13,7 +13,7 @@
     "drop_dev_tables":"cross-env NODE_ENV=development babel-node ./db.js dropTables",
     "create_dev_tables":"cross-env NODE_ENV=development babel-node ./db.js createTables",
     "pretest": "npm run drop_test_tables && npm run create_test_tables",
-    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --require @babel/register 'src/**/**test.js' --exit",
+    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --require @babel/register 'src/test/**test.js' --exit",
     "coverage": "nyc --reporter=lcov --reporter=text-lcov npm run test",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },

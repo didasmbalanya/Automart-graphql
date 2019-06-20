@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import dotenv from 'dotenv';
 import express from 'express';
 import { json, urlencoded } from 'body-parser';

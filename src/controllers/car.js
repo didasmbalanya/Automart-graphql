@@ -1,5 +1,3 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable no-constant-condition */
 /* eslint-disable radix */
 /* eslint-disable max-len */
 /* eslint-disable camelcase */
@@ -10,12 +8,12 @@ import {
 } from '../models/car';
 
 export const postCar = (req, res) => {
-  req.body.manufacturer = req.body.manufacturer.trim();
-  req.body.model = req.body.model.trim();
-  req.body.body_type = req.body.body_type.trim();
-  req.body.status = req.body.status.trim();
-  req.body.state = req.body.state.trim();
   Joi.validate(req.body, carSchema).then(async () => {
+    req.body.manufacturer = req.body.manufacturer.trim();
+    req.body.model = req.body.model.trim();
+    req.body.body_type = req.body.body_type.trim();
+    req.body.status = req.body.status.trim();
+    req.body.state = req.body.state.trim();
     const car = req.body;
     car.owner = req.user.id;
     const newCar = await addNewCar([car.owner, car.state, car.status, car.price, car.manufacturer, car.model, car.body_type]);

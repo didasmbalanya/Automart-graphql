@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import express from 'express';
 import { postOrder, updateOrder, getOrderById } from '../controllers/order';
 import { auth } from '../middleware/auth';

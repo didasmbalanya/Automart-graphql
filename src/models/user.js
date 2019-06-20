@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 import Joi from '@hapi/joi';
 import dotenv from 'dotenv';
 import pool from '../../config/db_config';

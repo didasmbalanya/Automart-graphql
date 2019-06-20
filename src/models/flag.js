@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 const flags = [
   {
     id: 'Integer',

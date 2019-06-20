@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable prefer-destructuring */
 import jwt from 'jsonwebtoken';
 import { getBy } from '../models/car';
