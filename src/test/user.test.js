@@ -23,12 +23,7 @@ const token = jwt.sign({ what }, secret, { expiresIn: '3h' });
 
 
 describe('Users', () => {
-  before(async () => {
-    await pool.on('connect', () => {
-      console.log('connected');
-    });
-  });
-
+  
   describe('/GET root page and current logged in user', () => {
     it('should get all the api welcome page', (done) => {
       chai.request(app)
