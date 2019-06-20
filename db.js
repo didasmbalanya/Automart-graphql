@@ -37,10 +37,8 @@ const createTables = async () => {
       CREATE TABLE IF NOT EXISTS orders (
         id BIGSERIAL PRIMARY KEY,
         buyer INTEGER REFERENCES users(id),
-        car_id INTEGER REFERENCES cars(id),
-        price MONEY,
-        price_offered MONEY NOT NULL,
-        new_price_offered MONEY,
+        car_id INTEGER REFERENCES cars(id) ON DELETE CASCADE ON UPDATE CASCADE,
+        amount MONEY NOT NULL,
         status VARCHAR(128) DEFAULT 'pending'
       );
       CREATE TABLE IF NOT EXISTS flags (

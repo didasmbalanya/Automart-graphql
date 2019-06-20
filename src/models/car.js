@@ -71,3 +71,8 @@ export const getAllCars = async () => {
   const result = await pool.query('SELECT * FROM cars;');
   return result;
 };
+
+export const DeleteCarId = async (id) => {
+  const result = await pool.query(`DELETE FROM cars WHERE id='${id}' returning *`);
+  return result;
+};
