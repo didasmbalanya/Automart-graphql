@@ -4,11 +4,7 @@
 /* eslint-disable consistent-return */
 import Joi from '@hapi/joi';
 import {
-<<<<<<< HEAD
-  cars, carSchema, addNewCar, getCarsBy, getCarId, markSold, getCarsMinMax, updatePriceId,
-=======
   carSchema, addNewCar, getCarsBy, getCarId, markSold, getCarsMinMax, updatePriceId, getAllCars, DeleteCarId,
->>>>>>> [finishes #166778675] add delete feature
 } from '../models/car';
 
 export const postCar = (req, res) => {
@@ -76,7 +72,10 @@ export const getCars = async (req, res) => {
     } else if (status && status.toLowerCase() === 'available') {
       const avaCars = await getCarsBy('status', 'available');
       res.status(200).send({ status: 200, data: avaCars });
-    } else res.status(404).send({ status: 404, error: 'Invalid query' });
+    } else {
+      const allCars = await getAllCars();
+      res.status(200).send({ status: 200, data: allCars.rows });
+    }
   } catch (e) {
     res.send({ status: 404, error: e });
   }

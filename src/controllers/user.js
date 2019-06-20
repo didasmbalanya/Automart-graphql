@@ -58,5 +58,5 @@ export const signin = async (req, res) => {
 };
 
 export const getMe = (req, res) => {
-  res.send({ status: 200, data: getPublicProfile({ data: req.user }) });
+  res.send({ status: 200, data: getPublicProfile(req.user) });
 };

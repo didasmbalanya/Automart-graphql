@@ -38,7 +38,8 @@ const createTables = async () => {
         id BIGSERIAL PRIMARY KEY,
         buyer INTEGER REFERENCES users(id),
         car_id INTEGER REFERENCES cars(id) ON DELETE CASCADE ON UPDATE CASCADE,
-        amount MONEY NOT NULL,
+        price_offered MONEY NOT NULL,
+        new_price_offered MONEY,
         status VARCHAR(128) DEFAULT 'pending'
       );
       CREATE TABLE IF NOT EXISTS flags (
