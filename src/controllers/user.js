@@ -47,8 +47,8 @@ export const signin = async (req, res) => {
   if (foundUser) {
     foundUser = foundUser[0];
     bcrypt.compare(password, foundUser.password, (err, result) => {
-      if (err) res.status(400).send({ status: 400, error: 'Incorrect credentials' });
-      else if (!result) return res.status(404).send({ status: 404, error: 'Incorrect credentials' });
+      if (err) res.status(401).send({ status: 401, error: 'Incorrect credentials' });
+      else if (!result) return res.status(401).send({ status: 401, error: 'Incorrect credentials' });
       else {
         const token = jwt.sign({ email }, secret, { expiresIn: '3h' });
         res.status(200).send({ status: 200, data: getPublicProfile(foundUser), token });

@@ -15,7 +15,7 @@ const { secret } = process.env;
 const secondUser = {
   first_name: 'dexter',
   last_name: 'didas',
-  email: 'didasopi@yahoo.com',
+  email: 'didasopi1@yahoo.com',
   address: 'Nairobi',
   password: 'obionekanobi',
   confirm_password: 'obionekanobi',
@@ -144,15 +144,15 @@ describe('Cars', async () => {
       done();
     });
 
-    it('should be able to mark car as sold if user is logged in', (done) => {
-      chai.request(app)
-        .patch('/api/v1/car/1?status=sold')
-        .set('Authorization', `Bearer ${token}`)
-        .end((err, res) => {
-          res.should.have.status(200);
-        });
-      done();
-    });
+    // it('should be able to mark car as sold if user is logged in', (done) => {
+    //   chai.request(app)
+    //     .patch('/api/v1/car/1?status=sold')
+    //     .set('Authorization', `Bearer ${token}`)
+    //     .end((err, res) => {
+    //       res.should.have.status(200);
+    //     });
+    //   done();
+    // });
   });
 
   describe('/DELETE car requests', () => {
