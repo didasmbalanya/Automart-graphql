@@ -68,11 +68,15 @@ export const deleteCar = (req, res) => {
 
 export const getCars = async (req, res) => {
   const { status, max_price, min_price } = req.query;
-  if (status && max_price && min_price) {
-    const maxMinCars = await getCarsMinMax(min_price, max_price);
-    res.status(200).send(maxMinCars);
-  } else if (status && status.toLowerCase() === 'available') {
-    const avaCars = await getCarsBy('status', 'available');
-    res.status(200).send({ status: 200, data: avaCars });
-  } else res.status(404).send({ status: 404, error: 'Invalid query' });
+  try {
+    if (status === 'available' && max_price && min_price) {
+      const maxMinCars = await getCarsMinMax(min_price, max_price);
+      res.status(200).send({ data: maxMinCars });
+    } else if (status && status.toLowerCase() === 'available') {
+      const avaCars = await getCarsBy('status', 'available');
+      res.status(200).send({ status: 200, data: avaCars });
+    } else res.status(404).send({ status: 404, error: 'Invalid query' });
+  } catch (e) {
+    res.send({ status: 404, error: e });
+  }
 };

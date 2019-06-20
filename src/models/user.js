@@ -26,7 +26,7 @@ export const signUnSchema = Joi.object().keys({
   last_name: Joi.string().min(2).max(30).required()
     .trim(),
   email: Joi.string().email().required(),
-  is_admin: Joi.boolean().default(false).valid([true, false]),
+  address: Joi.string(),
   password: Joi.string().min(7).required().strict()
     .regex(/^[a-zA-Z0-9]{7,30}$/),
   confirm_password: Joi.string().valid(Joi.ref('password')).required().strict(),
@@ -44,6 +44,6 @@ export const addNewUser = async (params) => {
     last_name,
     email,
     address,
-    password) VALUES ($1 $2 $3 $4 $5) returning *;`, params);
+    password) VALUES ($1,$2,$3,$4,$5) returning *;`, params);
   return result;
 };
