@@ -12,7 +12,7 @@ chai.should();
 const storedUser = {
   first_name: 'didas',
   last_name: 'Mbalanya',
-  email: 'didas@gmail.com',
+  email: 'didasmbalanya@gmail.com',
   address: 'Nairobi',
   password: 'obionekanobi',
   confirm_password: 'obionekanobi',
@@ -40,7 +40,7 @@ describe('Users', () => {
     });
   });
   describe('/POST user', () => {
-    it('should be able to create an already signed up user', (done) => {
+    it('should be able to create an new user', (done) => {
       chai.request(app)
         .post('/api/v1/auth/signup')
         .send(storedUser)
@@ -54,13 +54,13 @@ describe('Users', () => {
         .post('/api/v1/auth/signup')
         .send(storedUser)
         .end((err, res) => {
-          res.should.have.status(422);
+          res.should.have.status(409);
         });
       done();
     });
 
     it('should not be able to signin a non registered user', (done) => {
-      const newUser = { email: 'didaskanobi@gmail.com', password: 'obionekanobi' };
+      const newUser = { email: 'didaskantobi@gmail.com', password: 'obionekanobi' };
       chai.request(app)
         .post('/api/v1/auth/signin')
         .send(newUser)

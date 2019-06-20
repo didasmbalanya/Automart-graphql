@@ -34,9 +34,9 @@ export const signup = async (req, res) => {
       const result = await addNewUser(values);
       const user = getPublicProfile(result.rows[0]);
       res.status(201).send({ status: 201, data: user, token });
-    } else res.status(422).send({ status: 422, error: 'Already signed up user' });
+    } else res.status(409).send({ status: 409, error: 'Already signed up user' });
   }).catch((e) => {
-    if (e.isJoi) res.status(422).send({ status: 422, error: e.details[0].message });
+    if (e.isJoi) res.status(400).send({ status: 400, error: e.details[0].message });
     else res.status(404).send({ status: 404, error: 'Invalid request' });
   });
 };
@@ -47,7 +47,7 @@ export const signin = async (req, res) => {
   if (foundUser) {
     foundUser = foundUser[0];
     bcrypt.compare(password, foundUser.password, (err, result) => {
-      if (err) res.status(422).send({ status: 422, error: 'Incorrect credentials' });
+      if (err) res.status(400).send({ status: 400, error: 'Incorrect credentials' });
       else if (!result) return res.status(404).send({ status: 404, error: 'Incorrect credentials' });
       else {
         const token = jwt.sign({ email }, secret, { expiresIn: '3h' });

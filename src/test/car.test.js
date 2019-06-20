@@ -33,7 +33,7 @@ const newCar = {
 const token = jwt.sign({ email: secondUser.email }, secret, { expiresIn: '3h' });
 
 describe.skip('Cars', async () => {
-  before(async () => {
+  before( () => {
     it('should be able to add new users', (done) => {
       chai.request(app)
         .post('/api/v1/auth/signup')
