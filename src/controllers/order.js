@@ -27,7 +27,7 @@ export const postOrder = (req, res) => {
 export const getOrderById = async (req, res) => {
   const { id } = req.params;
   const foundOrder = await orderId(id);
-  if (foundOrder) res.status(200).send({ status: 200, data: foundOrder.rows[0] });
+  if (foundOrder) res.status(200).send({ status: 200, data: foundOrder });
   else res.status(404).send({ status: 404, error: 'Not found' });
 };
 

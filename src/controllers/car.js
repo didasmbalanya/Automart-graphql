@@ -4,7 +4,7 @@
 /* eslint-disable consistent-return */
 import Joi from '@hapi/joi';
 import {
-  carSchema, addNewCar, getCarsBy, getCarId, markSold, getCarsMinMax, updatePriceId, getAllCars, DeleteCarId,
+  carSchema, addNewCar, getBy, getCarId, markSold, getCarsMinMax, updatePriceId, getAllCars, DeleteCarId,
 } from '../models/car';
 
 export const postCar = (req, res) => {
@@ -70,7 +70,8 @@ export const getCars = async (req, res) => {
       const maxMinCars = await getCarsMinMax(min_price, max_price);
       res.status(200).send({ data: maxMinCars });
     } else if (status && status.toLowerCase() === 'available') {
-      const avaCars = await getCarsBy('status', 'available');
+      let avaCars = await getBy('cars', 'status', 'available');
+      if (!avaCars) avaCars = [];
       res.status(200).send({ status: 200, data: avaCars });
     } else {
       const allCars = await getAllCars();

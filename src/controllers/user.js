@@ -1,14 +1,13 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable no-unused-vars */
+/* eslint-disable prefer-destructuring */
 /* eslint-disable camelcase */
 /* eslint-disable no-param-reassign */
 /* eslint-disable consistent-return */
 import Joi from '@hapi/joi';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import {
-  signUnSchema, users, findUserByEmail, addNewUser,
-} from '../models/user';
+import { signUnSchema, addNewUser } from '../models/user';
+import { getBy } from '../models/car';
 import { getPublicProfile } from '../utils/user_utils';
 
 const { secret } = process.env;
@@ -22,10 +21,11 @@ export const signup = async (req, res) => {
   req.body.email = req.body.email.trim();
   Joi.validate(req.body, signUnSchema).then(async () => {
     const {
-      first_name, last_name, email, address, password, is_admin,
+      first_name, last_name, email, address, password,
     } = req.body;
-    const foundUser = await findUserByEmail(req.body.email);
+    let foundUser = await getBy('users', 'email', req.body.email);
     if (!foundUser) {
+      foundUser = foundUser[0];
       req.body.password = bcrypt.hashSync(password, 8);
       req.body.confirm_password = bcrypt.hashSync(password, 8);
       const token = jwt.sign({ email }, secret, { expiresIn: '3h' });
@@ -43,9 +43,9 @@ export const signup = async (req, res) => {
 
 export const signin = async (req, res) => {
   const { email, password } = req.body;
-  const foundUser = await findUserByEmail(email);
+  let foundUser = await getBy('users', 'email', email);
   if (foundUser) {
-  // eslint-disable-next-line no-shadow
+    foundUser = foundUser[0];
     bcrypt.compare(password, foundUser.password, (err, result) => {
       if (err) res.status(422).send({ status: 422, error: 'Incorrect credentials' });
       else if (!result) return res.status(404).send({ status: 404, error: 'Incorrect credentials' });
