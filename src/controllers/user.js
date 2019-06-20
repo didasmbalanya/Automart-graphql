@@ -31,8 +31,8 @@ export const signup = async (req, res) => {
       const token = jwt.sign({ email }, secret, { expiresIn: '3h' });
       req.body.is_admin = 'false';
       const values = [first_name, last_name, email, address, req.body.password];
-      await addNewUser(values);
-      const user = getPublicProfile(req.body);
+      const result = await addNewUser(values);
+      const user = getPublicProfile(result.rows[0]);
       res.status(201).send({ status: 201, data: user, token });
     } else res.status(422).send({ status: 422, error: 'Already signed up user' });
   }).catch((e) => {

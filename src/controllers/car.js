@@ -4,10 +4,8 @@
 /* eslint-disable consistent-return */
 import Joi from '@hapi/joi';
 import {
-  cars, carSchema, addNewCar, getCarsBy, getCarId, markSold, getCarsMinMax, updatePriceId,
+  carSchema, addNewCar, getCarsBy, getCarId, markSold, getCarsMinMax, updatePriceId, getAllCars, DeleteCarId,
 } from '../models/car';
-import { findCar } from '../utils/car_utils';
-
 
 export const postCar = (req, res) => {
   req.body.manufacturer = req.body.manufacturer.trim();
@@ -55,14 +53,13 @@ export const getCarById = async (req, res) => {
   return res.status(200).send({ status: 200, data: foundCar });
 };
 
-export const deleteCar = (req, res) => {
+export const deleteCar = async (req, res) => {
   const { id } = req.params;
-  const foundCar = findCar(id, cars);
+  const foundCar = await getCarId(id);
   if (!foundCar) return res.status(404).send({ status: 404, error: 'Car add not found' });
   if (foundCar.owner.toString() === req.user.id.toString() || req.user.is_admin === 'true') {
-    const carIndex = cars.indexOf(foundCar);
-    cars.splice(carIndex, 1);
-    res.status(200).send({ status: 200, message: 'Car Ad successfully deleted' });
+    const result = await DeleteCarId(id);
+    res.status(200).send({ status: 200, message: 'Car Ad successfully deleted', data: result.rows[0] });
   } else res.status(403).send({ status: 403, error: 'not authorized to delete car' });
 };
 
@@ -75,7 +72,10 @@ export const getCars = async (req, res) => {
     } else if (status && status.toLowerCase() === 'available') {
       const avaCars = await getCarsBy('status', 'available');
       res.status(200).send({ status: 200, data: avaCars });
-    } else res.status(404).send({ status: 404, error: 'Invalid query' });
+    } else {
+      const allCars = await getAllCars();
+      res.status(200).send({ status: 200, data: allCars.rows });
+    }
   } catch (e) {
     res.send({ status: 404, error: e });
   }
