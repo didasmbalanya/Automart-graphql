@@ -20,9 +20,9 @@ export const postCar = (req, res) => {
     await res.status(201).send({ status: 201, data: newCar.rows[0] });
   }).catch((e) => {
     if (e) {
-      res.status(422).send({ status: 422, error: e });
+      res.status(400).send({ status: 400, error: e });
     } else {
-      res.status(404).send({ status: 404, error: 'Invalid post request' });
+      res.status(400).send({ status: 400, error: 'Bad request' });
     }
   });
 };

@@ -65,7 +65,7 @@ describe('Users', () => {
         .post('/api/v1/auth/signin')
         .send(newUser)
         .end((err, res) => {
-          res.should.have.status(404);
+          res.should.have.status(409);
         });
       done();
     });
