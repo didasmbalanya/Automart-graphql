@@ -38,7 +38,9 @@ const createTables = async () => {
         id BIGSERIAL PRIMARY KEY,
         buyer INTEGER REFERENCES users(id),
         car_id INTEGER REFERENCES cars(id),
-        amount MONEY NOT NULL,
+        price MONEY,
+        price_offered MONEY NOT NULL,
+        new_price_offered MONEY,
         status VARCHAR(128) DEFAULT 'pending'
       );
       CREATE TABLE IF NOT EXISTS flags (
@@ -51,9 +53,11 @@ const createTables = async () => {
   await pool.query(queryText)
     .then((res) => {
       console.log(res[0].command);
+      pool.end();
     })
     .catch((err) => {
       console.log(err);
+      pool.end();
     });
 };
 

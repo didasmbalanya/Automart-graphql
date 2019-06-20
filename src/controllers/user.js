@@ -30,7 +30,7 @@ export const signup = async (req, res) => {
       req.body.confirm_password = bcrypt.hashSync(password, 8);
       const token = jwt.sign({ email }, secret, { expiresIn: '3h' });
       req.body.is_admin = 'false';
-      const values = [first_name, last_name, email, address, req.body.password, req.body.is_admin];
+      const values = [first_name, last_name, email, address, req.body.password];
       await addNewUser(values);
       const user = getPublicProfile(req.body);
       res.status(201).send({ status: 201, data: user, token });
