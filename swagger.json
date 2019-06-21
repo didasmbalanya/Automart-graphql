@@ -112,7 +112,7 @@
         }
       }
     },
-    "/car": {
+    "/admin/car": {
       "get": {
         "description": "Get All cars",
         "summary": "getCars",
