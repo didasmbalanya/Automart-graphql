@@ -7,7 +7,7 @@
     "contact": {}
   },
   "host": "localhost:3000",
-  "basePath": "/",
+  "basePath": "/api/v1/",
   "securityDefinitions": {},
   "schemes": [
     "http"
@@ -19,41 +19,12 @@
     "application/json"
   ],
   "paths": {
-    "/": {
-      "get": {
-        "description": "TODO: Add Description",
-        "summary": "root page",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "UnnammedEndpointGet",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": false,
-            "default": "Bearer {token}",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
     "/auth/signup": {
       "post": {
-        "description": "TODO: Add Description",
-        "summary": "signup",
+        "description": "sign up new user",
+        "summary": "signup page",
         "tags": [
-          "Misc"
+          "USER"
         ],
         "operationId": "AuthSignupPost",
         "deprecated": false,
@@ -61,13 +32,6 @@
           "application/json"
         ],
         "parameters": [
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
           {
             "name": "Body",
             "in": "body",
@@ -89,10 +53,10 @@
     },
     "/auth/signin": {
       "post": {
-        "description": "TODO: Add Description",
+        "description": "Sign in user",
         "summary": "signin",
         "tags": [
-          "Misc"
+          "USER"
         ],
         "operationId": "AuthSigninPost",
         "deprecated": false,
@@ -100,13 +64,6 @@
           "application/json"
         ],
         "parameters": [
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
           {
             "name": "Body",
             "in": "body",
@@ -126,12 +83,12 @@
         "security": []
       }
     },
-    "/auth/users/me": {
+    "/me": {
       "get": {
-        "description": "TODO: Add Description",
+        "description": "Get current logged in user profile",
         "summary": "get profile",
         "tags": [
-          "Misc"
+          "USER"
         ],
         "operationId": "AuthUsersMeGet",
         "deprecated": false,
@@ -157,10 +114,10 @@
     },
     "/car": {
       "get": {
-        "description": "TODO: Add Description",
+        "description": "Get All cars",
         "summary": "getCars",
         "tags": [
-          "Misc"
+          "ADMIN"
         ],
         "operationId": "CarGet",
         "deprecated": false,
@@ -184,10 +141,10 @@
         }
       },
       "post": {
-        "description": "TODO: Add Description",
+        "description": "User can post a car",
         "summary": "post car",
         "tags": [
-          "Misc"
+          "CAR"
         ],
         "operationId": "CarPost",
         "deprecated": false,
@@ -238,12 +195,12 @@
         }
       }
     },
-    "/car/2": {
+    "/car/:id": {
       "get": {
-        "description": "TODO: Add Description",
+        "description": "Get car by ID ",
         "summary": "getCar",
         "tags": [
-          "Misc"
+          "CAR"
         ],
         "operationId": "Car2Get",
         "deprecated": false,
@@ -259,40 +216,11 @@
         },
         "security": []
       },
-      "delete": {
-        "description": "TODO: Add Description",
-        "summary": "delete add",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "Car2Delete",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": false,
-            "default": "Bearer {token}",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
-    "/car/1": {
       "patch": {
-        "description": "TODO: Add Description",
+        "description": "Mark car as sold",
         "summary": "change status",
         "tags": [
-          "Misc"
+          "CAR"
         ],
         "operationId": "Car1Patch",
         "deprecated": false,
@@ -328,14 +256,42 @@
             "headers": {}
           }
         }
+      },
+      "delete": {
+        "description": "Delete car advertisement post",
+        "summary": "delete add by owner or Admin",
+        "tags": [
+          "ADMIN && USER"
+        ],
+        "operationId": "Car2Delete",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
       }
     },
-    "/order/": {
+    
+    "/order": {
       "post": {
-        "description": "TODO: Add Description",
+        "description": "Allow user(buyer) to buy a car",
         "summary": "post purchase order",
         "tags": [
-          "Misc"
+          "ORDER"
         ],
         "operationId": "OrderPost",
         "deprecated": false,
@@ -375,12 +331,12 @@
         }
       }
     },
-    "/order/1": {
+    "/order/:id": {
       "patch": {
-        "description": "TODO: Add Description",
+        "description": "Update Purhcase Order price to a new amount",
         "summary": "update PO price",
         "tags": [
-          "Misc"
+          "ORDER"
         ],
         "operationId": "Order1Patch",
         "deprecated": false,
@@ -412,10 +368,10 @@
         }
       },
       "get": {
-        "description": "TODO: Add Description",
+        "description": "Get order by ID for a user with one",
         "summary": "get order by id",
         "tags": [
-          "Misc"
+          "ORDER"
         ],
         "operationId": "Order1Get",
         "deprecated": false,
@@ -445,11 +401,11 @@
       "title": "signuprequest",
       "example": {
         "email": "didasmbalanya4@gmail.com",
-        "first_name": "Strfgfging",
-        "last_name": "  diDAS  ",
+        "first_name": "UserOne",
+        "last_name": "  SpaceBefore  ",
         "password": "kenya123",
         "confirm_password": "kenya123",
-        "is_admin": "true"
+        "address": "Kigali"
       },
       "type": "object",
       "properties": {
@@ -468,7 +424,7 @@
         "confirm_password": {
           "type": "string"
         },
-        "is_admin": {
+        "address": {
           "type": "string"
         }
       },
@@ -478,7 +434,7 @@
         "last_name",
         "password",
         "confirm_password",
-        "is_admin"
+        "address"
       ]
     },
     "signinrequest": {
@@ -505,11 +461,11 @@
       "title": "postcarrequest",
       "example": {
         "state": "new",
-        "status": "     available",
-        "price": " 210",
-        "manufacturer": "  String",
-        "model": "  String",
-        "body_type": "  String"
+        "status": "available",
+        "price": "2000",
+        "manufacturer": "Toyota",
+        "model": " Prado",
+        "body_type": "SUV"
       },
       "type": "object",
       "properties": {
@@ -578,11 +534,5 @@
         "price_offered"
       ]
     }
-  },
-  "tags": [
-    {
-      "name": "Misc",
-      "description": ""
-    }
-  ]
+  }
 }
