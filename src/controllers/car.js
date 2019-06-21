@@ -94,7 +94,6 @@ export const getCars = async (req, res) => {
 export const getAdmincars = async (req, res) => {
   try {
     const allCars = await getAllCars();
-    console.log(req.user)
     if (req.user.is_admin === true) return res.status(200).send({ status: 200, data: allCars.rows });
     return res.status(404).send({ status: 401, error: 'Method not allowed' });
   } catch (e) {

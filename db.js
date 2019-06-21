@@ -26,7 +26,6 @@ if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'producti
 
 
 pool.on('connect', () => {
-  console.log('connected');
 });
 
 const createTables = async () => {
@@ -37,11 +36,9 @@ const createTables = async () => {
   CREATE TABLE IF NOT EXISTS flags (id BIGSERIAL PRIMARY KEY,car_id INTEGER REFERENCES cars(id),created_on TIMESTAMP DEFAULT NOW(),reason TEXT NOT NULL,description TEXT NOT NULL);`;
   await pool.query(queryText)
     .then((res) => {
-      console.log(res[0].command);
       pool.end();
     })
     .catch((err) => {
-      console.log(err);
       pool.end();
     });
 };
@@ -60,7 +57,6 @@ const dropTables = () => {
 };
 
 pool.on('remove', () => {
-  console.log('client removed');
   process.exit(0);
 });
 
