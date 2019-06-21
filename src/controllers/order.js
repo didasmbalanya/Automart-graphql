@@ -15,7 +15,7 @@ export const postOrder = (req, res) => {
     if (!carAva) return res.status(404).send({ error: 'Car not found' });
     if (carAva) {
       order.buyer = req.user.id;
-      if (carAva.owner.toString() === order.buyer.toString()) return res.status(422).send({ status: 422, error: 'cannot buy your own car' });
+      if (carAva.owner.toString() === order.buyer.toString()) return res.status(403).send({ status: 403, error: 'cannot buy your own car' });
       if (carAva.status === 'sold') return res.status(404).send({ error: 'car already sold' });
       order.status = 'pending';
       const data = await createOrder([order.buyer, order.car_id, order.price_offered, order.status]);
@@ -27,10 +27,13 @@ export const postOrder = (req, res) => {
 };
 export const getOrderById = async (req, res) => {
   const { id } = req.params;
-  if (isNaN(id) === true) return res.status(400).send({ status: 400, error: 'Bad Request' });
-  const foundOrder = await orderId(id);
-  if (foundOrder) res.status(200).send({ status: 200, data: foundOrder });
-  else res.status(404).send({ status: 404, error: 'Not found' });
+  try {
+    const foundOrder = await orderId(id);
+    if (!foundOrder) return res.status(404).send({ status: 404, error: 'Not found' });
+    if (foundOrder.buyer.toString() === req.user.id.toString()) return res.status(200).send({ status: 200, data: foundOrder });
+  } catch (e) {
+    res.status(404).send({ status: 404, error: e });
+  }
 };
 
 export const updateOrder = async (req, res) => {

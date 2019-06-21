@@ -5,7 +5,7 @@ import method from '../middleware/method';
 
 const router = express.Router();
 
-router.route('/api/v1/auth/users/me')
+router.route('/api/v1/me')
   .get(auth, getMe)
   .all(method);
 router.route('/api/v1/auth/signup')

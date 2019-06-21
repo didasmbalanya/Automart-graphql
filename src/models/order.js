@@ -22,6 +22,6 @@ export const updatePOPriceId = async (id, price) => {
 
 export const orderId = async (id) => {
   const result = await pool.query(`SELECT * FROM orders WHERE id='${id}';`);
-  if (result.rows.length === 0) return [];
+  if (result.rows.length === 0) return false;
   return result.rows[0];
 };
