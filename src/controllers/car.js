@@ -67,7 +67,7 @@ export const deleteCar = async (req, res) => {
   try {
     const foundCar = await getCarId(id);
     if (!foundCar) return res.status(404).send({ status: 404, error: 'Car add not found' });
-    if (foundCar.owner.toString() === req.user.id.toString() || req.user.is_admin === 'true') {
+    if (foundCar.owner.toString() === req.user.id.toString() || req.user.is_admin === true) {
       const result = await DeleteCarId(id);
       res.status(200).send({ status: 200, message: 'Car Ad successfully deleted', data: result.rows[0] });
     } else res.status(403).send({ status: 403, error: 'not authorized to delete car' });

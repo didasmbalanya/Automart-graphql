@@ -10,7 +10,8 @@
   "basePath": "/api/v1/",
   "securityDefinitions": {},
   "schemes": [
-    "http"
+    "http",
+    "https"
   ],
   "consumes": [
     "application/json"
@@ -139,7 +140,9 @@
             "headers": {}
           }
         }
-      },
+      }
+    },
+    "/car": {
       "post": {
         "description": "User can post a car",
         "summary": "post car",
@@ -158,13 +161,6 @@
             "required": false,
             "default": "Bearer {token}",
             "type": "string"
-          },
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
           },
           {
             "name": "Body",
@@ -195,7 +191,7 @@
         }
       }
     },
-    "/car/:id": {
+    "/car/{id}": {
       "get": {
         "description": "Get car by ID ",
         "summary": "getCar",
@@ -207,7 +203,13 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [],
+        "parameters": [{
+          "name":"id",
+          "in":"path",
+          "description":"Car id",
+          "required":true,
+          "type":"integer"
+        }],
         "responses": {
           "200": {
             "description": "",
@@ -243,11 +245,11 @@
             "description": ""
           },
           {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
+            "name":"id",
+            "in":"path",
+            "description":"Car id",
+            "required":true,
+            "type":"integer"
           }
         ],
         "responses": {
@@ -275,6 +277,13 @@
             "required": false,
             "default": "Bearer {token}",
             "type": "string"
+          },
+          {
+            "name":"id",
+            "in":"path",
+            "description":"Car id",
+            "required":true,
+            "type":"integer"
           }
         ],
         "responses": {
@@ -307,13 +316,6 @@
             "type": "string"
           },
           {
-            "name": "Content-Type",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
             "name": "Body",
             "in": "body",
             "required": true,
@@ -331,7 +333,7 @@
         }
       }
     },
-    "/order/:id": {
+    "/order/{id}": {
       "patch": {
         "description": "Update Purhcase Order price to a new amount",
         "summary": "update PO price",
@@ -358,6 +360,13 @@
             "type": "integer",
             "format": "int32",
             "description": ""
+          },
+          {
+            "name":"id",
+            "in":"path",
+            "description":"purchase order id",
+            "required":true,
+            "type":"integer"
           }
         ],
         "responses": {
@@ -385,6 +394,13 @@
             "required": false,
             "default": "Bearer {token}",
             "type": "string"
+          },
+          {
+            "name":"id",
+            "in":"path",
+            "description":"purchase order id",
+            "required":true,
+            "type":"integer"
           }
         ],
         "responses": {
