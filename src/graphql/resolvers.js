@@ -16,7 +16,7 @@ module.exports = {
       let {
         first_name, last_name, email, address, password,
       } = userInput;
-      const validated = await signUnSchema.validateAsync(userInput);
+      await signUnSchema.validateAsync(userInput);
 
       first_name = first_name.trim();
       address = address.trim();
@@ -25,25 +25,33 @@ module.exports = {
       password = password.trim();
 
       const foundUser = await getBy('users', 'email', email);
-      if (foundUser) {
-        message = 'User exists already!';
-        const error = new Error(message);
-        throw Error;
+      if (foundUser.length > 0) {
+        // const error = new Error('User already exists');
+
+        const error = new Error('Conflict Error');
+        error.code = 409;
+        throw error;
       }
 
       const hashPassword = await bcrypt.hash(password, 8);
-      const token = jwt.sign({ email }, SECRET, { expiresIn: '3h' });
       const values = [first_name, last_name, email, address, hashPassword];
-      let createdUser = await addNewUser(values);
-      createdUser = createdUser.rows[0];
+      const createdUser = await addNewUser(values);
       return {
         ...createdUser,
         _id: createdUser.id.toString(),
       };
     } catch (e) {
       if (e.isJoi) {
-        const error = new Error(e.details[0].message);
+        const error = new Error('Invalid input');
+        error.data = { message: e.details[0].message };
+        error.code = 422;
         throw error;
+      }
+      if (e.code === 409) {
+        e.data = {
+          message: 'User already exists',
+        };
+        throw e;
       }
       return e.message;
     }
@@ -52,5 +60,38 @@ module.exports = {
   getUser: async ({ id }, req) => {
     const foundUser = await getBy('users', 'id', id);
     return { ...foundUser[0], _id: foundUser[0].id.toString() };
+  },
+
+  login: async ({ email, password }, req) => {
+    try {
+      const foundUser = await getBy('users', 'email', email);
+      const result = bcrypt.compareSync(password, foundUser[0].password);
+      if (!foundUser || !result) {
+        const error = new Error('Incorrect credentials');
+        error.code = 401;
+        throw error;
+      }
+      const token = jwt.sign({ email }, SECRET, { expiresIn: '3h' });
+
+      return {
+        token,
+        email,
+        userId: foundUser[0].id,
+      };
+    } catch (e) {
+      if (e.isJoi) {
+        const error = new Error('Invalid input');
+        error.data = { message: e.details[0].message };
+        error.code = 422;
+        throw error;
+      }
+      if (e.code === 401) {
+        const error = new Error('Invalid input');
+        error.data = { message: e.message };
+        error.code = 401;
+        throw error;
+      }
+      return e.message;
+    }
   },
 };

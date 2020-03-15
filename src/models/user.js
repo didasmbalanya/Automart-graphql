@@ -27,7 +27,7 @@ export const signUnSchema = Joi.object({
 });
 
 export const addNewUser = async (params) => {
-  const result = pool.query(
+  const result = await pool.query(
     `INSERT INTO users (
     first_name,
     last_name,
@@ -36,5 +36,6 @@ export const addNewUser = async (params) => {
     password) VALUES ($1,$2,$3,$4,$5) returning *;`,
     params,
   );
-  return result;
+  const val = result.rows.length > 0 ? result.rows[0] : result;
+  return val;
 };
