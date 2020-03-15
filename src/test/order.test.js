@@ -17,8 +17,8 @@ const thirdUser = {
   password: 'obionekanobi',
   confirm_password: 'obionekanobi',
 };
-const { secret } = process.env;
-const token2 = jwt.sign({ email: thirdUser.email }, secret, { expiresIn: '3h' });
+const { SECRET } = process.env;
+const token2 = jwt.sign({ email: thirdUser.email }, SECRET, { expiresIn: '3h' });
 
 describe('/ORDERS', () => {
   describe('user to make order', () => {

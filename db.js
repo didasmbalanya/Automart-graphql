@@ -8,25 +8,22 @@ import dotenv from 'dotenv';
 /* eslint-disable linebreak-style */
 import { Pool } from 'pg';
 
-
 dotenv.config();
-let DATABASE_URL_TRY;
 let pool;
-if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production') {
-  DATABASE_URL_TRY = process.env.DATABASE_URL;
+if (
+  process.env.NODE_ENV === 'development'
+  || process.env.NODE_ENV === 'production'
+) {
   pool = new Pool({
-    connectionString: DATABASE_URL_TRY,
+    connectionString: process.env.DATABASE_URL,
   });
 } else if (process.env.NODE_ENV === 'test') {
-  DATABASE_URL_TRY = process.env.DATABASE_URL_TEST;
   pool = new Pool({
-    connectionString: DATABASE_URL_TRY,
+    connectionString: process.env.DATABASE_URL_TEST,
   });
 }
 
-
-pool.on('connect', () => {
-});
+pool.on('connect', () => {});
 
 const createTables = async () => {
   const queryText = `CREATE TABLE IF NOT EXISTS 
@@ -34,9 +31,11 @@ const createTables = async () => {
   CREATE TABLE IF NOT EXISTS cars (id BIGSERIAL PRIMARY KEY,owner INTEGER REFERENCES users(id),created_on TIMESTAMP DEFAULT NOW(),state VARCHAR(128) NOT NULL,status VARCHAR(128) NOT NULL,price MONEY NOT NULL,manufacturer VARCHAR(128) NOT NULL,model VARCHAR(128) NOT NULL,body_type VARCHAR(128) NOT NULL);
   CREATE TABLE IF NOT EXISTS orders (id BIGSERIAL PRIMARY KEY,buyer INTEGER REFERENCES users(id),car_id INTEGER REFERENCES cars(id) ON DELETE CASCADE ON UPDATE CASCADE,price_offered MONEY NOT NULL,new_price_offered MONEY,status VARCHAR(128) DEFAULT 'pending');
   CREATE TABLE IF NOT EXISTS flags (id BIGSERIAL PRIMARY KEY,car_id INTEGER REFERENCES cars(id),created_on TIMESTAMP DEFAULT NOW(),reason TEXT NOT NULL,description TEXT NOT NULL);`;
-  await pool.query(queryText)
+  await pool
+    .query(queryText)
     .then((res) => {
       pool.end();
+      console.log('created tables');
     })
     .catch((err) => {
       pool.end();
@@ -45,7 +44,8 @@ const createTables = async () => {
 
 const dropTables = () => {
   const queryText = 'DROP TABLE IF EXISTS users, cars, orders, flags;';
-  pool.query(queryText)
+  pool
+    .query(queryText)
     .then((res) => {
       console.log('dropped');
       pool.end();
@@ -65,4 +65,3 @@ module.exports = {
   createTables,
   dropTables,
 };
-require('make-runnable');

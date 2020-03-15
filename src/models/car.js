@@ -2,8 +2,8 @@ import Joi from '@hapi/joi';
 import pool from '../../config/db_config';
 
 export const carSchema = Joi.object().keys({
-  state: Joi.string().valid(['new', 'used']).required().trim(),
-  status: Joi.string().valid(['sold', 'available']).default('available').trim(),
+  state: Joi.string().required().trim(),
+  status: Joi.string().default('available').trim(),
   price: Joi.number().min(1).max(100000000000)
     .required(),
   manufacturer: Joi.string().trim(),

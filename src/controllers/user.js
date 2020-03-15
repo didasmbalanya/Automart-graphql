@@ -8,7 +8,7 @@ import { signUnSchema, addNewUser } from '../models/user';
 import { getBy } from '../models/car';
 import { getPublicProfile } from '../utils/user_utils';
 
-const { secret } = process.env;
+const { SECRET } = process.env;
 
 
 export const signup = async (req, res) => {
@@ -26,7 +26,7 @@ export const signup = async (req, res) => {
       foundUser = foundUser[0];
       req.body.password = bcrypt.hashSync(password, 8);
       req.body.confirm_password = bcrypt.hashSync(password, 8);
-      const token = jwt.sign({ email }, secret, { expiresIn: '3h' });
+      const token = jwt.sign({ email }, SECRET, { expiresIn: '3h' });
       req.body.is_admin = 'false';
       const values = [first_name, last_name, email, address, req.body.password];
       const result = await addNewUser(values);
@@ -48,7 +48,7 @@ export const signin = async (req, res) => {
       if (err) res.status(401).send({ status: 401, error: 'Incorrect credentials' });
       else if (!result) return res.status(401).send({ status: 401, error: 'Incorrect credentials' });
       else {
-        const token = jwt.sign({ email }, secret, { expiresIn: '3h' });
+        const token = jwt.sign({ email }, SECRET, { expiresIn: '3h' });
         res.status(200).send({ status: 200, data: getPublicProfile(foundUser), token });
       }
     });

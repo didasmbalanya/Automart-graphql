@@ -16,8 +16,8 @@ export const storedUser = {
   password: 'obionekanobi',
   confirm_password: 'obionekanobi',
 };
-const { secret } = process.env;
-export const token = jwt.sign({ email: storedUser.email }, secret, { expiresIn: '3h' });
+const { SECRET } = process.env;
+export const token = jwt.sign({ email: storedUser.email }, SECRET, { expiresIn: '3h' });
 
 describe('Users', () => {
   describe('/GET root page and current logged in user', () => {
