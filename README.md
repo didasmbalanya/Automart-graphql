@@ -8,7 +8,9 @@
   - Users can also post blogs/cover letter on the profile
 
 ## Setup/Installation Requirements
-Register and create a user
+- Register;
+- login;
+- add repos's posts pr projects to showcase 
 
 ## Site on git pages
 link to site at gitpages 
