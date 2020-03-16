@@ -14,13 +14,21 @@ module.exports = {
     let message;
     try {
       let {
-        first_name, last_name, email, address, password,
+        first_name,
+        last_name,
+        email,
+        address,
+        password,
+        phone_number,
+        nationality,
       } = userInput;
       await signUnSchema.validateAsync(userInput);
 
       first_name = first_name.trim();
       address = address.trim();
       last_name = last_name.trim();
+      phone_number = phone_number.trim();
+      nationality = nationality.trim();
       email = email.trim();
       password = password.trim();
 
@@ -34,7 +42,15 @@ module.exports = {
       }
 
       const hashPassword = await bcrypt.hash(password, 8);
-      const values = [first_name, last_name, email, address, hashPassword];
+      const values = [
+        first_name,
+        last_name,
+        email,
+        phone_number,
+        nationality,
+        address,
+        hashPassword,
+      ];
       const createdUser = await addNewUser(values);
       return {
         ...createdUser,

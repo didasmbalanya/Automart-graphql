@@ -1,23 +1,28 @@
 const { buildSchema } = require('graphql');
 
 module.exports = buildSchema(`
-  type Order{
-    _id: ID!
-    buyer: ID!
-    car_id: ID!
-    price_offered: Int!
-    status: String!
-  }
-
-  type Car{
+  type Post{
     _id: ID!
     owner: ID!
-    state: String!
-    status: String!
-    price: String!
-    manufacturer: String!
-    model: String!
-    body_type:String!
+    title: String!
+    content: String!
+    imageUrl: String
+  }
+
+  type Project{
+    _id: ID!
+    owner: ID!
+    title: String!
+    summary: String!
+    githubUrl: String
+    hostedUrl: String
+    imageUrl: String
+  }
+
+  input PostInpuData {
+    title: String!
+    content: String!
+    imageUrl: String
   }
 
   type User {
@@ -26,16 +31,20 @@ module.exports = buildSchema(`
     first_name: String!
     last_name: String!
     address: String!
+    phone_number: String
+    nationality: String
     password: String!
     is_admin: Boolean!
-    cars: [Car]
-    orders: [Order]
+    projects: [Project]
+    posts: [Post]
   }
 
   input RegisterInputData {
     first_name: String!
     last_name: String!
-    address: String!
+    phone_number: String
+    nationality: String
+    address: String
     password: String!
     email: String!
   }

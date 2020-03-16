@@ -19,6 +19,10 @@ export const signUnSchema = Joi.object({
     .email()
     .required(),
   address: Joi.string(),
+  phone_number: Joi.string()
+    .trim(),
+  nationality: Joi.string()
+    .trim(),
   password: Joi.string()
     .min(7)
     .required()
@@ -32,8 +36,10 @@ export const addNewUser = async (params) => {
     first_name,
     last_name,
     email,
+    phone_number,
+    nationality,
     address,
-    password) VALUES ($1,$2,$3,$4,$5) returning *;`,
+    password) VALUES ($1,$2,$3,$4,$5,$6,$7) returning *;`,
     params,
   );
   const val = result.rows.length > 0 ? result.rows[0] : result;
