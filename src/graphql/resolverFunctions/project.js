@@ -46,30 +46,5 @@ export const createProject = async ({ projectInput }, req) => {
 
 export const getAllProjects = async (args, req) => {
   const projects = await getFromTwoModels('users', 'projects', 'id', 'owner');
-
-  const data = projects.rows.map((project) => {
-    const {
-      password,
-      owner,
-      email,
-      first_name,
-      last_name,
-      address,
-      phone_number,
-      nationality,
-      ...sanitaizedData
-    } = project;
-    sanitaizedData.creator = {
-      id: project.owner,
-      email: project.email,
-      first_name: project.first_name,
-      last_name: project.last_name,
-      address: project.address,
-      phone_number: project.phone_number,
-      nationality: project.nationality,
-    };
-    sanitaizedData.created_on = project.created_on.toString();
-    return sanitaizedData;
-  });
-  return { projects: data, totalprojects: projects.rowCount };
+  return { projects: projects.data, totalprojects: projects.count };
 };

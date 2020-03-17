@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import pool from '../../config/db_config';
 
 export const getBy = async (table, key, value) => {
@@ -36,16 +37,33 @@ export const getFromTwoModels = async (
   const result = await pool.query(`SELECT
   ${pkModel}.*,
   ${fkModel}.*
-FROM
+  FROM
   ${pkModel}
-INNER JOIN ${fkModel} ON ${pkModel}.${primaryKeyMain} = ${fkModel}.${foreignKey};`);
-  return result;
+  INNER JOIN ${fkModel} ON ${pkModel}.${primaryKeyMain} = ${fkModel}.${foreignKey};`);
+  const totalposts = result.rowCount;
+  const data = result.rows.map((post) => {
+    const {
+      password,
+      owner,
+      email,
+      first_name,
+      last_name,
+      address,
+      phone_number,
+      nationality,
+      ...sanitaizedData
+    } = post;
+    sanitaizedData.creator = {
+      id: post.owner,
+      email: post.email,
+      first_name: post.first_name,
+      last_name: post.last_name,
+      address: post.address,
+      phone_number: post.phone_number,
+      nationality: post.nationality,
+    };
+    sanitaizedData.created_on = post.created_on.toString();
+    return sanitaizedData;
+  });
+  return { data, count: totalposts };
 };
-
-export const val = `
-SELECT
-  users.*
-  projects.*
-FROM
-  users
-INNER JOIN projects ON users.id = projects.owner;`;

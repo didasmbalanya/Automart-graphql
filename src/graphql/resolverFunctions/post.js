@@ -1,4 +1,5 @@
 import { savePost } from '../../models/post';
+import { getFromTwoModels } from '../../models';
 
 export const createPost = async ({ postInput }, req) => {
   if (!req.isAuth) {
@@ -21,7 +22,15 @@ export const createPost = async ({ postInput }, req) => {
 
   const values = [creator, title, content, imageUrl];
   const newPost = await savePost(values);
-  return { ...newPost, creator: user, created_on: newPost.created_on.toString() };
+  return {
+    ...newPost,
+    creator: user,
+    created_on: newPost.created_on.toString(),
+  };
 };
 
-export const num = 1;
+// eslint-disable-next-line no-unused-vars
+export const getUserPosts = async (args, req) => {
+  const posts = await getFromTwoModels('users', 'posts', 'id', 'owner');
+  return { posts: posts.data, totalposts: posts.count };
+};

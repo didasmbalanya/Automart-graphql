@@ -1,12 +1,5 @@
-export const PostType = `{
-  id: ID!
-  title: String!
-  content: String!
-  imageUrl: String
-  creator: User!
-  created_on: String!
-}`;
 
+// user
 export const UserType = `
 {
   id: ID!
@@ -20,6 +13,14 @@ export const UserType = `
   posts: [Post]
 }`;
 
+export const AuthDataType = `
+{
+  token: String!
+  userId: String!
+  email: String! 
+}`;
+
+// projects
 export const ProjectType = `
 {
   id: ID!
@@ -32,15 +33,24 @@ export const ProjectType = `
   created_on: String!
 }`;
 
-export const AuthDataType = `
-{
-  token: String!
-  userId: String!
-  email: String! 
-}`;
-
 export const ProjectData = `
 {
   projects: [Project!]!
   totalprojects: Int! 
+}`;
+
+// post
+export const PostType = `{
+  id: ID!
+  title: String!
+  content: String!
+  imageUrl: String
+  creator: User!
+  created_on: String!
+}`;
+
+export const PostData = `
+{
+  posts: [Post!]!
+  totalposts: Int! 
 }`;

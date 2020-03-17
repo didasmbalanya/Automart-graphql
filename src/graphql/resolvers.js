@@ -4,7 +4,7 @@ import {
   getUserById,
 } from './resolverFunctions/user';
 import { createProject, getAllProjects } from './resolverFunctions/project';
-import { createPost } from './resolverFunctions/post';
+import { createPost, getUserPosts } from './resolverFunctions/post';
 
 module.exports = {
   // users
@@ -18,4 +18,5 @@ module.exports = {
 
   // posts
   createPost,
+  posts: getUserPosts,
 };
