@@ -29,9 +29,10 @@ app.use((req, res, next) => {
 });
 
 app.use(auth);
-
+const newby = ""
 app.use(
-  '/graphql',
+  
+    '/graphql',
   graphqlHTTP({
     schema: graphqlSchema,
     rootValue: graphqlResolver,

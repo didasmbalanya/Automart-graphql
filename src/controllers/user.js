@@ -5,7 +5,7 @@ import Joi from '@hapi/joi';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { signUnSchema, addNewUser } from '../models/user';
-import { getBy } from '../models/car';
+import { getBy } from '../models/index';
 import { getPublicProfile } from '../utils/user_utils';
 
 const { SECRET } = process.env;

@@ -17,7 +17,22 @@
     "pretest": "npm run drop_test_tables && npm run create_test_tables",
     "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --require @babel/register 'src/test/**test.js' --exit",
     "coverage": "nyc --reporter=lcov --reporter=text-lcov npm run test",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "lint": "eslint --fix --ext .js,.jsx ."
+  },
+  "husky": {
+    "hooks": {
+      "pre-add": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "ignore": [],
+    "linters":{
+      "src/**/*.(ts|js)" : [
+        "yarn lint",
+        "git add ."
+      ]
+    }
   },
   "keywords": [],
   "author": "",
@@ -54,6 +69,7 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-mocha": "^6.3.0",
+    "husky": "^4.2.3",
     "mocha": "^7.1.0",
     "nyc": "^15.0.0",
     "prettier": "^1.19.1"
