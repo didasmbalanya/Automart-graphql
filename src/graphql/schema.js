@@ -1,67 +1,32 @@
-const { buildSchema } = require('graphql');
+import { buildSchema } from 'graphql';
+import {
+  UserType, PostType, ProjectType, AuthDataType, ProjectData,
+} from './types';
+import { RegisterDataInput, PostInput, ProjectInput } from './inputTypes';
 
 module.exports = buildSchema(`
-  type Post{
-    _id: ID!
-    owner: ID!
-    title: String!
-    content: String!
-    imageUrl: String
-  }
+  type Post ${PostType}
+  input PostInputData ${PostInput}
 
-  type Project{
-    _id: ID!
-    owner: ID!
-    title: String!
-    summary: String!
-    githubUrl: String
-    hostedUrl: String
-    imageUrl: String
-  }
+  
+  type Project ${ProjectType}
+  input ProjectInputData ${ProjectInput}
+  type ProjectData ${ProjectData}
 
-  input PostInpuData {
-    title: String!
-    content: String!
-    imageUrl: String
-  }
+  type User ${UserType}
+  input RegisterInputData ${RegisterDataInput}
 
-  type User {
-    _id: ID!
-    email: String!
-    first_name: String!
-    last_name: String!
-    address: String!
-    phone_number: String
-    nationality: String
-    password: String!
-    is_admin: Boolean!
-    projects: [Project]
-    posts: [Post]
-  }
-
-  input RegisterInputData {
-    first_name: String!
-    last_name: String!
-    phone_number: String
-    nationality: String
-    address: String
-    password: String!
-    email: String!
-  }
-
-  type AuthData {
-    token: String!
-    userId: String!
-    email: String! 
-  }
+  type AuthData ${AuthDataType}
 
   type RootMutation{
     createUser(userInput: RegisterInputData): User!
+    createProject(projectInput: ProjectInputData): Project!
   }
 
   type RootQuery{
     login(email: String!, password: String!): AuthData!
     getUser(id: ID): User!
+    projects: ProjectData!
   }
 
   schema {
