@@ -57,7 +57,6 @@ export const getAllProjects = async (args, req) => {
       address,
       phone_number,
       nationality,
-      created_on,
       ...sanitaizedData
     } = project;
     sanitaizedData.creator = {
@@ -69,6 +68,7 @@ export const getAllProjects = async (args, req) => {
       phone_number: project.phone_number,
       nationality: project.nationality,
     };
+    sanitaizedData.created_on = project.created_on.toString();
     return sanitaizedData;
   });
   return { projects: data, totalprojects: projects.rowCount };

@@ -1,9 +1,10 @@
 export const PostType = `{
   id: ID!
-  owner: ID!
   title: String!
   content: String!
   imageUrl: String
+  creator: User!
+  created_on: String!
 }`;
 
 export const UserType = `
@@ -27,7 +28,8 @@ export const ProjectType = `
   summary: String!
   githubUrl: String
   hostedUrl: String
-  imageUrl: String
+  imageUrl: String!
+  created_on: String!
 }`;
 
 export const AuthDataType = `
