@@ -1,5 +1,4 @@
-
-const flags = [
+export const flags = [
   {
     id: 'Integer',
     car_id: 'Integer',
@@ -7,7 +6,6 @@ const flags = [
     reason: 'String', // [pricing, weird demands, etc]
     description: 'String',
   },
-
 ];
 
 export default flags;

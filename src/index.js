@@ -25,14 +25,14 @@ app.use((req, res, next) => {
   if (req.method === 'OPTIONS') {
     return res.sendStatus(200);
   }
+
+  
   next();
 });
 
 app.use(auth);
-const newby = ""
 app.use(
-  
-    '/graphql',
+  '/graphql',
   graphqlHTTP({
     schema: graphqlSchema,
     rootValue: graphqlResolver,

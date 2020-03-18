@@ -2,6 +2,6 @@
   "singleQuote": true,
   "jsxBracketSameLine": true,
   "jsxSingleQuote": true,
-  "extends": ["airbnb-base", "prettier"],
+  "extends": ["airbnb", "prettier"],
   "trailingComma": "all"
 }

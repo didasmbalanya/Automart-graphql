@@ -1,5 +1,7 @@
 import { savePost } from '../../models/post';
 import { getFromTwoModels } from '../../models';
+import { paginator } from "../../utils/user_utils"
+
 
 export const createPost = async ({ postInput }, req) => {
   if (!req.isAuth) {
@@ -30,7 +32,10 @@ export const createPost = async ({ postInput }, req) => {
 };
 
 // eslint-disable-next-line no-unused-vars
-export const getUserPosts = async (args, req) => {
+export const getUserPosts = async ({ page, perPage }, req) => {
+  
   const posts = await getFromTwoModels('users', 'posts', 'id', 'owner');
-  return { posts: posts.data, totalposts: posts.count };
+  const results = paginator(page, perPage, posts.data);
+  return { posts: results.data, totalposts: results.data.length, pagination: results.pagination };
 };
+

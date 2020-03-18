@@ -18,12 +18,15 @@ const thirdUser = {
   confirm_password: 'obionekanobi',
 };
 const { SECRET } = process.env;
-const token2 = jwt.sign({ email: thirdUser.email }, SECRET, { expiresIn: '3h' });
+const token2 = jwt.sign({ email: thirdUser.email }, SECRET, {
+  expiresIn: '3h',
+});
 
 describe('/ORDERS', () => {
   describe('user to make order', () => {
-    it('should be able to signup a new user to make po', (done) => {
-      chai.request(app)
+    it('should be able to signup a new user to make po', done => {
+      chai
+        .request(app)
         .post('/api/v1/auth/signup')
         .send(thirdUser)
         .end((err, res) => {
@@ -32,9 +35,10 @@ describe('/ORDERS', () => {
         });
     });
 
-    it('new car to test post for other order test', (done) => {
+    it('new car to test post for other order test', done => {
       newCar.price = 5000;
-      chai.request(app)
+      chai
+        .request(app)
         .post('/api/v1/car')
         .set('Authorization', `Bearer ${token2}`)
         .send(newCar)
@@ -46,8 +50,9 @@ describe('/ORDERS', () => {
   });
 
   describe('Orders ', () => {
-    it('should be unable make po if not auth', (done) => {
-      chai.request(app)
+    it('should be unable make po if not auth', done => {
+      chai
+        .request(app)
         .post('/api/v1/order')
         .send({
           car_id: 5,
@@ -58,8 +63,9 @@ describe('/ORDERS', () => {
           done();
         });
     });
-    it('should be able make po if auth', (done) => {
-      chai.request(app)
+    it('should be able make po if auth', done => {
+      chai
+        .request(app)
         .post('/api/v1/order')
         .set('Authorization', `Bearer ${token2}`)
         .send({
@@ -71,8 +77,9 @@ describe('/ORDERS', () => {
           done();
         });
     });
-    it('should be able to buy own car', (done) => {
-      chai.request(app)
+    it('should be able to buy own car', done => {
+      chai
+        .request(app)
         .post('/api/v1/order')
         .set('Authorization', `Bearer ${token2}`)
         .send({
@@ -85,8 +92,9 @@ describe('/ORDERS', () => {
         });
     });
 
-    it('should be get a po by Id', (done) => {
-      chai.request(app)
+    it('should be get a po by Id', done => {
+      chai
+        .request(app)
         .get('/api/v1/order/1')
         .set('Authorization', `Bearer ${token2}`)
         .end((err, res) => {
@@ -95,8 +103,9 @@ describe('/ORDERS', () => {
         });
     });
 
-    it('should be get a po thats not the buyers', (done) => {
-      chai.request(app)
+    it('should be get a po thats not the buyers', done => {
+      chai
+        .request(app)
         .get('/api/v1/order/5')
         .set('Authorization', `Bearer ${token2}`)
         .end((err, res) => {

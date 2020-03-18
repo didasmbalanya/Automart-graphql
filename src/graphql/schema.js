@@ -6,6 +6,7 @@ import {
   AuthDataType,
   ProjectData,
   PostData,
+  PaginationType
 } from './types';
 import { RegisterDataInput, PostInput, ProjectInput } from './inputTypes';
 
@@ -24,6 +25,8 @@ module.exports = buildSchema(`
 
   type AuthData ${AuthDataType}
 
+  type PaginationData ${PaginationType}
+
   type RootMutation{
     createUser(userInput: RegisterInputData): User!
     createProject(projectInput: ProjectInputData): Project!
@@ -34,7 +37,7 @@ module.exports = buildSchema(`
     login(email: String!, password: String!): AuthData!
     getUser(id: ID): User!
     projects: ProjectData!
-    posts: PostData!
+    posts(page: Int, perPage: Int): PostData
   }
 
   schema {

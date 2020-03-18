@@ -1,4 +1,3 @@
-
 // user
 export const UserType = `
 {
@@ -53,4 +52,11 @@ export const PostData = `
 {
   posts: [Post!]!
   totalposts: Int! 
+  pagination: PaginationData
 }`;
+
+export const PaginationType = `
+{
+  previous: Int
+  next: Int
+}`
