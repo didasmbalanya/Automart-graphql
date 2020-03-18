@@ -7,8 +7,8 @@ import {
   ProjectData,
   PostData,
   PaginationType
-} from './types';
-import { RegisterDataInput, PostInput, ProjectInput } from './inputTypes';
+} from './types/types';
+import { RegisterDataInput, PostInput, ProjectInput } from './types/inputTypes';
 
 module.exports = buildSchema(`
   type Post ${PostType}
@@ -38,6 +38,8 @@ module.exports = buildSchema(`
     getUser(id: ID): User!
     projects: ProjectData!
     posts(page: Int, perPage: Int): PostData
+    post(id: ID!): Post!
+    project(id: ID!): Project!
   }
 
   schema {

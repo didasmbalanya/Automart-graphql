@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable camelcase */
 import { projectSchema, saveProject } from '../../models/project';
-import { getFromTwoModels } from '../../models';
+import { getFromTwoModels, getOnefromTwoModels } from '../../models';
 
 /* eslint-disable no-unused-vars */
 export const createProject = async ({ projectInput }, req) => {
@@ -13,9 +13,7 @@ export const createProject = async ({ projectInput }, req) => {
   const { user } = req;
   try {
     await projectSchema.validateAsync(projectInput);
-    let {
-      title, summary, githubUrl, hostedUrl, imageUrl,
-    } = projectInput;
+    let { title, summary, githubUrl, hostedUrl, imageUrl } = projectInput;
     title = title.trim();
     summary = summary.trim();
     githubUrl = githubUrl.trim();
@@ -47,4 +45,18 @@ export const createProject = async ({ projectInput }, req) => {
 export const getAllProjects = async (args, req) => {
   const projects = await getFromTwoModels('users', 'projects', 'id', 'owner');
   return { projects: projects.data, totalprojects: projects.count };
+};
+
+export const getOneProject = async ({ id }) => {
+  const projects = await getOnefromTwoModels(
+    'users',
+    'projects',
+    'id',
+    'owner',
+    'projects',
+    'id',
+    id,
+  );
+
+  return projects;
 };

@@ -1,7 +1,6 @@
 import { savePost } from '../../models/post';
-import { getFromTwoModels } from '../../models';
-import { paginator } from "../../utils/user_utils"
-
+import { getFromTwoModels, getOnefromTwoModels } from '../../models';
+import { paginator } from '../../utils/user_utils';
 
 export const createPost = async ({ postInput }, req) => {
   if (!req.isAuth) {
@@ -31,11 +30,26 @@ export const createPost = async ({ postInput }, req) => {
   };
 };
 
-// eslint-disable-next-line no-unused-vars
-export const getUserPosts = async ({ page, perPage }, req) => {
-  
+export const getUserPosts = async ({ page, perPage }) => {
   const posts = await getFromTwoModels('users', 'posts', 'id', 'owner');
   const results = paginator(page, perPage, posts.data);
-  return { posts: results.data, totalposts: results.data.length, pagination: results.pagination };
+  return {
+    posts: results.data,
+    totalposts: results.data.length,
+    pagination: results.pagination,
+  };
 };
 
+export const getOnePost = async ({ id }) => {
+  const posts = await getOnefromTwoModels(
+    'users',
+    'posts',
+    'id',
+    'owner',
+    'posts',
+    'id',
+    id,
+  );
+
+  return posts;
+};
