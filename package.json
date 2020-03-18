@@ -62,14 +62,5 @@
     "hooks": {
       "pre-commit": "yarn lint && git add"
     }
-  },
-  "lint-staged": {
-    "ignore": [],
-    "linters": {
-      "src/**/*.(ts|js)": [
-        "yarn eslint-staged ./src --fix",
-        "git add ."
-      ]
-    }
   }
 }
